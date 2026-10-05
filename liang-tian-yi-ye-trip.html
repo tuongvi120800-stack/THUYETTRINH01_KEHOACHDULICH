@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>兩天一夜旅行計畫</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Halloween edition: light gingham ground kept for projector legibility; pumpkin orange + witch purple, one night-sky header band.
+   Layout: group trip planner — tab rail, shared budget bar, role panels with option cards — top tab rail, one working panel, route cards drawn as station timelines */
+:root{
+  --bg:#fffdf9; --paper:#ffffff; --paper2:#fff5ea; --ink:#1f1428; --muted:#6e5b74; --line:#ecdccb;
+  --accent:#5b21b6; --accent-ink:#ffffff; --ticket:#ea580c; --ticket-soft:#ffedd5;
+  --good:#2f7d32; --warn:#a8740c; --bad:#b4233c; --hl:#fed7aa; --py:#c2410c; --tl:#5b21b6;
+  --check-a:rgba(234,88,12,.07); --check-b:rgba(91,33,182,.055);
+  --night:#1c1027; --night2:#2e1846; --moon:#fde68a; --pumpkin:#f97316;
+  --m-walk:#6b7280; --m-bike:#c98f00; --m-mrt:#e2601f; --m-hsr:#c2410c; --m-tra:#1d4f9c; --m-bus:#2c7d45; --m-coach:#6d28d9; --m-taxi:#9c7208; --m-boat:#0e7490; --m-plane:#475569; --m-wait:#7a8086;
+  --f-display:"LXGW WenKai TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background-color:var(--bg);background-image:linear-gradient(var(--check-a) 50%,transparent 50%),linear-gradient(90deg,var(--check-b) 50%,transparent 50%);background-size:32px 32px;color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:16px;padding-block:16px 48px}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;padding-block:8px 14px;border-bottom:2px dashed var(--line)}
+h1{font-family:var(--f-display);font-size:clamp(26px,4.5vw,40px);line-height:1.3;margin:0;text-wrap:balance}
+h1 small{display:block;font-family:var(--f-body);font-size:13px;color:var(--muted);font-weight:400;letter-spacing:.02em;margin-top:4px}
+.from-badge{font-family:var(--f-mono);font-size:12px;border:1.5px solid var(--ticket);color:var(--ticket);padding:4px 10px;border-radius:4px;letter-spacing:.06em}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding-block:10px 0;font-size:14px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--paper)}
+.seg button{font:500 13px var(--f-body);border:0;background:transparent;color:var(--ink);padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ticket);color:#fff}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;padding-block:12px;position:sticky;top:env(safe-area-inset-top,0px);background:rgba(255,255,255,.94);z-index:5;margin-inline:-8px;padding-inline:8px;border-radius:0 0 12px 12px}
+nav.tabs button{font:500 14px var(--f-body);border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:6px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:focus-visible, select:focus-visible, input:focus-visible{outline:3px solid var(--ticket);outline-offset:2px}
+.panel{display:grid;gap:18px;grid-template-columns:minmax(0,1fr);align-content:start}
+h2{font-family:var(--f-display);font-size:24px;margin:0 0 4px;line-height:1.35}
+h3{font-size:16px;margin:0}
+.vn{color:var(--muted);font-size:13px}
+.btn{font:600 14px var(--f-body);border:0;background:var(--accent);color:var(--accent-ink);padding:8px 16px;border-radius:8px;cursor:pointer;line-height:1.5}
+.btn.alt{background:var(--ticket);color:#fff}
+header.top{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--night) 0%,var(--night2) 100%);color:#fff;border-radius:16px;padding-inline:18px;padding-block:14px 16px;margin-top:4px;border-bottom:0;min-height:120px}
+header.top h1{color:var(--pumpkin);position:relative;z-index:1;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+header.top h1 small{color:#e9d5ff}
+header.top rt{color:var(--moon)!important}
+header.top .from-badge{position:relative;z-index:1;border-color:var(--moon);color:var(--moon)}
+header.top .deco{position:absolute;right:12px;top:6px;height:110px;width:auto;max-width:55%;z-index:0;pointer-events:none}
+header.top{flex-direction:column;align-items:flex-start;justify-content:flex-start;padding-right:min(42%,320px)}
+@media (max-width:600px){header.top .deco{opacity:.4}header.top{padding-right:18px!important}}
+.btn.alt{background:var(--ticket);color:#fff}
+nav.tabs button[aria-selected="true"]{box-shadow:0 2px 0 var(--ticket)}
+.ticket{border-style:dashed}
+.ticket::before,.ticket::after{border-style:dashed}
+
+.toolbar{background:rgba(255,255,255,.9);border-radius:12px;padding:8px 12px;margin-top:10px;width:fit-content;max-width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn .tl-vi,.btn .tl-id{color:inherit;opacity:.85;font-size:11px;font-weight:400}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+select,input[type=text],input[type=time],input[type=number]{font:15px var(--f-body);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);max-width:100%}
+label{font-size:14px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* pinyin + translation */
+ruby.p{ruby-position:over;ruby-align:center}
+ruby.p rt{font-family:var(--f-body);font-size:.5em;font-weight:400;color:var(--py);letter-spacing:0;padding-inline:.12em}
+nav.tabs button[aria-selected="true"] .tl-vi,nav.tabs button[aria-selected="true"] .tl-id,nav.tabs button[aria-selected="true"] rt{color:inherit;opacity:.85}
+.tli .tl-id::before{content:" / "}
+.wrap[data-lang="id"] .tli .tl-id::before{content:""}
+.tl-vi,.tl-id{display:block;font-family:var(--f-body);font-size:12.5px;line-height:1.45;color:var(--tl);font-weight:400;letter-spacing:0;text-transform:none}
+.tl-id{font-style:italic}
+.tli .tl-vi,.tli .tl-id,.tl-inline .tl-vi,.tl-inline .tl-id{display:inline}
+.tl-inline .tl-vi::before{content:" · "}
+.tl-inline .tl-id::before{content:" / "}
+.notl .tl-vi,.notl .tl-id{display:none}
+.notl .warnbox .tl-vi,.notl .warnbox .tl-id{display:block}
+.wrap[data-lang="vi"] .tl-id,.wrap[data-lang="id"] .tl-vi,.wrap[data-lang="off"] .tl-vi,.wrap[data-lang="off"] .tl-id{display:none}
+.wrap[data-lang="id"] .tl-inline .tl-id::before{content:" · "}
+.wrap.pyon .script{line-height:2.3}
+.wrap.pyon .line .stop{line-height:2}
+
+/* draw */
+.draw-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:760px){.draw-grid{grid-template-columns:1fr}}
+.ticket{position:relative;background:var(--paper);border:1.5px solid var(--ticket);border-radius:10px;padding:18px 22px;min-height:170px;display:grid;align-content:center;gap:6px;overflow:hidden}
+.ticket::before,.ticket::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;background:#fff;border:1.5px solid var(--ticket);top:50%;transform:translateY(-50%)}
+.ticket::before{left:-12px}.ticket::after{right:-12px}
+.ticket .lab{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--ticket);text-transform:uppercase}
+.ticket .big{font-family:var(--f-display);font-size:clamp(28px,5vw,42px);line-height:1.35}
+.ticket .sub{color:var(--muted);font-size:14px}
+.ticket.spin .big{animation:flick .09s steps(1) infinite}
+@keyframes flick{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.ticket.spin .big{animation:none}}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.04em;color:var(--muted);font-weight:500}
+.tscroll{overflow-x:auto}
+tr.cur td{background:var(--hl)}
+.link{background:none;border:0;color:var(--accent);font:inherit;cursor:pointer;text-decoration:underline;padding:0}
+
+/* route cards */
+.dest-head{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-end}
+.dest-head>div{min-width:0;max-width:100%}
+.region{font-family:var(--f-mono);font-size:12px;color:var(--ticket);letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+.opt{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:10px;align-content:start;min-width:0}
+.opt-title{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.tag{font-size:12px;font-weight:700;padding:2px 10px;border-radius:10px;background:var(--ticket-soft);color:var(--ticket);text-align:right}
+.tag .tl-vi,.tag .tl-id{color:var(--ticket);font-size:11px}
+.totals{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--f-mono);font-size:14px;border-top:1px dashed var(--line);padding-top:8px}
+.totals b{font-size:18px}
+.line{list-style:none;margin:0;padding:0;display:grid}
+.line li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;position:relative;padding-bottom:8px}
+.line li .dot{width:14px;height:14px;border-radius:50%;border:3px solid var(--mc,var(--muted));background:var(--paper);margin-top:6px;z-index:1}
+.line li:not(:last-child)::before{content:"";position:absolute;left:6px;top:16px;bottom:-6px;width:3px;background:var(--mc,var(--line))}
+.line .stop{font-weight:600}
+.line .leg{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;font-size:13px;color:var(--muted);margin-top:2px}
+.chip{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--mc);padding:1px 8px;border-radius:4px}
+.chip rt{color:#fff!important;opacity:.9}
+.legnote{flex-basis:100%}
+.rate{display:flex;gap:16px;flex-wrap:wrap;font-size:13px}
+.dots{letter-spacing:2px;color:var(--accent)}
+.note{font-size:13px;background:var(--paper2);border-radius:8px;padding:8px 10px}
+.cond{border-left:4px solid var(--ticket);background:var(--ticket-soft);padding:10px 14px;border-radius:0 8px 8px 0}
+
+/* plan */
+.plan-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:16px}
+@media (max-width:860px){.plan-grid{grid-template-columns:1fr}}
+.field{display:grid;gap:4px}
+.field select,.field input[type=text]{width:100%}
+.checks{display:flex;flex-wrap:wrap;gap:6px}
+.checks label{border:1px solid var(--line);border-radius:12px;padding:4px 12px;cursor:pointer;background:var(--paper2)}
+.checks input{margin-right:4px}
+.script{font-family:var(--f-display);font-size:19px;line-height:1.9}
+.script p{margin:0 0 10px}
+.script .tl-vi,.script .tl-id{font-size:13.5px;margin-top:2px}
+.script .who{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--muted);display:block;margin-top:8px}
+.script mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:3px}
+.warnbox{border:1px solid var(--bad);color:var(--bad);border-radius:8px;padding:8px 12px;font-size:14px}
+.warnbox .tl-vi,.warnbox .tl-id{color:var(--bad);opacity:.85}
+
+/* present */
+.stage{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:clamp(16px,3vw,32px);display:grid;gap:16px}
+.stage .script{font-size:clamp(20px,2.6vw,28px)}
+.timer{font-family:var(--f-mono);font-size:44px;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--bad)}
+
+/* vocab */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.v{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.v .zh{font-family:var(--f-display);font-size:22px}
+.v .py{font-family:var(--f-mono);font-size:12px;color:var(--py)}
+.gram{display:grid;gap:10px}
+.gram .g{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.gram .pat{font-family:var(--f-display);font-size:20px;color:var(--accent)}
+.gram .ex{font-family:var(--f-display);font-size:18px}
+.guide{max-width:72ch}
+.guide h3{margin-top:14px}
+.guide li{margin-bottom:4px}
+.small{font-size:13px;color:var(--muted)}
+</style>
+<style>
+/* group-trip additions */
+.gbar{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.gbar .gname{font-family:var(--f-display);font-size:22px;line-height:1.4}
+.cchip{display:inline-block;background:var(--ticket-soft);color:var(--ticket);border-radius:8px;padding:2px 10px;font-size:13px;font-weight:600;margin-right:6px}
+.cchip .tl-vi{color:var(--ticket);font-weight:400;font-size:11px}
+.budget{flex:1 1 260px;min-width:0;display:grid;gap:4px}
+.meter{height:14px;border-radius:7px;background:var(--paper2);display:flex;overflow:hidden;border:1px solid var(--line)}
+.meter span{height:100%}
+.meter.over{border-color:var(--bad);box-shadow:0 0 0 2px color-mix(in srgb,var(--bad) 25%,transparent)}
+.mleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.mleg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.btotal{font-family:var(--f-mono);font-size:14px}
+.btotal.over{color:var(--bad);font-weight:600}
+:root{--c-tr:#5b21b6;--c-ho:#ea580c;--c-fo:#3f8f3a;--c-it:#2a1f33}
+.opt.pick{border:2px solid var(--accent);box-shadow:0 0 0 4px rgba(67,56,202,.12)}
+.opt.clickable{cursor:pointer}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.badge{display:inline-block;font-size:11.5px;border-radius:6px;padding:1px 7px;margin:2px 4px 0 0;background:var(--paper2);color:var(--muted);border:1px solid var(--line)}
+.badge.in{color:var(--c-it);border-color:currentColor}
+.badge.outd{color:#b45309;border-color:currentColor}
+.badge.f{color:var(--bad);border-color:currentColor}
+.meals{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.food{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:4px;align-content:start}
+.food .fn{font-family:var(--f-display);font-size:19px;line-height:1.5}
+.days{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:800px){.days{grid-template-columns:1fr}}
+.day{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;align-content:start}
+.day h3{font-family:var(--f-display);font-size:20px}
+.slot{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:8px;align-items:start;border-left:4px solid var(--sc,var(--line));background:var(--paper2);border-radius:0 8px 8px 0;padding:6px 8px}
+.slot .tm{font-family:var(--f-mono);font-size:12.5px;padding-top:3px}
+.slot .lb{font-weight:600}
+.slot .sm{font-size:12.5px;color:var(--muted);font-weight:400}
+.slot .w{font-size:12.5px;color:var(--bad);font-weight:500}
+.slot .ctl{display:flex;gap:2px}
+.mini{font:600 13px var(--f-body);border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:6px;padding:2px 7px;cursor:pointer;line-height:1.4}
+.mini:disabled{opacity:.35;cursor:default}
+.mini.add{border-color:var(--accent);color:var(--accent)}
+.adds{display:flex;flex-wrap:wrap;gap:6px}
+.fixed{font-size:13px;color:var(--muted);font-family:var(--f-mono)}
+.speakers{display:flex;flex-wrap:wrap;gap:6px}
+.speakers button{font:500 14px var(--f-body);border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:6px 12px;border-radius:10px;cursor:pointer}
+.speakers button[aria-pressed="true"]{background:var(--ticket);border-color:var(--ticket);color:#fff}
+.speakers button[aria-pressed="true"] rt{color:#fff}
+.phr{display:grid;gap:6px}
+.phr div{font-family:var(--f-display);font-size:18px}
+.sumtable td.num{font-family:var(--f-mono);text-align:right}
+.okbox{border:1px solid var(--good);color:var(--good);border-radius:8px;padding:8px 12px;font-size:14px}
+.rolehead{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.rolehead .who2{font-size:14px;color:var(--muted)}
+
+/* Canva helper: slide checklist + 16:9 screenshot overlay */
+.shot{position:fixed;inset:0;z-index:50;background:#120a1a;display:grid;grid-template-rows:auto minmax(0,1fr);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.shot-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px;color:#e9d5ff;font-size:13px}
+.shot-bar select{font-size:14px;padding:4px 8px}
+.shot-hint{flex:1 1 200px;min-width:0}
+.shot-stage{display:grid;place-items:center;padding:8px 12px 14px;min-height:0}
+.slide{container-type:inline-size;aspect-ratio:16/9;width:min(100%,calc((100dvh - 80px)*16/9));max-width:100%;background-color:#fffdf9;background-image:linear-gradient(var(--check-a) 50%,transparent 50%),linear-gradient(90deg,var(--check-b) 50%,transparent 50%);background-size:3.2cqw 3.2cqw;border-radius:6px;overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr);color:var(--ink)}
+.s-head{background:linear-gradient(160deg,var(--night),var(--night2));color:#fff;padding:1.6cqw 3cqw;display:flex;align-items:baseline;justify-content:space-between;gap:2cqw}
+.s-head .s-title{font-family:var(--f-display);font-size:4.2cqw;color:var(--pumpkin);line-height:1.5}
+.s-head .s-meta{font-size:1.6cqw;color:#e9d5ff;white-space:nowrap}
+.s-head rt{color:var(--moon)!important}
+.s-body{padding:2.2cqw 3cqw;min-height:0;overflow:hidden;font-size:2cqw;line-height:1.6;display:grid;gap:1.4cqw;align-content:start}
+.s-cols{display:grid;grid-template-columns:1fr 1fr;gap:2.5cqw;min-height:0}
+.s-big{font-family:var(--f-display);font-size:6.5cqw;line-height:1.4;color:var(--accent)}
+.s-card{background:#fff;border:.15cqw solid var(--line);border-radius:1cqw;padding:1.2cqw 1.6cqw;min-width:0}
+.s-num{font-family:var(--f-mono);font-size:2.6cqw;font-weight:600}
+.s-row{break-inside:avoid;display:grid;grid-template-columns:13cqw minmax(0,1fr);gap:1.2cqw;align-items:baseline;border-left:.5cqw solid var(--sc,var(--line));background:#fff;border-radius:0 .8cqw .8cqw 0;padding:.5cqw 1cqw;margin-bottom:.6cqw}
+.s-row .t{font-family:var(--f-mono);font-size:1.6cqw;color:var(--muted)}
+.s-row .l{font-size:2cqw;font-weight:600}
+.slide .line li{padding-bottom:.4cqw}
+.slide .line .leg{font-size:1.4cqw}
+.slide .chip{font-size:1.3cqw}
+.slide .meter{height:2.2cqw;border-radius:1.1cqw}
+.s-meals{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4cqw}
+.s-meals .s-card{display:grid;gap:.4cqw;align-content:start}
+.s-ph{border:.25cqw dashed var(--ticket);border-radius:1cqw;display:grid;place-items:center;color:var(--ticket);font-size:1.6cqw;text-align:center;padding:1cqw;min-height:12cqw}
+.s-ba{display:grid;grid-template-columns:1fr auto 1fr;gap:2cqw;align-items:center}
+.s-ba .arrow{font-size:5cqw;color:var(--ticket)}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+
+
+<div class="wrap pyon" id="wrap" data-lang="vi">
+  <header class="top">
+    <svg class="deco" viewBox="0 0 320 120" aria-hidden="true">
+      <circle cx="262" cy="34" r="24" fill="var(--moon)" opacity=".95"/>
+      <circle cx="252" cy="28" r="4" fill="#f5d77a"/><circle cx="270" cy="42" r="3" fill="#f5d77a"/>
+      <g fill="#120a1a">
+        <path d="M150 30c6-8 12-8 16-2c3-5 7-5 9 0c4-6 10-6 16 2c-6-1-10 1-12 5c-2-2-4-2-6 0c-2-2-4-2-6 0c-2-4-7-6-17-5z"/>
+        <path transform="translate(60 18) scale(.7)" d="M150 30c6-8 12-8 16-2c3-5 7-5 9 0c4-6 10-6 16 2c-6-1-10 1-12 5c-2-2-4-2-6 0c-2-2-4-2-6 0c-2-4-7-6-17-5z"/>
+        <path transform="translate(120 42) scale(.5)" d="M150 30c6-8 12-8 16-2c3-5 7-5 9 0c4-6 10-6 16 2c-6-1-10 1-12 5c-2-2-4-2-6 0c-2-2-4-2-6 0c-2-4-7-6-17-5z"/>
+      </g>
+      <g transform="translate(250 72)">
+        <path d="M0 -24c2-8 6-10 10-10" stroke="#3f8f3a" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="-14" cy="0" rx="18" ry="24" fill="#ea580c"/><ellipse cx="14" cy="0" rx="18" ry="24" fill="#ea580c"/><ellipse cx="0" cy="0" rx="17" ry="26" fill="#f97316"/>
+        <path d="M-15 -6l7-9 7 9zM1 -6l7-9 7 9z" fill="#120a1a"/>
+        <path d="M-18 6c6 10 30 10 36 0l-5 3-4-4-4 4-5-4-5 4-4-4-4 4z" fill="#120a1a"/>
+      </g>
+      <g transform="translate(196 92) scale(.6)">
+        <path d="M0 -24c2-8 6-10 10-10" stroke="#3f8f3a" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="-14" cy="0" rx="18" ry="24" fill="#ea580c"/><ellipse cx="14" cy="0" rx="18" ry="24" fill="#ea580c"/><ellipse cx="0" cy="0" rx="17" ry="26" fill="#f97316"/>
+        <path d="M-12 -4a4 4 0 1 0 8 0a4 4 0 1 0 -8 0zM4 -4a4 4 0 1 0 8 0a4 4 0 1 0 -8 0z" fill="#120a1a"/>
+        <path d="M-10 8q10 8 20 0" stroke="#120a1a" stroke-width="3" fill="none"/>
+      </g>
+    </svg>
+    <h1>兩天一夜旅行計畫<small>Kế hoạch du lịch 2 ngày 1 đêm · nhóm 4 người</small></h1>
+    <span class="from-badge">出發 ▸ 高雄大寮 中山工商</span>
+  </header>
+  <div class="toolbar nopy">
+    <label for="grpSel">第幾組</label><select id="grpSel"></select>
+    <span>拼音</span>
+    <span class="seg" id="segPy"><button data-v="on" aria-pressed="true">有 ON</button><button data-v="off" aria-pressed="false">沒有 OFF</button></span>
+    <span>翻譯</span>
+    <span class="seg" id="segLang"><button data-v="vi" aria-pressed="true">Tiếng Việt</button><button data-v="off" aria-pressed="false">OFF</button></span>
+  </div>
+
+  <nav class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-t="draw" class="tl-inline" data-tl="Bốc thăm">① 抽籤</button>
+    <button role="tab" data-t="tr" class="tl-inline" data-tl="Đi lại">② 交通</button>
+    <button role="tab" data-t="ho" class="tl-inline" data-tl="Chỗ ở">③ 住宿</button>
+    <button role="tab" data-t="fo" class="tl-inline" data-tl="Ăn uống">④ 吃喝</button>
+    <button role="tab" data-t="it" class="tl-inline" data-tl="Lịch trình">⑤ 行程</button>
+    <button role="tab" data-t="sum" class="tl-inline" data-tl="Tổng hợp">⑥ 總整理</button>
+    <button role="tab" data-t="slides" class="tl-inline" data-tl="Slide Canva">⑦ 簡報</button>
+    <button role="tab" data-t="present" class="tl-inline" data-tl="Trình bày">⑧ 上台說</button>
+    <button role="tab" data-t="board" class="tl-inline" data-tl="Kết quả">⑨ 結果板</button>
+    <button role="tab" data-t="vocab" class="tl-inline" data-tl="Từ vựng">生詞・句型</button>
+  </nav>
+
+  <!-- DRAW -->
+  <section class="panel" id="p-draw">
+    <div class="row">
+      <label for="grpCount" data-tl="Có bao nhiêu nhóm?">一共幾組？</label>
+      <input type="number" id="grpCount" min="2" max="8" value="8" style="width:72px">
+      <label for="budgetIn" data-tl="Ngân sách mỗi người (Đài tệ)">每個人的預算（NT$）</label>
+      <input type="number" id="budgetIn" min="500" step="100" value="3000" style="width:100px">
+    </div>
+    <div class="draw-grid">
+      <div class="ticket" id="tkDest"><span class="lab">Destination · 目的地</span><span class="big" id="tkDestBig">？</span><span class="sub" id="tkDestSub"></span></div>
+      <div class="ticket" id="tkCond"><span class="lab">Conditions · 我們的條件</span><span class="big" id="tkCondBig" style="font-size:clamp(22px,3.6vw,32px)">？</span><span class="sub" id="tkCondSub"></span></div>
+    </div>
+    <div class="row">
+      <button class="btn alt" id="btnDrawDest" data-tl="Bốc địa điểm">抽地點</button>
+      <button class="btn alt" id="btnDrawCond" data-tl="Bốc 2 điều kiện">抽兩個條件</button>
+      <span class="small" id="drawLeft"></span>
+    </div>
+    <div class="box panel">
+      <h3 data-tl="Ai phụ trách phần nào?">誰負責什麼？</h3>
+      <div class="meals" id="namesBox"></div>
+    </div>
+    <div class="box">
+      <h3 data-tl="Kết quả bốc thăm">抽籤紀錄</h3>
+      <div class="tscroll"><table id="drawTable"><thead><tr><th>組</th><th data-tl="Địa điểm">地點</th><th data-tl="Điều kiện">條件</th><th data-tl="Thành viên">組員</th></tr></thead><tbody></tbody></table></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn ghost" id="btnResetDraw" data-tl="Xóa hết, làm lại">全部重來</button>
+        <span class="small" id="resetMsg"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORT -->
+  <section class="panel" id="p-tr" hidden>
+    <div class="gbar" data-gbar></div>
+    <div class="opts" id="trOpts"></div>
+    <div class="plan-grid">
+      <div class="box panel">
+        <div class="field"><label for="trTime" data-tl="Ngày 1: mấy giờ xuất phát từ trường?">第一天幾點從學校出發？</label><input type="time" id="trTime" value="08:00"></div>
+        <div class="field"><span style="font-size:14px" data-tl="Vì sao chọn cách này? (chọn được 2 ý)">為什麼選這個方法？（可以選兩個）</span><div class="checks" id="trWhy"></div></div>
+        <div class="field"><label for="trThough" data-tl="Tuy… (điểm chưa tốt). Ví dụ: 比較貴 = đắt hơn">雖然…</label><input type="text" id="trThough" placeholder="例：比較貴"></div>
+        <div class="field"><label for="trBut" data-tl="Nhưng… (vì sao vẫn chọn)">但是…</label><input type="text" id="trBut" placeholder="例：比較快，我們可以玩比較久"></div>
+        <p class="small" data-tl="Chiều về ngày 2 đi cùng cách này. Giờ về được tính từ lịch trình (tab ⑤).">回程用一樣的方法。第二天幾點回去，看「⑤ 行程」。</p>
+      </div>
+      <div class="box panel notl"><div class="rolehead"><h2>交通</h2><span class="who2" data-who="0"></span></div><div data-warn="tr"></div><div class="script" id="scTr"></div></div>
+    </div>
+  </section>
+
+  <!-- HOTEL -->
+  <section class="panel" id="p-ho" hidden>
+    <div class="gbar" data-gbar></div>
+    <div class="opts" id="hoOpts"></div>
+    <div class="plan-grid">
+      <div class="box panel">
+        <div class="field"><span style="font-size:14px" data-tl="Vì sao chọn chỗ này? (chọn được 2 ý)">為什麼選這家？（可以選兩個）</span><div class="checks" id="hoWhy"></div></div>
+        <div class="field"><label for="hoThough" data-tl="Tuy… Ví dụ: 沒有電梯 = không có thang máy">雖然…</label><input type="text" id="hoThough" placeholder="例：沒有電梯"></div>
+        <div class="field"><label for="hoBut" data-tl="Nhưng…">但是…</label><input type="text" id="hoBut" placeholder="例：老闆很熱情，房間很漂亮"></div>
+      </div>
+      <div class="box panel notl"><div class="rolehead"><h2>住宿</h2><span class="who2" data-who="1"></span></div><div data-warn="ho"></div><div class="script" id="scHo"></div></div>
+    </div>
+  </section>
+
+  <!-- FOOD -->
+  <section class="panel" id="p-fo" hidden>
+    <div class="gbar" data-gbar></div>
+    <div class="box panel">
+      <h3 data-tl="Món ngon ở đây">這裡的美食</h3>
+      <div class="fgrid" id="foList"></div>
+    </div>
+    <div class="plan-grid">
+      <div class="box panel">
+        <div class="meals" id="foMeals"></div>
+        <div class="field"><span style="font-size:14px" data-tl="Vì sao chọn những món này?">為什麼選這些？（可以選兩個）</span><div class="checks" id="foWhy"></div></div>
+      </div>
+      <div class="box panel notl"><div class="rolehead"><h2>吃喝</h2><span class="who2" data-who="2"></span></div><div data-warn="fo"></div><div class="script" id="scFo"></div></div>
+    </div>
+  </section>
+
+  <!-- ITINERARY -->
+  <section class="panel" id="p-it" hidden>
+    <div class="gbar" data-gbar></div>
+    <div class="box panel">
+      <h3 data-tl="Điểm tham quan — bấm để thêm vào ngày 1 hoặc ngày 2">景點</h3>
+      <div class="opts" id="itCards"></div>
+    </div>
+    <div class="days">
+      <div class="day" id="day1"></div>
+      <div class="day" id="day2"></div>
+    </div>
+    <div class="plan-grid">
+      <div class="box panel">
+        <div class="field"><label for="itRain" data-tl="Nếu trời mưa thì sao? Ví dụ: 如果下雨，我們就去故宮">如果下雨，我們就…</label><input type="text" id="itRain" placeholder="例：去博物館"></div>
+      </div>
+      <div class="box panel notl"><div class="rolehead"><h2>行程</h2><span class="who2" data-who="3"></span></div><div data-warn="it"></div><div class="script" id="scIt"></div></div>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="panel" id="p-sum" hidden>
+    <div class="gbar" data-gbar></div>
+    <div class="plan-grid">
+      <div class="box panel">
+        <h2 data-tl="Bảng ngân sách (mỗi người)">預算表（一個人）</h2>
+        <div class="tscroll"><table class="sumtable" id="sumTable"></table></div>
+      </div>
+      <div class="box panel">
+        <h2 data-tl="Cần cả nhóm bàn lại">要一起討論的問題</h2>
+        <div id="sumWarn"></div>
+      </div>
+    </div>
+    <div class="box panel">
+      <h2 data-tl="Lịch trình 2 ngày">兩天的行程</h2>
+      <div class="days" id="sumDays"></div>
+    </div>
+    <div class="box panel">
+      <h2 data-tl="Trước và sau khi thảo luận">討論前、討論後</h2>
+      <p class="small" data-tl="Trước khi cả nhóm bàn bạc, bấm nút “記錄討論前” để lưu lại. Sửa xong, ghi “我們改了什麼”. Kết quả này sẽ vào slide 8 trên Canva.">大家討論以前，先按「記錄討論前」。改好以後，寫下你們改了什麼。</p>
+      <div class="row"><button class="btn alt" id="btnBefore" data-tl="Lưu trạng thái trước khi thảo luận">記錄討論前</button><span class="small" id="beforeInfo"></span></div>
+      <div class="field"><label for="changesIn" data-tl="Nhóm đã sửa gì? Ví dụ: 把高鐵換成火車，省了一千塊">我們改了什麼？</label><input type="text" id="changesIn" placeholder="例：把高鐵換成火車，省了一千塊"></div>
+    </div>
+    <div class="box panel">
+      <h2 data-tl="Khi thảo luận, có thể nói">討論的時候可以說</h2>
+      <div class="phr" id="phr"></div>
+    </div>
+  </section>
+
+  <!-- SLIDES -->
+  <section class="panel" id="p-slides" hidden>
+    <div class="gbar" data-gbar></div>
+    <div class="box panel">
+      <h2 data-tl="Làm slide trên Canva: 9 trang">Canva 簡報：九張投影片</h2>
+      <p data-tl="Bấm “截圖” để mở khung 16:9 sạch, chụp màn hình rồi dán vào Canva. Thêm ảnh hoặc video của nhóm bên cạnh.">按「截圖」會打開一個16:9的畫面。截圖以後貼到Canva，旁邊再放你們找的照片或影片。</p>
+      <div class="tscroll"><table id="slideTable"></table></div>
+    </div>
+    <div class="box panel">
+      <h3 data-tl="Quy tắc làm slide">做簡報的規則</h3>
+      <ul class="phr" style="padding-left:1.2em" id="slideRules"></ul>
+    </div>
+  </section>
+
+  <div class="shot notl" id="shot" hidden>
+    <div class="shot-bar nopy">
+      <button class="mini" id="shotPrev" aria-label="上一張">←</button>
+      <select id="shotSel"></select>
+      <button class="mini" id="shotNext" aria-label="下一張">→</button>
+      <span class="shot-hint">截圖：Windows 按 Win+Shift+S · Mac 按 Cmd+Shift+4 · 手機用截圖功能</span>
+      <button class="mini" id="shotClose">關閉 ✕</button>
+    </div>
+    <div class="shot-stage"><div class="slide" id="slide"></div></div>
+  </div>
+
+  <!-- PRESENT -->
+  <section class="panel notl" id="p-present" hidden>
+    <div class="gbar" data-gbar></div>
+    <div class="row" style="justify-content:space-between">
+      <div class="speakers" id="speakers"></div>
+      <div class="row">
+        <span class="timer" id="timer">2:00</span>
+        <button class="btn" id="tStart">開始</button>
+        <button class="btn ghost" id="tNext">下一位 →</button>
+        <label class="row" style="gap:4px"><input type="checkbox" id="hideScript"><span>藏起稿子</span></label>
+      </div>
+    </div>
+    <div class="stage" id="stage"></div>
+  </section>
+
+  <!-- BOARD -->
+  <section class="panel" id="p-board" hidden>
+    <div class="box">
+      <h2 data-tl="Bảng kết quả">結果板</h2>
+      <p class="small" data-tl="Nghe xong mỗi nhóm, ghi lại tổng tiền mỗi người. Cuối giờ bình chọn chuyến đi muốn tham gia nhất.">每組說完，記下「一個人一共多少錢」。最後投票：你最想參加哪一組的旅行？</p>
+      <div class="tscroll"><table id="boardTable"><thead><tr><th>組</th><th data-tl="Địa điểm">地點</th><th data-tl="Điều kiện">條件</th><th data-tl="Mỗi người">一個人一共</th><th data-tl="Ngân sách">預算</th><th data-tl="Phiếu “muốn đi nhất”">最想參加</th></tr></thead><tbody></tbody></table></div>
+      <div class="row" style="margin-top:12px"><span class="small" id="boardSum"></span></div>
+    </div>
+    <div class="box">
+      <h3 data-tl="Người nghe: hỏi ít nhất một câu">聽眾任務（問問題）</h3>
+      <ul>
+        <li data-tl="Vì sao các bạn ở chỗ đó?">你們為什麼住那裡？</li>
+        <li data-tl="Món nào các bạn muốn ăn nhất?">你們最想吃什麼？為什麼？</li>
+        <li data-tl="Nếu trời mưa thì các bạn làm gì?">如果下雨，你們怎麼辦？</li>
+        <li data-tl="Có vượt ngân sách không? Tiết kiệm ở đâu?">你們的錢夠嗎？哪裡可以省錢？</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- VOCAB -->
+  <section class="panel" id="p-vocab" hidden>
+    <div id="vocabOut" class="panel"></div>
+  </section>
+</div>
+
+<script>
+const PYDATA=/*PYDATA*/{"c":{"yī":"一乊伊依医吚咿噫壱壹夁嫛嬄弌悘揖檹欹毉洢渏漪猗瑿畩祎禕稦繄蛜衣衤譩辷郼醫銥铱鷖鹥黟黳","dīng":"丁仃叮帄玎疔盯耵虰酊釘钉靪","kǎo":"丂拷攷栲洘烤考","qī":"七倛僛凄嘁妻娸悽慼慽戚捿攲期柒栖桤桼棲榿槭欺沏淒漆紪緀萋蛣褄諆諿蹊迉郪鏚霋魌鶈","shàng":"丄上尙尚恦緔绱鞝","xià":"丅下乤吓嚇圷夏夓懗梺疜睱罅鎼鏬","hǎn":"丆厈喊浫罕蔊豃阚鬫","wàn":"万卍卐妧忨捥杤澫瞣脕腕萬薍蟃贃贎輐鋄錽鎫","zhàng":"丈仗墇嶂帐帳幛扙杖涱痮瘬瘴瞕粀胀脹賬账障","sān":"三厁叁弎毵毶毿犙鬖","jī":"丌乩僟击刉刏剞勣叽咭唧喞嗘嘰圾基墼姫姬屐嵆嵇撃擊敧朞机枅槣樭機櫅毄激犄玑璣畸畿癪矶磯禨积稘稽積笄筓箕簊緝績缉羁羇羈耭肌芨虀襀覉覊觭譏譤讥賫賷赍跡跻蹟躋躸鄿銈錤鐖鑇鑙隮雞鞿韲飢饑饥鳮鶏鷄鸄鸡齎齏齑","bù":"不佈勏吥咘埗埠布廍怖悑抪捗柨步歨歩瓿篰簿荹蔀踄部郶鈈钚餔餢鿻","yǔ":"与予伛俁俣偊傴匬噳圄圉宇寙屿峿嶼庾懙挧敔斔斞楀瑀瘐祤禹窳羽與萭蘌語语貐鄅鋙雨頨麌齬龉","miǎn":"丏偭免冕勉勔喕娩愐汅沔渑湎澠眄絻緬缅腼葂鮸黽","gài":"丐乢匃匄戤摡杚概槩槪溉漑瓂盖葢蓋鈣钙阣隑","chǒu":"丑丒侴偢吜杻杽瞅矁醜魗","zhuān":"专叀塼嫥専專瑼甎砖磗磚膞蟤諯鄟顓颛鱄","qiě":"且","pī":"丕伓伾劈噼坯悂憵批披抷旇炋狉砒磇礔礕秛秠紕纰翍耚豾邳鈚鈹鉟銔錃錍铍霹駓髬魾鮍","shì":"世丗亊事仕似侍冟势勢卋叓呩嗜噬士奭媞嬕室崼市式弑弒徥忕恀恃戺拭揓是昰枾柹柿栻氏澨烒煶眂眎眡睗示礻筮簭舐舓螫襫視视觢試誓諟諡謚试谥豉貰贳軾轼适逝適遾釈释釋鈰鉃鉽銴铈飾餙餝饰鰘","qiū":"丘丠坵媝恘楸秋秌穐篍緧萩蓲蘒蚯蝵蟗蠤趥邱鞦鞧鰌鰍鳅鶖鹙龝","bǐng":"丙怲抦摒昞昺柄棅炳眪禀秉稟窉苪蛃邴鈵鉼陃鞆鞞餅餠饼","yè":"业亱僷叶啘嚈堨墷夜嶪嶫抴捙擛擪擫晔曄曅曗曳曵枼枽楪業歋殗洂液澲烨燁爗璍皣瞱瞸礏腋葉謁谒邺鄓鄴鍱鎑鐷靥靨頁页餣饁馌驜鵺鸈","cóng":"丛从叢婃孮従徖從悰慒樷欉淙漎潀潨灇爜琮藂誴賨賩","dōng":"东倲冬咚埬娻岽崠崬徚昸東氡氭涷笗苳菄蝀鮗鯟鶇鶫鸫鼕鿴","sī":"丝俬凘厮厶司咝嘶噝媤廝思恖撕斯楒榹泀澌燍磃禗禠私籭糹絲緦纟缌罳蕬虒蛳蜤螄蟖蟴鉰銯鋖鐁锶颸飔騦鷥鸶鼶","chéng":"丞乗乘呈城埕堘塍塖娍宬峸惩憕懲成承挰掁晟朾枨棖椉橙檙洆溗澂澄瀓珵珹畻碀程窚筬絾脀脭荿裎誠诚郕酲鋮铖騬鯎","diū":"丟丢銩铥","liǎng":"両两兩唡啢掚緉脼蜽裲魉魎","yǒu":"丣卣友庮懮有栯梄槱湵牖牗禉羐羑聈脜苃莠蜏酉銪铕黝","yán":"严厳啱嚴塩壛壧妍姸娫娮孍岩嵒嵓巌巖巗延揅昖楌檐櫩欕沿炎狿琂盐研硏碞礹筵簷綖芫莚蔅虤蜒言訁訮詽讠郔閆閻闫阎顏顔颜鹽麣黬","bìng":"並併倂偋傡垪寎并幷庰栤病竝誁靐鮩","sàng":"丧喪","gǔn":"丨惃滚滾磙緄绲蓘蔉衮袞輥辊鮌鯀鲧","jiū":"丩勼啾揂揪揫摎朻樛牞究糺糾纠萛赳阄鬏鬮鳩鸠","gè":"个個各硌箇虼鉻铬","yā":"丫压吖圧垭埡壓孲庘押枒桠椏錏鐚铔鴉鴨鵶鸦鸭","qiáng":"丬墙墻嫱嬙廧強强樯檣漒牆艢蔃蔷薔蘠","zhōng":"中伀刣妐幒彸忠柊汷泈炂盅籦終终舯蔠螤螽衳衷蹱鈡銿鍾鐘钟锺鴤鼨","jǐ":"丮几妀嵴己幾戟挤掎撠擠泲犱穖虮蟣魕魢鱾麂","jiè":"丯介借吤堺屆届岕庎徣悈戒楐犗玠琾界畍疥砎芥蚧蛶衸褯誡诫鎅骱魪","fēng":"丰仹偑僼凨凬凮妦寷封峯峰崶枫桻楓檒沣沨灃烽犎猦琒疯瘋盽砜碸篈葑蘴蜂蠭豐鄷酆鋒鎽鏠锋闏霻靊風飌风麷","guàn":"丱悹悺惯慣掼摜樌毌泴涫潅灌爟瓘盥矔礶祼罆罐貫贯躀遦鏆鑵雚鱹鸛鹳","chuàn":"串汌玔賗釧钏鶨","chǎn":"丳产冁刬剗剷啴嘽囅嵼幝摌斺旵浐滻灛燀產産簅繟蒇蕆諂譂讇谄辴鏟铲閳闡阐骣","lín":"临冧厸啉壣崊嶙斴晽暽林淋潾瀶燐獜琳璘痳瞵碄磷箖粦粼繗翷臨轔辚遴邻鄰鏻隣霖驎鱗鳞麐麟","zhuó":"丵劅卓叕啄啅圴妰娺彴撯擆擢斀斫斱斲斵晫梲椓櫡汋浊浞濁濯灂灼烵犳琸硺禚窡篧籗籱罬茁蠗諁諑謶诼酌鋜鐯鐲镯鵫鷟","zhǔ":"丶主嘱囑宔拄斸渚濐煑煮瞩矚罜詝陼麈","bā":"丷仈八叭哵夿岜峇巴巼扒捌朳柭玐疤笆粑羓芭蚆豝釛釟魞鲃鿱","wán":"丸刓完岏抏捖汍烷玩琓笂紈纨翫芄貦頑顽","dān":"丹儋勯匰单単單妉媅担擔殚殫甔瘅癉眈砃箪簞耼耽聃聸褝襌躭郸鄲頕鿕","wèi":"为位卫叞味喂墛媦尉慰懀未渭為煟熭爲犚猬璏畏碨緭罻胃苿菋蔚藯蘶蜼蝟螱衛衞褽謂讆讏谓躗躛軎轊鏏霨餧餵饖魏鮇鳚","jǐng":"丼井儆刭剄坓宑幜憬憼景暻汫汬璄璟璥穽肼蟼警阱頚頸颈","lì":"丽例俐俪傈儮儷凓利力励勵历厉厤厯厲吏呖唎唳嚦囇坜塛壢娳婯屴岦巁悧悷慄戾搮攊攦攭暦曆曞朸枥栃栎栗栛棙檪櫔櫟櫪欐歴歷沥沴涖溧濿瀝爄爏犡猁珕瑮瓅瓑瓥疠疬痢癘癧皪盭砅砺砾磿礪礫礰禲秝立笠篥粒粝糲綟脷苈苙茘荔莅莉蒚蒞藶蚸蛎蛠蜧蝷蠇蠣觻詈讈赲跞躒轢轣轹郦酈鉝鎘隶隷隸雳靂靋鬁鱱鱳鳨鴗鷅麗麜","jǔ":"举咀弆挙擧椇榉榘櫸欅沮矩筥聥舉莒蒟襷踽齟龃","piě":"丿苤鐅","fú":"乀伏佛俘冹凫刜匐咈哹垘孚岪巿幅幞弗彿怫扶拂服枎柫栿桴棴榑氟泭洑浮涪澓炥烰玸琈甶畉畐癁砩祓福稪符笰箙粰紱紼絥綍绂绋罘罦翇艀艴芙芣苻茀茯莩菔葍虙蚨蜉蝠袱襆襥諨踾輻辐郛鉘鉜韍韨颫髴鮄鮲鳧鴔鵩鶝黻","yí":"乁仪侇儀冝匜咦圯夷姨媐宐宜宧寲峓嶬嶷巸弬彛彜彝彞怡恞扅拸暆柂栘桋椬椸沂沶熪狋珆瓵疑痍眙移箷簃籎羠耛胰萓蛦螔衪袘觺訑詑詒誃謻讉诒貤貽贻跠迆迤迻遗遺鏔頉頤頥顊颐飴饴鸃","yì":"乂义亄亦亿伇伿佚佾俋億兿刈劓劮勚勩匇呓呭呹唈囈圛坄垼埶埸墿奕嫕嬑嬟寱屹峄嶧帟帠幆廙异弈弋役忆怈怿悒悥意憶懌懿抑挹掜撎敡斁易晹曀曎杙枍枻栧栺棭榏槸檍欥欭歝殔殪殹毅泆浂浥浳湙溢潩澺瀷炈焲熠熤熼燚燡燱獈玴異疫痬瘗瘞瘱癔益睪瞖硛秇穓竩縊繶繹绎缢羛義羿翊翌翳翼耴肄肊膉臆艗艺芅苅萟蓺薏藙藝蘙虉蛡蜴螠衵袣裔裛褹襼訲訳詍詣誼譯議讛议译诣谊豙豛豷貖賹贀跇軼轶逸邑醳醷釴鈠鎰鐿镒镱陭隿霬靾饐駅驛驿骮鮨鯣鶂鶃鶍鷁鷊鷧鷾鹝鹢黓齸","nǎi":"乃倷奶嬭廼氖疓艿迺釢","wǔ":"乄五仵伍侮俉倵儛午呒啎妩娬嫵庑廡忤怃憮捂摀旿橆武潕熓牾玝珷瑦甒碔舞躌鵡鹉","jiǔ":"久乆九乣奺杦汣灸玖紤舏酒镹韭韮","tuō":"乇仛侂咃托扡拕拖挩捝杔汑沰涶脫脱莌袥託讬飥饦驝魠","me":"么嚜濹癦麼","zhī":"之倁卮吱坧巵戠搘支枝栀梔椥榰汁汥泜疷知祗祬禔秓秖秪稙綕織织肢胑胝脂臸芝蘵蜘衼隻馶鳷鴲鼅","wū":"乌剭呜嗚圬屋巫弙杇歍汙汚污洿烏窏箼螐誈誣诬邬鄔鎢钨鰞鴮","zhà":"乍咤宱搾柞栅榨溠灹炸痄蚱詐诈醡霅","hū":"乎乯匢匫呼唿嘑垀寣幠忽恗惚戯昒曶歑泘淴滹烀膴苸虍虖謼軤轷雐","fá":"乏伐傠垡姂栰橃浌疺瞂砝笩筏罚罰罸茷藅閥阀","lè":"乐仂叻忇扐楽樂氻泐玏砳竻簕艻阞韷鰳鳓","yín":"乑冘吟噖嚚圁垠夤婬寅峾崟崯斦檭殥泿淫滛烎犾狺珢璌碒苂荶蔩蟫訔訚訡誾鄞鈝銀银霪鷣齗龂","pīng":"乒俜娉涄甹砯竮聠艵頩","pāng":"乓沗滂胮膖雱霶","qiáo":"乔侨僑喬嘺嫶憔桥槗樵橋犞癄瞧硚礄荍荞菬蕎藮谯趫鐈鞒鞽顦","hǔ":"乕俿唬汻浒滸琥萀虎虝錿鯱","guāi":"乖掴摑","yǐ":"乙以佁倚偯崺已庡扆攺敼旑旖椅檥矣礒笖舣艤苡苢蚁螘蟻裿踦輢轙逘酏釔鈘鉯钇顗鳦齮","yǐn":"乚吲尹嶾廴引朄檃櫽淾濥濦瘾癮磤蘟蚓螾讔赺趛輑鈏隐隠隱靷飮飲饮","ya":"乛呀","miē":"乜吀咩哶孭","qǐ":"乞企启呇唘啓啔啟婍屺岂晵杞棨玘盀綮綺绮芑諬豈起邔闙","yě":"也冶吔嘢埜壄漜野","xí":"习喺媳嶍席椺槢檄漝習蒵蓆薂袭襲覡觋謵趘郋鎴隰霫飁騱騽驨鰼鳛","xiāng":"乡厢啌廂忀楿欀湘瓖相稥箱緗缃膷芗葙薌襄郷鄉鄊鄕鑲镶香驤骧鱜麘","hù":"乥互冱冴嗀嚛婟嫭嫮岵帍弖怘怙戶户戸戽扈护摢昈枑楛槴沍沪滬熩瓠祜笏簄粐綔芐蔰護鄠鍙雽韄頀鱯鳠鳸鸌鹱","shū":"书倏倐儵叔姝尗抒掓摅攄書杸枢梳樞橾殊殳毹毺淑瀭焂瑹疎疏紓綀纾舒菽蔬跾踈軗輸输鄃陎鮛鵨","dǒu":"乧唞抖枓蚪鈄阧陡","shǐ":"乨使兘史始宩屎榁矢笶豕鉂駛驶","náng":"乪嚢囊欜蠰譨饢馕鬞","jiā":"乫佳傢加嘉埉夹夾家抸拁枷梜毠泇浃浹犌猳珈痂笳糘耞腵茄葭袈豭貑跏迦鉫鉿鎵镓麚鿼","jù":"乬俱倨倶具冣剧劇勮句埧埾壉姖寠屦屨岠巨巪怇怐怚惧愳懅懼拒拠据據昛歫洰澽炬烥犋秬窭窶簴粔耟聚苣虡蚷袓詎讵豦貗跙距踞躆遽邭醵鉅鋸鐻钜锯颶飓駏鮔","shí":"乭十埘塒姼实実寔實峕嵵拾时旹時榯湜溡炻石祏竍莳蒔蚀蝕識识辻遈鉐食飠饣鮖鰣鲥鼫鼭","mǎo":"乮冇卯夘峁戼昴泖笷蓩鉚铆","mǎi":"买嘪荬蕒買鷶","luàn":"乱亂釠","zī":"乲兹咨嗞姕姿孜孳孶崰嵫栥椔淄湽滋澬玆璾禌秶稵粢紎緇缁茊茲葘觜訾諮谘貲資赀资赼趑趦輜輺辎鄑鈭錙鍿鎡锱镃頾頿髭鯔鰦鲻鶅鼒齍龇","rǔ":"乳擩汝肗辱鄏","xué":"乴壆学學岤峃嶨斈泶澩燢穴茓袕觷踅雤鷽鸴","yǎn":"乵俨偃儼兖兗匽厣厴噞夵奄嵃巘巚弇愝戭扊抁掩揜曮棪椼檿沇渰渷演琰甗眼縯罨萒蝘衍裺褗躽遃郾酓隒顩魇魘鰋鶠黡黤黭黶鼴鼹齞齴龑","fǔ":"乶俌俛俯嘸府弣抚拊捬撨撫斧椨滏焤甫盙簠胕腐腑蜅輔辅郙釜釡頫鬴鳬黼","shā":"乷刹剎唦杀桬榝樧殺毮沙煞猀痧砂硰粆紗纱莎蔱裟鎩铩魦鯊鯋鲨","nǎ":"乸哪雫","gān":"乹亁凲坩尲尴尶尷忓攼杆柑泔漧玕甘疳矸竿筸粓肝芉苷迀酐魐鳱","suǒ":"乺唢嗩惢所暛溑琐琑瑣璅索褨鎈鎍鎖鎻鏁锁","yú":"乻于亐伃余俞兪堣堬妤娛娯娱嬩崳嵎嵛愉愚扵揄於旕旟杅桙楡楰榆欤歈歟歶渔渝湡漁澞牏狳玗玙瑜璵畭盂睮硢禺窬竽籅羭腴臾舁舆艅茰萮萸蕍蘛虞蝓螸衧褕覦觎諛謣谀踰輿逾邘酑鍝隅雓雩餘馀騟骬髃魚鮽鯲鰅鱼鷠鸆","cui":"乼","zhě":"乽啫禇者褶襵赭鍺锗","qián":"乾仱偂前墘媊岒忴扲拑掮揵榩橬歬潛潜濳灊箝羬蕁虔軡鈐鉗銭錢钤钱钳靬騚騝鰬黔黚","zhì":"乿俧偫傂儨制劕厔垁墆娡寘峙崻帙帜幟庢庤廌彘徏徝志忮憄懥懫扻挃挚掷搱摯擲擳旘晊智柣栉桎梽楖櫍櫛治洷滍滞滯潌瀄炙熫狾猘瓆畤疐痔痣礩祑秩秲秷稚稺穉窒筫紩緻置翐膣至致芖蛭螲袟袠製覟觗觯觶誌豑豒豸貭質贄质贽跱踬躓軽輊轾迣郅銍鋕鑕铚锧阤陟隲雉駤騭騺驇骘鯯鴙鷙鸷鿵","guī":"亀傀圭妫媯嫢嬀巂帰廆归摫椝槻槼櫷歸珪瑰璝瓌皈瞡硅窐胿膭茥螝袿規规邽郌閨闺騩鬶鬹鮭鲑龜龟","lǐn":"亃凛凜廩廪懍懔撛檁檩澟癛癝菻","jué":"亅倔傕决刔劂勪匷厥噱嚼孒孓屫崛嶥弡彏憠憰戄抉挗捔掘攫斍桷橛橜欔欮殌氒決泬灍焳熦爑爝爴爵獗玃玦玨珏瑴疦瘚矍矡砄絕絶绝臄芵蕝蕨虳蚗蟨蟩覐覚覺觉觖觼訣譎诀谲貜赽趉趹蹶蹷躩逫鈌鐍鐝钁镢駃鴂鴃鶌鷢龣","le":"了餎饹","ma":"亇吗嗎嘛嫲","zhēng":"争佂凧埩姃媜峥崝崢征徰徴徵怔挣掙揁炡烝爭狰猙癥眐睁睜筝箏篜聇蒸踭鉦錚钲铮鬇鯖鿇","èr":"二佴刵咡弍弐樲衈誀貮貳贰鉺","chù":"亍俶傗儊嘼埱处怵憷拀搐敊斶柷欪歜滀珿琡畜矗竌竐絀绌臅蓫處触觸諔豖踀鄐閦黜","kuī":"亏刲岿巋悝盔窥窺聧蘬虧闚顝","yún":"云伝勻匀囩妘愪昀橒沄涢溳澐熉畇眃秐筠筼篔紜縜纭耘耺芸蒷蕓郧鄖鋆雲","qí":"亓亝俟其剘圻埼奇岐岓崎嵜帺忯愭懠掑斉斊旂旗棊棋檱櫀歧淇濝猉玂琦琪璂畦疧碁碕祁祇祈祺禥竒簱籏粸綥綦綨纃耆肵脐臍艩芪萁萕蕲藄蘄蚑蚔蚚蛴蜝蜞螧蠐褀跂踑軝釮錡锜頎颀騎騏騹骐骑鬐鬿鯕鰭鲯鳍鵸鶀麒麡齊齐","sì":"亖佀価儩兕嗣四姒娰孠寺巳杫柶汜泗泤洍涘瀃牭祀禩竢笥耜肂肆蕼覗貄釲鈶鈻飤飼饲駟驷","suì":"亗埣嬘岁嵗旞檖歲歳澻煫燧璲睟砕碎祟禭穂穗穟繀繐繸襚誶譢谇賥遂邃鐆鐩隧韢","gèn":"亘亙揯搄茛","yà":"亚亜亞俹劜圔圠娅婭挜掗揠氩氬犽猰砑稏窫聐襾訝讶軋轧迓齾","xiē":"些揳楔歇猲蝎蠍","jí":"亟亼亽伋佶偮卙即卽及叝吉塉姞嫉岌嶯庴彶忣急愱戢揤极棘楫極槉橶檝殛汲湒潗濈焏狤疾瘠皀皍笈箿籍級级耤脊膌艥蒺蕀蕺藉螏襋觙诘谻趌踖蹐躤輯轚辑郆銡鍓鏶集雦雧霵鶺鷑鹡","tóu":"亠头投緰頭骰","wáng":"亡亾仼兦彺王莣蚟","kàng":"亢伉匟囥抗炕犺邟鈧钪閌","dà":"亣大汏眔","jiāo":"交僬嘄姣娇嬌峧嶕嶣憍椒浇澆焦燋礁穚簥胶膠膲艽芁茭茮蕉虠蛟蟭跤轇郊鐎驕骄鮫鲛鵁鷦鷮鹪","hài":"亥嗐妎害氦餀饚駭駴骇","hēng":"亨哼啈悙涥脝","mǔ":"亩坶姆峔拇母牡牳畆畒畝畞畮砪胟踇鉧","ye":"亪","xiǎng":"享亯响想晑曏蚃蠁銄響飨餉饗饟饷鮝鯗鱶鲞","jīng":"京亰兢坕坙婛巠惊旌旍晶橸泾涇猄睛秔稉粳精経經经聙腈茎荆荊莖菁葏驚鯨鲸鵛鶁鶄麖麠鼱","tíng":"亭停婷嵉庭廷楟榳渟筳聤莛葶蜓蝏諪邒閮霆鼮","liàng":"亮哴喨悢晾湸諒谅輌輛辆量鍄","qīn":"亲侵媇寴嵚嶔欽綅衾親誛钦顉駸骎鮼","bó":"亳仢伯侼僰勃博嚗帛愽懪挬搏欂浡淿渤煿牔犦犻狛猼瓝瓟礡礴秡箔簙肑胉脖膊舶艊苩葧蔔袯袹襏襮豰踣郣鈸鉑鋍鎛鑮钹铂镈餺馎馛馞駁駮驳髆髉鵓鹁","yòu":"亴佑侑又右哊唀囿姷孧宥峟幼柚牰狖祐糿蚴誘诱貁迶酭釉鼬","xiè":"亵伳偞偰僁卨卸噧塮夑娎媟屑屓屟屧嶰廨徢懈暬械榍榭泄泻洩渫澥瀉瀣灺炧炨烲焎燮爕獬祄禼糏紲絏絬緤繲绁缷薢薤蟹蠏褉褻謝谢躞邂鞢韰齂齘齛齥","dǎn":"亶伔刐抌掸撢撣澸玬瓭疸紞胆膽衴赕黕黮","lián":"亷劆匲匳嗹噒奁奩嫾帘廉怜慩憐梿槤櫣涟溓漣濂濓熑燫磏簾籢籨縺翴联聨聫聮聯臁莲蓮薕螊蠊裢褳覝謰蹥连連鎌鐮镰鬑鰱鲢","duǒ":"亸哚嚲垛垜埵奲挅挆朵朶椯綞缍趓躱躲軃","wěi":"亹伟伪偉偽僞儰厃壝委娓寪尾屗崣嵔徫愇捤撱斖暐梶椲洧浘濻瀢炜煒猥玮瑋痏痿硊磈緯纬腲艉芛苇荱葦蒍蔿薳諉诿踓鍡韑韙韡韪頠颹骩骪骫鮪鲔","rén":"人亻仁壬忈忎朲秂芢鈓銋魜鵀","shén":"什榊神鰰","zè":"仄夨崱庂捑昃昗汄","jǐn":"仅侭僅儘卺厪堇嫤尽巹廑槿漌瑾盡紧緊菫蓳謹谨錦锦饉馑","pū":"仆噗扑撲擈攴攵潽炇陠鯆","chóu":"仇俦儔嚋嬦帱幬怞惆愁懤栦椆燽畴疇皗稠筹籌紬絒綢绸菗薵裯讎讐踌躊酧酬醻雔雠","zhǎng":"仉幥掌涨漲礃长","jīn":"今兓埐堻嶜巾惍斤津珒琻矜矝砛筋紟荕衿襟觔金釒釿钅鹶黅","bīng":"仌仒兵冫冰掤氷鋲","réng":"仍礽辸陾","fó":"仏坲梻","sǎn":"仐伞傘糁糂糝糣糤繖鏒鏾饊馓","lún":"仑伦侖倫囵圇婨崘崙惀棆沦淪磮綸纶腀菕蜦踚輪轮錀陯鯩","cāng":"仓仺伧倉傖嵢沧滄濸獊舱艙苍蒼螥鶬鸧","zǎi":"仔宰崽","tā":"他嚃塌她它榙溻牠祂褟趿铊闧","fù":"付偩傅冨副咐坿复妇婦媍嬔富峊復椱父祔禣秿竎緮縛缚腹萯蕧蚥蚹蛗蝜蝮袝複褔覄覆訃詂讣負賦賻负赋赙赴輹鍑鍢阜阝附陚馥駙驸鮒鰒鲋鳆","xiān":"仙仚佡僊僲先嘕奾嬐屳廯忺憸掀攕暹杴枮氙珗祆秈籼繊纎纖纤苮莶薟褼襳跹蹮躚酰銛鍁铦锨韯韱馦鮮鱻鲜鶱","hóng":"仜吰垬妅娂宏宖弘彋汯泓洪浤渱潂玒玜硔竑竤粠紅紘紭綋红纮翃翝耾苰荭葒葓蕻虹谹谼鈜鉷鋐閎闳霐霟鞃魟鴻鸿黉黌","tóng":"仝佟僮勭同哃峂峝庝彤晍曈朣桐橦氃浵潼烔燑犝狪獞眮瞳砼秱童筩粡膧茼蚒詷赨酮鉖鉵銅铜餇鮦鲖","rèn":"仞仭任刃刄妊姙屻岃扨杒梕牣祍紉紝絍纫纴肕腍葚衽袵訒認认讱軔轫靭靱韌韧飪餁饪","qiān":"仟佥僉兛千圱圲奷婜孅孯岍悭愆慳扦拪掔搴撁攐攑攓杄檶櫏欦汘汧牵牽瓩竏签箞簽籤粁臤芊茾蚈褰諐謙谦谸迁遷釺鈆鉛钎铅阡雃韆顅騫骞鬜鬝鵮鹐","gǎn":"仠感扞擀敢桿橄澉皯秆稈笴簳衦赶趕鰔鱤鳡","gē":"仡割咯哥圪彁戈戓戨搁擱歌滒牫牱犵疙纥肐胳袼謌鎶鴐鴚鴿鸽鿔","dài":"代侢叇垈埭岱帒带帯帶廗待怠戴曃柋殆瀻玳瑇甙簤紿緿绐艜蚮袋襶貸贷蹛軑軚軩轪迨霴靆骀鴏黛黱","lìng":"令另呤炩","chào":"仦仯耖觘","cháng":"仧仩偿償兏嘗嚐塲嫦尝常徜瑺瓺甞肠腸膓苌萇鋿鏛長镸鱨鲿","sā":"仨挱挲撒","mù":"仫凩募墓幕幙慔慕暮木朰楘毣沐炑牧狇目睦穆縸艒苜莯蚞鉬钼雮霂鞪","men":"们們","fǎn":"仮反払返釩","yǎng":"仰佒傟养坱岟慃懩攁柍楧氧氱炴痒癢礢紻蝆軮養駚","zhòng":"仲众偅堹妕媑狆眾祌筗茽蚛衆衶諥重","pǐ":"仳匹噽嚭圮庀擗疋痞癖脴苉諀銢鴄","wò":"仴偓卧媉幄捾握擭斡枂楃沃涴渥濣焥瓁瞃硪肟腛臒臥雘齷龌","jiàn":"件俴健僭剑剣剱劍劎劒劔墹寋建徤擶旔栫楗榗毽洊涧渐溅漸澗濺瀳牮珔瞷磵礀箭糋繝腱臶舰艦荐葥蔪薦螹袸見覵见諓諫譼谏賎賤贱趝践踐踺轞釼鉴鋻鍳鍵鏩鐱鑑鑒鑬鑳键餞饯","jià":"价價嫁幏架榢稼駕驾","yǎo":"仸偠咬婹宎岆崾抭杳柼榚溔狕眑窅窈舀苭蓔闄騕鴢鷕齩","fèn":"份偾僨奋奮弅忿愤憤瀵瞓秎粪糞膹鱝鲼","dī":"仾低啲埞堤奃彽氐滴磾羝袛趆鍉镝隄鞮","fǎng":"仿倣旊昉昘瓬眆紡纺舫訪访髣鶭","pèi":"伂佩姵嶏帔斾旆沛浿珮蓜轡辔配霈馷","diào":"伄吊弔掉瘹窎窵竨蓧藋訋調调釣鈟銱鋽鑃钓铞铫雿魡","dùn":"伅囤庉楯沌潡炖燉盾砘碷踲逇遁遯鈍钝頓顿","wù":"伆兀务務勿卼坞塢奦婺寤屼岉嵍嵨忢悞悟悮戊扤敄晤杌溩焐熃物痦矹窹粅芴蘁誤误迕逜鋈阢隖雺雾霚霧靰騖骛鶩鹜鼿齀","xǐn":"伈","ài":"伌僾叆嗌塧壒嫒嬡愛懓懝暧曖爱瑷璦皧瞹砹硋碍礙艾薆譺鑀閡隘靉餲馤鱫鴱","jì":"伎偈兾冀剂剤劑哜嚌坖垍塈妓季寂寄峜廭彐彑徛忌悸惎懻技旡既旣暨暩曁梞檕檵洎济済漃漈濟瀱痵癠祭禝稩稷穄穊穧紀紒継繋繼纪继绩罽臮芰茍茤荠葪蓟蔇薊薺蘎蘮蘻裚覬觊計記誋諅计记跽迹际際霁霽驥骥髻鬾鯚鰶鰿鱀鱭鲚鲫鵋齌","xiū":"休俢修咻庥樇烋烌羞脙脩臹貅銝鎀鏅飍饈馐髤髹鮴鱃鵂鸺","jìn":"伒僸凚劤劲勁唫噤嚍墐壗妗嬧寖搢晉晋枃歏殣浕浸溍濅濜烬煡燼琎瑨璡璶祲禁縉缙荩藎覲觐賮贐赆近进進靳齽","fū":"伕呋垺夫妋姇娐孵尃怤懯敷旉柎玞痡砆稃筟糐紨綒肤膚荂荴衭豧趺跗邞鄜鈇鳺麩麬麱麸","tǎng":"伖倘偒傥儻帑戃曭淌爣矘躺鎲钂镋","yōu":"优優呦嚘幽忧怮悠憂攸櫌泑滺瀀纋耰逌鄾麀","huǒ":"伙夥漷火邩鈥钬","huì":"会僡儶匯卉哕喙嘒嚖圚嬒孈寭屶屷彗彙彚徻恚恵惠慧憓晦暳會槥橞檅櫘殨汇泋浍湏滙潓澮濊烩燴獩璤璯瘣瞺秽穢篲絵繢繪绘缋翙翽芔荟蔧蕙薈薉藱蟪詯誨諱譓譿讳诲賄贿鏸鐬闠阓靧頮顪颒餯","cuì":"伜倅啐啛忰悴毳淬濢焠疩瘁竁粋粹紣綷翆翠脃脆脺膬膵臎萃襊顇","chuán":"传傳圌暷椽篅舡舩船輲遄","chē":"伡俥唓砗硨莗蛼車车","yá":"伢厑厓堐岈崕崖涯漄牙猚玡琊瑘睚笌芽蚜衙齖","qiàn":"伣俔倩傔儙刋堑塹壍嬱嵌悓慊棈椠槧欠歉皘篏篟綪縴芡茜蒨蔳輤鰜","shāng":"伤傷商墒慯殇殤滳漡熵蔏螪觞觴謪鬺","chāng":"伥倀娼昌晿椙淐猖琩菖裮錩锠閶阊鯧鲳鼚","xùn":"伨侚卂噀奞巺巽徇愻殉殾汛潠狥稄蕈訊訓訙训讯賐迅迿逊遜鑂顨驯","xìn":"伩信囟孞焮脪舋衅訫軐釁阠顖馸","zhù":"伫佇住助坾墸壴嵀杼柱樦殶注炷疰眝砫祝祩竚筑筯箸築篫簗紵紸纻羜翥苎莇蛀註貯贮跓軴迬鉒鋳鑄铸霔馵駐驻麆","ze":"伬","xián":"伭咸唌啣妶娴娹婱嫌嫺嫻弦憪挦撏涎湺澖甉痫癇癎瞯礥稴絃胘舷藖蚿蛝衔衘誸諴賢贒贤輱醎銜閑閒闲鷳鷴鷼鹇鹹麙","nǔ":"伮努弩砮胬","gū":"估呱咕唂姑嫴孤柧橭沽泒笟箍箛篐罛苽菇菰蛄觚軱軲轱辜酤鈲鮕鴣鸪","nǐ":"伱你儗儞妳孴抳拟擬旎晲柅檷狔聻苨薿鈮隬馜鿭","nì":"伲匿堄嫟嬺屰惄愵昵暱氼溺眤睨縌胒腻膩誽迡逆","bàn":"伴办半坢姅怑扮拌柈湴瓣秚絆绊辦鉡靽","xù":"伵侐勖勗卹叙垿壻婿序怴恤慉敍敘旭昫朂槒欰殈汿沀洫溆漵潊烅烼煦獝珬盢瞁瞲稸絮続緒緖續绪续聓聟芧蓄藇藚訹賉酗銊魣鱮","líng":"伶凌刢囹坽夌姈婈孁岺彾掕昤朎柃棂櫺欞泠淩澪灵燯爧狑玲琌瓴皊砱祾秢竛笭紷綾绫羚翎聆舲苓菱蓤蔆蕶蘦蛉衑裬詅跉軨酃醽鈴錂铃閝陵零霊霗霛霝靈駖魿鯪鲮鴒鸰鹷麢齡齢龄龗","zhòu":"伷僽冑呪咒咮噣宙昼晝甃皱皺籀籒籕粙紂縐纣绉胄荮葤詋詶酎駎驟骤","shēn":"伸侁兟呻堔妽姺娠屾峷扟敒曑柛棽氠深燊珅甡甧申眒砷穼籶籸紳绅罙莘葠蓡蔘薓裑訷詵诜身駪鯓鯵鰺鲹鵢","qū":"伹佉匤区區坥屈岖岨岴嶇憈抾敺曲浀祛筁粬紶胠蛆蛐袪覰覻詘誳诎趋趨躯軀镼阹駆駈驅驱髷魼鰸鱋麯麴麹黢","cì":"伺佽刺刾庛朿栨次絘茦莿蛓螆賜赐","bēng":"伻傰嘣奟崩嵭痭祊絣綳绷閍","gā":"伽呷嘎嘠旮","diàn":"佃坫垫墊壂奠婝店惦扂橂橝殿淀澱玷琔电癜簟蜔钿阽電靛驔","hān":"佄哻嫨憨歛蚶谽酣頇顸馠鼾","mài":"佅劢勱卖売脈脉衇賣迈邁霡霢麥麦鿏鿺","dàn":"但僤啖啗啿嘾噉嚪帎弹弾彈惮憚憺旦柦氮沊泹淡澹狚疍癚禫窞繵腅萏蓞蛋蜑觛誕诞贉霮饏馾駳髧鴠","bǐ":"佊俾匕吡啚夶妣彼朼柀比沘疕秕笔筆箄粃聛舭貏鄙","zhāo":"佋啁妱巶招昭皽盄窼釗鉊鍣钊駋","cǐ":"佌此泚玼皉鮆","zuǒ":"佐左繓","tǐ":"体挮躰軆骵體鮧","zhàn":"佔偡占嶘战戦戰栈桟棧湛站綻绽菚蘸虥虦覱譧輚轏驏","hé":"何劾合咊和哬啝姀峆惒敆曷柇核楁毼河涸渮澕熆狢皬盇盉盍盒礉禾秴篕籺粭紇翮荷菏萂蚵螛覈訸詥貈郃鉌鑉闔阂阖鞨頜颌饸魺鲄鶡鹖麧齕龁龢","bì":"佖哔嗶坒堛壁奰妼婢嬖币幣幤庇庳廦弊弻弼彃必怭怶愊愎敝斃枈柲梐毕毖毙湢滗滭潷濞煏熚狴獘獙珌璧畀畁畢疪痹痺皕睤碧禆笓筚箅箆篦篳粊綼縪繴罼腷臂苾荜萆萞蓖蓽蔽薜蜌袐裨襅襞襣觱詖诐貱賁贔赑跸蹕躃躄避邲鄨鄪鉍鏎鐴铋閇閉閟闭陛鞸韠飶饆馝駜驆髀髲魓鮅鷝鷩鼊","tuó":"佗坨堶岮槖橐沱沲狏砣砤碢紽袉跎迱酡陀陁馱駄駝駞騨驒驮驼鮀鴕鸵鼉鼍鼧","shé":"佘舌虵蛇蛥","zuò":"作侳做唑坐岝岞座怍祚糳胙葃葄蓙袏阼飵","gōu":"佝勾沟溝篝簼緱缑袧褠鈎鉤钩鞲韝","nìng":"佞侫倿泞澝濘","qú":"佢劬忂戵斪朐欋氍淭渠灈璖璩癯瞿磲籧絇翑胊臞菃葋蕖蘧螶蟝蠷蠼衐衢躣軥鑺鴝鸜鸲鼩","yōng":"佣傭嗈噰墉壅嫞庸廱慵拥擁槦滽澭灉牅痈癕癰臃邕郺鄘鏞镛雍雝饔鱅鳙鷛","wǎ":"佤咓瓦砙邷","shi":"佦匙篒籂","kǎ":"佧卡垰胩裃鉲","bāo":"佨勹包孢枹煲笣胞苞蕔褒襃闁齙龅","huí":"佪囘回囬廻廽恛洄烠痐茴蚘蛔蛕蜖迴逥鮰","hè":"佫嗃垎壑寉焃煂熇燺爀癋碋穒翯袔褐謞賀贺赫靍靎靏鶮鶴鸖鹤","lǎo":"佬咾姥恅栳橑潦狫珯硓老耂荖蛯轑銠铑鮱","xiáng":"佭庠栙瓨祥絴翔詳详跭","gé":"佮匌呄嗝塥愅挌搿敋格槅櫊滆獦膈臵茖葛蛒裓觡諽輵轕镉閣閤阁隔革鞈鞷韐韚騔骼鬲鮯","yáng":"佯劷垟崵崸徉扬揚敭旸昜暘杨楊氜洋炀烊煬珜疡瘍眻禓羊羏蛘諹輰鍚鐊钖阦阳陽霷颺飏鰑鴹鸉","bǎi":"佰捭摆擺柏栢瓸百竡粨絔襬","fǎ":"佱法灋鍅","mǐng":"佲凕姳慏酩","hěn":"佷很狠詪","huó":"佸活秮秳","guǐ":"佹匦匭厬垝姽宄庋庪恑攱晷朹氿湀癸祪簋蛫蟡觤詭诡軌轨陒鬼","quán":"佺全啳埢姾婘孉巏惓拳搼权楾権權泉洤湶牷犈瑔痊硂筌絟縓荃葲蜷蠸觠詮诠跧踡輇辁醛銓铨闎顴颧騡鬈鰁鳈齤","tiāo":"佻庣恌挑旫祧聎","jiǎo":"佼侥僥儌剿劋孂徺徼恔憿挢捁搅摷撟撹攪敫敽敿晈暞曒湫湬灚烄煍燞狡璬皎皦矫矯笅絞繳纐绞缴脚腳臫蟜角譑賋踋鉸铰隦餃饺鱎","xíng":"侀刑型娙形洐滎硎荥行邢郉鈃鉶銒鋞钘铏陉陘","kǎn":"侃偘冚坎埳塪惂槛檻欿歁砍竷莰輡轗顑","zhí":"侄値值嗭埴執墌妷姪嬂慹执摭植樴殖淔漐犆瓡直禃絷縶聀职職膱蟙跖踯蹠躑軄釞鉄馽","gāi":"侅垓姟峐晐畡祴絯荄該该豥賅賌赅郂陔","lái":"來俫倈婡崃崍庲徕徠来梾棶涞淶猍琜筙箂莱萊逨郲錸铼騋鯠鶆麳","chǐ":"侈卶叺呎垑尺恥欼歯耻肔胣蚇袲袳裭褫鉹齒齿","kuǎ":"侉咵垮銙","guāng":"侊僙光咣垙姯桄洸灮炗炚炛烡珖胱茪輄銧黆","yīn":"侌凐喑噾囙因垔堙姻婣愔慇栶歅殷氤洇溵瘖禋秵筃絪緸茵荫蒑蔭裀諲銦铟闉阥阴陰陻隂霒霠鞇音韾駰骃","mǐ":"侎孊弭敉沵洣渳濔灖眫米粎羋脒芈葞蔝銤","zhū":"侏劯朱株槠橥櫧櫫洙潴瀦猪珠硃秼絑茱蛛蝫蠩袾誅諸诛诸豬跦邾銖铢駯鮢鯺鴸鼄","ān":"侒媕安峖庵桉氨痷盦盫腤菴萻葊蓭誝諳谙鞌鞍韽馣鵪鶕鹌","lù":"侓僇剹勎勠圥坴塶娽峍廘彔录戮摝椂樚淕淥渌漉潞熝琭璐甪盝睩硉碌祿禄稑穋箓簏簬簵簶籙粶膔菉蔍蕗虂螰觮賂赂趢路踛蹗輅轆辂辘逯醁錄録錴鏕鏴陆陸露騄騼鯥鵦鵱鷺鹭鹿麓","móu":"侔劺恈洠牟眸瞴繆缪蛑謀谋踎鉾鍪鴾麰","ér":"侕儿児兒唲峏栭洏粫而聏胹荋袻輀轜陑隭髵鮞鲕鴯鸸","dòng":"侗働冻凍动動垌姛峒恫戙挏栋棟洞湩硐絧胨胴腖迵霘駧","chà":"侘奼姹岔差汊紁詫诧","chī":"侙吃哧喫嗤噄妛媸彨彲摛攡瓻痴癡眵瞝笞粚絺胵蚩螭訵誺魑鴟鵄鸱黐齝","gōng":"供公功匑匔厷塨宫宮工幊弓恭愩攻杛熕碽糼肱蚣觥觵躬躳髸龏龔龚","zhōu":"侜周喌州徟掫洲淍炿烐珘盩矪粥舟謅譸诌诪賙赒輈輖辀週郮銂霌駲騆鵃鸼","rú":"侞儒嚅如嬬孺帤曘桇渪濡燸筎茹蒘蕠薷蝡蠕袽襦邚醹銣铷顬颥鱬鴑鴽","cún":"侟存拵","xiá":"侠俠匣峡峽敮暇柙炠烚狎狭狹珨瑕硖硤碬磍祫筪縀縖翈舝舺蕸赮轄辖遐鍜鎋陜陿霞騢魻鶷黠","lǚ":"侣侶儢吕呂屡屢履挔捋捛旅梠焒祣稆穞穭絽縷缕膂膐褛褸郘鋁铝","ta":"侤咜","zhēn":"侦偵嫃寊帧帪搸斟栕桢桭楨榛樼殝浈湞潧澵獉珍珎瑧甄眞真砧碪祯禎禛箴籈胗臻葴蒖蓁薽貞贞轃遉酙針鉁錱鍼针靕鱵","cè":"侧側冊册厕厠墄廁恻惻憡拺敇测測畟笧策筞筴箣簎粣荝萗萴蓛","kuài":"侩儈凷哙噲圦块塊墤巜廥快旝狯獪筷糩脍膾郐鄶鱠鲙","chái":"侪儕喍柴犲祡豺齜","nóng":"侬儂农哝噥檂欁浓濃燶禯秾穠脓膿蕽襛農辳醲","hóu":"侯喉帿猴瘊睺矦篌糇翭翵葔鄇鍭餱骺鯸","jiǒng":"侰僒冏囧泂浻澃炅炯烱煚煛熲燛窘綗褧迥逈颎","chěng":"侱庱徎悜睈逞騁骋","zhèn":"侲圳塦挋振揕敶朕栚瑱甽眹紖絼纼誫賑赈酖鋴鎭鎮镇阵陣震鴆鸩","jú":"侷僪啹婅局巈桔椈橘檋毩毱泦淗湨焗犑狊粷菊蘜趜跼蹫躹輂郹閰駶驧鵙鵴鶪鼰鼳","shù":"侸咰墅尌庶庻怷恕戍捒数數朮术束树樹沭漱潄澍濖竖竪絉腧荗蒁虪術裋豎述鉥錰鏣隃鶐","tǐng":"侹圢娗挺梃涏烶珽甼脡艇誔頲颋","shèn":"侺愼慎昚椹涁渗滲甚瘆瘮眘祳罧肾胂脤腎蜃蜄鋠","tuì":"侻娧煺蛻蜕褪退駾","nán":"侽南喃娚抩暔枏柟楠男畘莮諵遖难難","xiāo":"侾呺哓哮嘐嘵嚣嚻囂婋宯宵庨彇憢揱枭枵梟櫹歊毊消潇瀟灱灲焇猇獢痚痟硝硣穘窙箫簘簫綃绡翛膮萧萷蕭藃虈虓蟂蟏蟰蠨踃逍銷销霄驍骁髇髐魈鴞鴵鷍鸮","biàn":"便卞变変峅弁徧忭抃昪汳汴玣緶缏艑苄覍變辡辧辨辩辫辮辯遍釆閞","tuǐ":"俀僓腿蹆骽","xì":"係匸卌呬咥嚱墍屃屭忥怬恄慀戏戱戲椞欯滊潟澙熂犔盻矽磶禊稧系細綌繫细绤舃舄蕮虩衋覤赩趇郤釳闟阋隙隟霼餼饩鬩黖","cù":"促噈媨憱猝瘄瘯簇縬脨蔟誎趗踧蹙蹴蹵酢醋顣鼀","é":"俄吪囮娥峨峩涐珴皒睋磀莪蛾訛誐譌讹迗鈋鋨锇頟額额魤鰪鵝鵞鹅","qiú":"俅叴唒囚崷巯巰扏梂殏毬求汓泅浗渞湭煪犰玌球璆皳盚紌絿肍莍虬虯蛷蝤裘觓觩訄訅賕赇逎逑遒酋醔釚釻銶鮂鯄鰽鼽","xú":"俆徐蒣","guàng":"俇撗臦逛","kù":"俈喾嚳库庫廤焅瘔秙絝绔袴裤褲趶酷","jùn":"俊儁呁埈寯峻懏捃攈攟晙棞浚濬焌燇珺畯竣箘箟蜠郡陖餕馂駿骏鵔鵕鵘","liáng":"俍凉墚梁椋樑涼粮粱糧綡良踉輬辌鿄鿌","zǔ":"俎唨爼珇祖組组詛诅鎺阻靻","qiào":"俏僺峭帩撬撽殻窍竅翘翹誚譙诮躈陗鞘鞩韒髚","yǒng":"俑傛勇勈咏埇塎嵱彮怺恿悀惥愑愹慂柡栐永泳涌湧甬硧禜蛹詠踊踴鯒鲬","hùn":"俒倱圂慁掍混溷焝觨諢诨","jìng":"俓倞傹净凈境妌婙婧弪弳径徑敬曔桱梷浄淨瀞獍痉痙竞竟竧竫競竸胫脛誩踁迳逕鏡镜靓靖静靚靜","sàn":"俕帴散閐","pěi":"俖","sú":"俗","xī":"俙傒僖兮凞卥厀吸唏唽嘻噏夕奚嬆嬉屖嵠嶲巇希徆徯忚怸恓息悉悕惁惜憙扱扸昔晞晰晳曦析桸榽樨橀欷氥汐浠淅渓溪潝烯焁焈焟焬煕熄熈熙熹熺熻燨爔牺犀犠犧狶琋瘜皙睎瞦硒磎礂稀穸窸粞糦緆縘繥羲翕翖肸肹膝舾莃菥蒠蜥螅螇蟋蠵西覀觹觽觿譆谿豀豨豯貕赥邜郗鄎酅醯釸錫鏭鑴锡隵雟餏饻鯑鵗鸂鼷","lǐ":"俚兣娌峛峢峲李欚浬澧理礼禮粴蟸裏裡豊逦邐醴里鋰锂鯉鱧鲤鳢","bǎo":"保堡堢媬宝宲寚寳寶怉珤緥葆藵褓賲靌飹飽饱駂鳵鴇鸨","dì":"俤偙僀啇地坔埊墑墬娣媂嶳帝弟怟慸摕旳杕枤梊棣渧焍玓珶甋眱睇碲祶禘第締缔腣菂蒂蔕蝃螮諦谛踶递逓遞遰釱鉪","liǎ":"俩倆","jiǎn":"俭倹儉减剪劗囝堿弿彅戩戬拣挸捡揀揃撿暕枧柬梘检検檢減湕瀽瑐睑瞼硷碱礆笕筧简簡籛絸繭翦茧藆蠒裥襇襉襺詃謇謭譾谫趼蹇鐗锏鬋鰎鹸鹻鹼","huò":"俰咟嚯嚿奯惑或捇掝旤曤楇檴沎湱濩瀖獲癨眓矆矐砉祸禍穫耯臛艧获蒦藿蠖謋貨货鑊镬閄霍靃","xiào":"俲傚効咲啸嘋嘨嘯孝效敩斅斆校歗涍熽笑肖詨誟","pái":"俳徘排棑牌犤猅簰簲輫","biào":"俵鰾鳔","fèi":"俷剕厞吠屝废廃廢昲曊杮櫠沸濷狒疿痱癈肺胇芾萉費费鐨镄陫靅鯡鼣","fèng":"俸凤奉湗焨煈甮縫缝賵赗鳯鳳鴌","ǎn":"俺唵垵埯揞罯銨铵隌","bèi":"俻倍偝偹備僃备孛悖惫愂憊昁梖焙牬犕狈狽珼琲碚禙糒背苝蓓蛽被褙誖貝贝軰輩辈邶郥鄁鋇鐾钡鞁鞴骳","yù":"俼儥喅喐喩喻噊圫域堉妪媀嫗寓峪嶎庽彧御忬悆惐愈慾戫昱棛棜棫櫲欎欝欲毓浴淢淯滪潏澦灪焴煜燏燠爩狱獄玉琙瘉癒矞砡硲礇礖礜禦秗稢稶穥篽籞籲緎繘罭聿肀育艈芋芌茟蒮蓣蓹蕷薁蜟蜮袬裕誉諭譽谕豫軉輍轝逳遇遹郁醧鈺銉鋊錥鐭钰閾阈霱預预飫饇饫馭驈驭鬰鬱鬻魊鱊鳿鴥鴧鴪鵒鷸鸒鹆鹬龥","xīn":"俽噺妡嬜廞心忻惞新昕杺欣歆炘盺芯薪訢辛邤鈊鋅鑫锌馨馫","jiù":"倃僦匓匛匶厩咎就廄廏廐慦捄救旧柩柾桕欍殧疚臼舅舊鯦鷲鹫麔齨","yáo":"倄傜嗂垚堯姚媱尧尭峣嶢嶤徭愮揺搖摇摿暚榣滧烑爻猺珧瑤瑶磘窑窯窰繇肴蘨謠謡谣軺轺遙遥邎銚鎐顤颻飖餆餚鰩鳐","wǎn":"倇唍埦婉宛惋挽晚晥晩晼梚椀琬畹皖盌睕碗綩綰绾脘菀萖踠輓鋔","zòng":"倊昮猔疭瘲碂粽糉糭縦縱纵錝","guān":"倌关冠官棺瘝癏窤蒄覌観觀观関闗關鰥鱞鳏","tiǎn":"倎唺忝悿晪殄淟琠痶睓腆舔覥觍賟錪鍩靦餂","dào":"倒到噵悼椡檤焘燾瓙盗盜稲稻箌纛翢翿艔菿衜衟軇道","tán":"倓坛墰墵壇壜婒惔憛昙曇榃檀潭燂痰磹罈罎藫覃談譚譠谈谭貚郯醈醰錟锬顃餤","chuí":"倕垂埀捶搥棰椎槌箠腄菙錘鎚锤陲顀","xìng":"倖姓婞嬹幸性悻杏涬緈臖興荇莕鿿","péng":"倗堋塳弸彭憉挷朋棚椖槰樥熢硼稝竼篣篷纄膨芃莑蓬蘕蟚蟛輣錋鑝韸韼騯髼鬅鬔鵬鹏","hòu":"候厚后垕堠後洉豞逅郈鮜鱟鲎鲘","tì":"倜剃嚏嚔屉屜悌悐惕惖戻掦揥替朑楴歒殢洟涕瓋笹籊薙裼褅趯逖逷髰鬀","gàn":"倝凎咁干幹旰榦檊汵淦灨盰紺绀詌贑贛赣骭","suī":"倠哸夊浽滖濉熣眭睢綏芕荽荾葰虽雖鞖","chàng":"倡唱怅悵暢焻玚瑒畅畼誯韔鬯","jié":"倢偼傑刦刧刼劫劼卩卪婕媫孑尐岊崨嵥嶻巀幯截拮捷掶擮昅杢杰桀桝楬楶榤櫭洁滐潔疌睫碣礍竭節結絜结羯节莭蓵蜐蝍蠘蠞蠽衱袺訐詰誱讦踕迼鉣鍻鞊颉魝鮚鲒","kōng":"倥埪崆悾涳硿空箜躻錓鵼","juàn":"倦劵勌奆巻慻桊淃狷獧眷睊睠絭絹縳绢罥羂蔨鄄隽雋飬餋","zōng":"倧堫宗嵏嵕嵸惾朡棕椶熧猣磫稯綜緃緵综翪腙葼蝬豵踨踪蹤鍐鑁騌騣骔鬃鬉鬷鯮鯼","ní":"倪坭埿婗尼屔怩棿泥淣猊秜籾聣腝臡蚭蜺觬貎跜輗郳铌霓鯢鲵麑齯","zhuō":"倬拙捉桌棁棳槕涿炪穛穱蠿","wō":"倭唩挝撾涡涹渦猧窝窩莴萵蜗蝸踒","luǒ":"倮剆曪瘰癳臝蓏蠃裸躶","sōng":"倯凇娀崧嵩庺忪憽松枀枩柗梥檧淞濍硹菘蜙鍶鬆","lèng":"倰堎愣睖踜","zì":"倳剚字恣渍漬牸眥眦胔胾自芓茡荢","bèn":"倴坋坌捹撪桳渀獖笨輽逩","cǎi":"倸啋婇寀彩採毝睬綵跴踩采","zhài":"债債寨瘵砦","yē":"倻噎掖暍椰潱蠮","shà":"倽厦唼啑喢帹廈歃箑翜翣萐閯霎","qīng":"倾傾卿圊埥寈氢氫淸清蜻輕轻郬鑋靑青鲭","yīng":"偀啨嘤嚶婴媖嫈嬰孆孾应応愥應撄攖朠桜樱櫻渶煐珱瑛璎瓔甇甖碤礯緓纓绬缨罂罃罌膺英莺蘡蝧蠳褮譍譻賏軈鍈鑍锳霙韺鴬鶑鶧鶯鷪鷹鸎鸚鹦鹰","chēng":"偁僜憆摚撐撑柽棦橕檉泟浾爯牚琤瞠称稱穪竀緽罉蛏蟶赪赬鏳鏿鐣阷靗頳饓","ruǎn":"偄媆朊瑌瓀碝礝緛耎軟輭软阮","chǔn":"偆惷睶萶蠢賰","jiǎ":"假叚婽岬徦斚斝椵榎槚檟玾甲瘕胛賈贾鉀钾","ruò":"偌叒嵶弱楉渃焫爇箬篛若蒻鄀鰙鰯鶸","tí":"偍厗啼嗁崹徲惿提漽瑅碮禵稊綈緹绨缇罤苐荑蕛蝭褆謕趧蹄蹏遆醍銻鍗題题騠鮷鯷鳀鴺鵜鶗鶙鷤鹈","wēi":"偎危喴威媙嶶巍微愄揋揻椳楲渨溦烓煨燰縅萎葨葳薇蜲蝛覣詴逶隇隈鰃鰄鳂","piān":"偏囨媥犏篇翩鍂鶣","yàn":"偐傿厌厭咽唁喭嚥堰墕妟姲嬊嬿宴彥彦敥晏暥曕曣椻溎滟灎灔灧灩烻焔焰焱熖燄燕爓牪猒砚硯艳艶艷葕覎觃觾諺讌讞谚谳豓豔贋贗赝軅酀酽醶醼釅隁雁餍饜騐験騴驗驠验鬳鳫鴈鴳鷃鷰","è":"偔僫匎卾厄呃呝咢咹噩垩堊堮姶屵岋峉崿廅恶悪惡愕戹扼搤搹擜櫮歞歺湂琧砐砨硆礘腭苊萼蕚蚅蝁覨詻諤讍谔豟軛軶轭遌遏遻鄂鈪鍔鑩锷閼阏阨阸頞顎颚餓餩饿魥鰐鱷鳄鶚鹗齃齶","xié":"偕劦勰协協嗋垥奊峫恊愶拹挟挾携撷擕擷攜斜旪熁燲瑎綊緳纈缬翓胁脅脇脋膎蝢衺襭諧讗谐邪鞋鞵頡龤","chě":"偖扯撦","shěng":"偗渻省眚","chā":"偛叉嗏扠挿插揷杈疀肞臿艖銟鍤锸餷馇","huáng":"偟凰喤堭墴媓崲徨惶楻湟潢煌熿獚瑝璜癀皇磺穔篁篊簧艎葟蝗蟥諻趪遑鍠鐄锽隍韹餭騜鰉鱑鳇鷬黃黄","yān":"偣剦嫣嬮崦嶖恹懕懨樮淊淹湮漹烟焉焑煙珚硽篶胭腌臙菸鄢醃閹阉黫","yóu":"偤尢尤峳怣斿楢櫾沋油浟游犹猶猷由疣秞肬莜莸蕕蚰蝣訧輏輶逰遊邮郵鈾铀駀魷鮋鱿鲉","xǔ":"偦冔呴喣姁暊栩珝盨稰糈許詡许诩鄦醑","zhā":"偧劄吒哳喳奓扎抯挓揸摣柤査楂樝渣皶皻觰譇齄齇","cī":"偨呲疵縒蠀趀跐骴髊齹","bī":"偪屄楅榌毴螕豍逼鎞鰏鲾鵖","zǒng":"偬傯总惣愡捴揔搃摠燪総縂總蓗鏓","xún":"偱噚寻尋峋巡廵循恂揗攳旬杊栒桪樳毥洵浔潯灥燅燖珣璕畃紃荀荨蟳詢询鄩馴鱏鱘鲟","cāi":"偲猜","duān":"偳剬媏端耑褍鍴","ǒu":"偶吘呕嘔耦腢蕅藕","tōu":"偷偸婾媮鋀鍮","zá":"偺喒囋囐杂沯砸磼襍雑雜雥韴","lóu":"偻僂剅喽嘍娄婁廔慺楼樓溇漊熡耧耬艛蒌蔞蝼螻謱軁遱鞻髅髏","sǒu":"傁叜叟嗾擞擻櫢瞍籔薮藪","sù":"傃僳嗉塐塑夙嫊宿愫愬憟梀榡樎樕橚殐泝洬涑溯溸潚潥玊珟璛碿簌粛粟素縤肃肅膆莤蔌藗觫訴謖诉谡趚蹜速遡遬鋉餗驌骕鱐鷫鹔","xiā":"傄煆疨瞎虲虾蝦谺閕颬鰕","yuàn":"傆噮垸夗妴媛怨愿掾瑗禐肙苑衏裫褑褤院願","rǒng":"傇冗坈宂氄軵","nù":"傉怒搙","yùn":"傊孕恽惲愠慍枟熅熨緷緼縕腪蕴薀藴蘊运運郓鄆酝醖醞韗韞韫韵韻餫","jiǎng":"傋奖奨奬桨槳獎耩膙蒋蔣講讲顜","mà":"傌唛嘜杩榪犸獁睰礣祃禡罵閁駡骂鬕","bàng":"傍塝搒棒棓玤磅稖艕蒡蚌蜯謗谤鎊镑","diān":"傎厧嵮巅巓巔掂攧敁槇槙滇甸瘨癫癲蹎顚顛颠齻","táng":"傏唐啺坣堂塘搪棠榶樘橖溏漟煻瑭磄禟篖糃糖糛膅膛蓎螗螳赯踼鄌醣鎕闛隚餳餹饄饧鶶","hào":"傐号哠恏悎昊昦晧暤暭曍浩淏滈澔灏灝皓皜皞皡皥秏耗聕薃號鄗鎬顥颢鰝","shàn":"傓僐剡善墠墡嬗扇掞擅敾椫樿歚汕潬灗疝磰繕缮膳蟮蟺訕謆譱讪贍赡赸鄯釤銏鐥饍騸骟鱓鱔鳝","tàn":"傝僋叹嘆埮探歎湠炭碳舕賧","suō":"傞唆嗍娑摍桫梭睃簑簔縮缩羧莏蓑趖髿鮻","dǎi":"傣歹逮","zài":"傤儎再在扗洅縡載载酨","gǔ":"傦古唃啒嘏夃尳愲扢榖榾毂汩淈濲瀔牯皷皼盬瞽穀糓縎罟羖股脵臌蓇薣蛊蛌蠱詁诂谷轂逧鈷钴餶馉骨鹄鹘鼓鼔","bīn":"傧儐宾彬斌梹椕槟檳汃滨濒濱濵瀕玢瑸璸砏繽缤虨豩豳賓賔邠鑌镔霦顮","chǔ":"储儲処杵椘楚楮檚濋璴础礎褚鸀齭齼","nuó":"傩儺挪梛郍","cān":"傪参參叄叅喰嬠湌爘飡餐驂骖","lěi":"傫儡厽垒塁壘樏櫐灅癗矋磊磥礨絫耒腂蕌蕾藟蘽蠝誄讄诔鑸鸓","cuī":"催凗墔崔嶉慛摧榱槯獕磪縗缞鏙","zāo":"傮糟蹧遭醩","sǒng":"傱嵷怂悚愯慫楤竦耸聳駷","ào":"傲坳垇墺奡奥奧嫯岙岰嶴慠懊扷擙澳鏊隩驁骜鿫","zú":"傶卆卒哫崒崪族箤足踤踿鏃镞","chuǎng":"傸摤磢闖闯","chì":"傺勅勑叱啻彳恜慗憏懘抶敕斥杘湁灻炽烾熾痓痸瘈瘛硳翄翅翤翨腟赤趩跮遫鉓銐雴飭饎饬鶒鷘","shǎ":"傻儍","hàn":"傼垾屽岾悍憾捍撖撼旱晘暵汉汗涆漢瀚焊熯猂皔睅翰莟菡蘫蛿蜭螒譀釬銲鋎閈闬雗頷顄颔馯駻鶾","zhāng":"傽嫜张張彰慞暲樟漳獐璋章粻蔁蟑遧鄣餦騿鱆麞","piào":"僄勡嘌徱票","liàn":"僆堜媡恋戀楝殓殮浰湅潋澰瀲炼煉瑓練纞练萰錬鍊鏈链鰊","mán":"僈姏悗慲樠瞒瞞蛮蠻謾谩鞔顢饅馒鬗鬘鰻鳗","yíng":"僌営塋嬴攍楹櫿溁溋滢潆濙濚濴瀅瀛瀠瀯瀴灐灜熒營瑩盁盈籝籯縈茔荧莹萤营萦萾蓥藀蛍蝇蝿螢蠅覮謍贏赢迎鎣","zhuàn":"僎啭囀堟撰灷瑑篆篹籑腞蒃襈譔賺赚饌馔","xiàng":"像勨向嚮塂姠嶑巷橡珦缿萫蟓衖襐象銗鐌項项鱌","zǔn":"僔噂撙譐","pú":"僕匍圤墣濮獛璞瞨穙纀脯莆菐菩葡蒱蒲贌酺鏷镤","láo":"僗劳労勞哰唠嘮崂嶗憥朥浶牢痨癆磱窂簩蟧醪鐒铹顟髝鿲","chǎng":"僘厂厰场場廠惝敞昶氅鋹","liáo":"僚嘹嫽寥寮屪嵺嶚嶛廫憀敹暸漻燎爎獠璙疗療竂簝繚缭聊膋膫藔蟟豂賿蹘辽遼鐐飉髎鷯鹩","chán":"僝儃儳劖嚵壥婵嬋巉廛棎欃毚湹潹潺澶瀍瀺煘獑磛禅禪緾纏纒缠艬蝉蟬蟾誗讒谗躔鄽酁鋋鑱镡镵饞馋","bō":"僠剝剥哱啵嶓帗拨撥播波溊玻癶癷盋砵碆紴缽菠袚袰蹳鉢钵餑饽驋鮁鱍","chuǎn":"僢喘歂舛荈踳","tiě":"僣蛈銕鐡鐵铁驖鴩","sēng":"僧鬙","xiàn":"僩僴县咞哯垷壏姭娊娨宪岘峴憲撊晛橌涀瀗献獻现現県睍硍粯糮絤綫線縣线缐羡羨腺臔臽苋莧蜆誢豏鋧錎限陥陷霰餡馅麲鼸","lìn":"僯吝恡悋橉焛甐疄膦蔺藺賃赁蹸躏躙躪轥閵","gù":"僱凅固堌崓崮故梏棝牿痼祻稒錮锢雇顧顾鯝鲴","jiāng":"僵壃姜将將摪橿殭江浆漿畕畺疅疆礓繮缰翞茳葁薑螀螿豇韁鱂鳉","mǐn":"僶冺刡勄悯惽愍慜憫抿敃敏敯暋泯湣潣皿笢笽簢蠠閔閩闵闽鰵鳘黾","pì":"僻嚊媲嫓屁揊淠潎澼甓疈睥稫譬辟釽闢鷿鸊","sài":"僿嗮簺賽赛","dàng":"儅凼圵垱壋婸宕嵣愓档檔氹潒璗瓽盪瞊砀碭礑簜荡菪蕩蘯趤逿闣雼","xuān":"儇吅喧塇媗宣弲愃愋懁揎昍暄梋煊瑄睻矎禤箮縇翧翾萱萲蓒蕿藼蘐蝖蠉諠諼譞谖軒轩鋗鍹駽鰚","càn":"儏孱掺摻澯灿燦璨粲薒謲","án":"儑啽玵雸","tái":"儓台坮嬯抬擡旲枱檯炱炲箈籉臺苔菭薹跆邰颱駘鮐鲐","lán":"儖兰厱囒婪岚嵐幱惏懢拦攔斓斕栏欄欗澜瀾灆灡燣燷璼礷篮籃籣繿葻蓝藍蘭褴襕襤襴襽譋讕谰躝钄镧闌阑韊","méng":"儚冡幪懞曚朦橗檬氋溕濛甍甿盟瞢矇矒礞艨莔萌蒙蕄蘉虻蝱鄳鄸霿靀顭饛鯍鸏鹲鼆","níng":"儜凝咛嚀嬣宁寍寕寗寜寧拧擰柠檸狞獰甯聍聹苧薴鑏鬡鸋","qióng":"儝卭宆惸憌桏橩焪焭煢熍琼璚瓊瓗睘瞏穷穹窮竆笻筇舼茕藑藭蛩蛬赹跫邛銎","liè":"儠冽列劣劽哷埒埓姴巤挒捩擸栵洌浖烈烮煭犣猎猟獵睙聗脟茢蛚裂趔躐迾颲鬛鬣鮤鱲鴷","kuǎng":"儣夼懭","bào":"儤勽報忁报抱暴曓爆菢虣蚫袌豹趵鉋鑤铇靤骲髱鮑鲍","biāo":"儦墂幖彪摽杓标標淲滮瀌灬熛爂猋瘭磦穮脿膘臕蔈藨謤贆鏢鑣镖镳颩颮颷飆飇飈飊飑飙飚驃驫骉骠髟","zǎn":"儧儹噆寁揝撍攅攒攢昝桚趱趲","háo":"儫嗥嘷噑嚎壕椃毜毫濠獆獋獔竓籇蚝蠔諕譹豪貉","qìng":"儬凊庆慶掅櫦殸濪碃磬箐罄靘","chèn":"儭嚫榇櫬疢衬襯讖谶趁趂齓齔龀","téng":"儯幐滕漛疼痋籐籘縢腾藤虅誊謄邆駦騰驣鰧","lǒng":"儱垄垅壟壠拢攏竉篢陇隴龓","ráng":"儴勷瀼獽瓤禳穣穰蘘躟鬤","luó":"儸攞椤欏猡玀箩籮罖罗羅脶腡萝蘿螺覙覶覼逻邏鏍鑼锣镙饠騾驘骡鸁","léi":"儽壨嫘擂檑櫑欙瓃畾礌礧縲纍纝缧罍羸蔂蘲虆轠鐳鑘镭雷靁鱩鼺","nàng":"儾齉","yǔn":"允喗夽抎殒殞狁磒荺褞賱鈗阭陨隕霣馻齫齳","zān":"兂簪簮糌鐕鐟","yuán":"元円原厡厵员員园圆圎園圓垣塬媴嫄援杬榞榬橼櫞沅湲源溒爰猨猿獂笎緣縁缘羱茒蒝薗蚖蝝蝯螈袁謜貟贠轅辕邍邧酛鈨鎱騵魭鶢鶰黿鼋","xiōng":"兄兇凶匂匈哅忷恟汹洶胷胸訩詾讻賯","chōng":"充冲嘃徸忡憃憧摏沖浺珫罿翀舂艟茺衝蹖","zhào":"兆召垗旐曌枛棹櫂炤照燳狣瞾笊罩羄肁肇肈詔诏赵趙鮡","duì":"兊兌兑对対對怼憝憞懟濧瀩碓祋綐薱襨譈譵鐓镦队陮隊","kè":"克刻剋勀勊堁娔客尅恪愙氪溘碦礊緙缂艐課课锞騍骒","tù":"兎兔堍莵迌鵵","兙":"兙","dǎng":"党挡擋攩欓灙譡讜谠黨","dōu":"兜兠吺唗橷篼蔸都","fēn":"兝兺分吩哛帉昐朆棻氛竕紛纷翂芬衯訜躮酚鈖雰餴饙","máo":"兞堥旄枆毛氂渵牦犛矛罞茅茆蝥蟊軞酕錨锚髦髳鶜","兡":"兡","huǎng":"兤奛宺幌怳恍晄櫎炾熀縨詤謊谎","rù":"入嗕媷扖杁洳溽縟缛蓐褥鳰","nèi":"內内氝錗","liù":"六塯廇澑畂磟翏雡霤飂餾鬸鷚鹨","han":"兯爳","gòng":"共唝羾莻貢贡","tiān":"兲天婖添酟靔靝黇","xīng":"兴垶惺星曐煋猩瑆皨箵篂腥蛵觪觲謃騂骍鮏鯹","diǎn":"典嚸奌婰敟椣点猠碘蒧蕇跕踮點","jiān":"兼冿囏坚堅奸姦姧尖幵惤戋戔搛椷椾樫櫼歼殱殲湔瀐瀸煎熞熸牋犍猏玪瑊监監睷碊礛笺箋篯緘縑缄缣肩艰艱菅菺葌蒹蕑蕳虃覸豜豣鐧鑯間间鞬鞯韀韉餰馢鰹鲣鳒鳽鵳鶼鹣麉","shòu":"兽受售壽夀寿授涭狩獣獸痩瘦綬绶膄鏉","jiōng":"冂冋坰埛扃絅蘏蘔駉駫","mào":"冃冐冒媢帽愗懋暓柕楙毷瑁皃眊瞀耄芼茂萺蝐袤覒貌貿贸鄚鄮","rǎn":"冄冉姌媣染橪珃苒蒅","gāng":"冈冮刚剛堈堽岡掆杠棡牨犅疘矼綱纲缸罁罓罡肛釭鋼鎠钢","guǎ":"冎剐剮叧寡","gòu":"冓坸垢够夠姤媾彀搆撀构構煹茩覯觏訽詬诟購购遘雊","mì":"冖冪嘧塓宓宻密峚幂幎幦榓樒櫁汨沕泌淧滵漞濗熐祕秘簚糸羃蔤藌蜜覓覔覛觅謐谧鼏鿹","xiě":"写冩寫藛","jūn":"军君均姰桾汮皲皸皹碅莙菌蚐袀覠軍鈞銁銞鍕钧鮶鲪麇麏麕","mí":"冞弥彌戂擟攠瀰爢猕獼瓕祢禰糜縻蒾蘼袮詸謎谜迷醚醾醿釄镾靡鸍麊麋麛麿","zhǒng":"冢喠塚塜尰歱煄瘇种種穜肿腫踵","yuān":"冤剈囦嬽寃悁惌棩淵渁渆渊渕灁眢箢葾蒬蜎蜵裷駌鳶鴛鵷鸢鸳鹓鼘鼝","míng":"冥名嫇明暝朙榠洺溟猽眀眳瞑茗蓂螟覭鄍銘铭鳴鸣","kòu":"冦叩宼寇扣敂滱瞉窛筘簆蔲蔻釦鷇","tài":"冭太夳忲态態汰泰溙燤肽舦酞鈦钛","féng":"冯堸夆捀摓浲溄漨綘艂逢馮","kuàng":"况卝圹壙岲懬旷昿曠況爌眖眶矌矿砿礦穬絋絖纊纩貺贶軦邝鄺鉱鋛鑛黋","lěng":"冷","pàn":"冸判叛拚沜泮溿炍牉畔盼聁袢襻詊鋬鑻頖鵥","xiǎn":"冼尟尠崄嶮幰搟攇显櫶毨灦烍燹狝猃獫獮玁禒筅箲藓蘚蚬譣赻跣銑鍌险険險韅顕顯","qià":"冾圶帢恰愘殎洽硈髂","sōu":"凁嗖廀廋捜搜摉摗溲獀艘蒐蓃螋鄋醙鎪锼颼颾飕餿馊騪","měi":"凂媄媺嬍嵄挴毎每浼渼燘美躾鎂镁黣","tú":"凃図图圕圖圗塗屠峹嵞庩廜徒悇捈揬梌涂潳瘏稌筡腯荼菟蒤跿途酴鈯鍎馟駼鵌鶟鷋鷵","zhǔn":"准凖埻準綧","diāo":"凋刁刟叼奝弴彫殦汈琱瞗碉簓虭蛁貂雕鮉鯛鲷鳭鵰鼦","còu":"凑湊腠輳辏","ái":"凒啀嘊捱敱敳溰癌皑皚騃","chuàng":"凔创刱剏剙創怆愴","duó":"凙剫喥夺奪敓敚痥踱鈬鐸铎鮵","dú":"凟匵嬻椟櫝殰毒涜渎瀆牍牘犊犢独獨瓄皾碡蝳裻読讀讟读豄贕錖鑟韇韣韥騳髑黩黷","fán":"凡凢凣匥墦杋柉棥樊橎渢瀪瀿烦煩燔璠矾礬笲籵緐繁羳膰舤舧薠蘩蠜襎蹯鐇鐢钒鷭","jū":"凥匊娵婮居崌抅拘挶掬梮椐泃涺狙琚疽痀眗砠罝腒艍苴菹蜛裾諊趄跔踘鋦锔陱雎鞠鞫駒驹鮈鴡鶋","zhǐ":"凪劧只咫址坁夂帋怾恉扺抧指旨枳止汦沚洔淽疻砋祉紙纸芷茋藢衹襧訨趾軹轵酯阯黹","píng":"凭凴呯坪塀屏屛岼帡帲幈平慿憑枰檘泙洴淜焩玶瓶甁箳簈缾胓苹荓萍蓱蘋蚲蛢評评軿輧郱鮃鲆","kǎi":"凯凱剀剴嘅垲塏嵦恺愷慨暟楷蒈輆鍇鎧铠锴闓闿颽","dèng":"凳墱嶝櫈瞪磴邓鄧鐙镫隥","qiǎn":"凵嗛嵰槏浅淺繾缱肷脥膁蜸譴谴遣鑓","tū":"凸唋堗宊嶀怢捸涋湥痜禿秃突葖鋵鵚鼵","āo":"凹柪梎爊軪","chū":"出初岀摴樗貙齣","hán":"函凾含唅圅娢寒崡嵅晗梒浛涵澏焓琀甝筨肣虷蜬邗邯鋡韓韩魽鿰","záo":"凿鑿","dāo":"刀刂叨忉朷氘舠釖魛鱽","chuāng":"刅摐牎牕疮瘡窓窗窻","qiè":"切匧厒妾怯悏惬愜挈朅洯淁穕窃竊笡箧篋籡緁藒蛪踥郄鍥鐑锲鯜","kān":"刊勘堪嵁戡栞龕龛","cǔn":"刌忖","chú":"刍厨媰幮廚橱櫉櫥滁犓篨耡芻蒢蒭蕏藸蜍蟵豠趎蹰躇躕鉏鋤锄除雏雛鶵","wěn":"刎吻呡忟抆桽稳穏穩紊肳脗","huà":"划劃化夻婳嫿嬅崋摦杹枠桦槬樺澅画畫畵繣舙觟話諙諣譮话黊","lí":"刕剓剺劙厘喱嚟囄嫠孋孷廲悡斄杝梨梩梸棃樆漓灕犁犂狸琍璃瓈盠睝离穲竰筣篱籬糎縭纚缡罹艃荲菞蓠蔾藜蘺蜊蟍蠡蠫褵謧貍邌醨釐鋫錅鏫鑗離驪骊鯏鯬鱺鲡鵹鸝鹂黎黧","yuè":"刖妜嬳岄岳嶽恱悅悦戉抈捳月樾瀹爚玥礿禴篗籆籥籰粤粵蘥蚎蚏越跀跃躍軏鈅鉞钺閱閲阅鸑鸙黦龠","liú":"刘劉嚠媹嵧懰旈旒榴橊沠流浏瀏琉瑠瑬璢畄留畱疁瘤癅硫磂蒥蓅藰蟉裗遛鎏鎦鏐鐂镏镠飀飅飗馏駠駵騮驑骝鰡鶹鹠麍","zé":"则則唶啧嘖嫧帻幘択择擇樍歵沢泎泽溭澤皟瞔矠礋笮箦簀舴蔶蠌襗諎謮責賾责赜迮鸅齚齰","qù":"刞厺去呿唟耝覷觑趣閴闃阒麮鼁","shān":"删刪剼嘇圸埏姍姗山幓彡挻搧杉柵檆潸澘煽狦珊痁笘縿羴羶脠膻舢芟苫衫跚軕邖钐閊鯅","bié":"別别咇徶莂蛂襒蹩","páo":"刨匏咆垉庖炰爮狍袍褜軳鞄麃麅","guā":"刮劀栝歄煱瓜緺聒胍趏踻銽颪颳騧鴰鸹","gēng":"刯庚椩浭焿畊絚緪縆羮羹耕菮賡赓鶊鹒","kū":"刳哭圐堀崫扝枯桍矻窟跍郀骷鮬","duò":"刴剁堕墮墯尮嶞惰憜柁柮桗舵跢跥跺陊陏飿饳鵽","shuā":"刷唰","quàn":"券劝勧勸牶韏","guì":"刽刿劊劌匱嶡撌攰昋柜桂桧椢槶檜櫃炔猤癐瞶禬筀簂蓕襘貴贵跪鞼鱖鱥鳜","cuò":"剉剒厝夎挫措斮棤莝莡蓌逪銼錯锉错","xuē":"削疶蒆薛辥辪靴鞾","lá":"剌嚹揦旯砬磖","tī":"剔擿梯踢锑鷈鷉","pōu":"剖娝","wān":"剜塆壪婠帵弯彎湾潫灣蜿豌","duō":"剟咄哆嚉多夛崜掇敠敪毲畓裰","qíng":"剠勍夝情擎擏晴暒棾樈檠殑氰甠葝黥","dū":"剢厾嘟督醏闍阇","huō":"剨劐吙嚄攉耠豁鍃锪騞","shèng":"剩剰勝圣墭嵊晠榺橳琞盛聖胜蕂貹賸","dá":"剳匒呾哒妲怛沓炟燵畗畣笪答羍荙薘蟽詚跶躂达迏迖迚逹達鎉鐽阘靼鞑韃龖龘","chuān":"剶巛川氚猭瑏穿","tuán":"剸团団團慱抟摶槫檲漙篿糰鏄鷒鷻","pěng":"剻捧淎皏","piāo":"剽彯慓旚漂犥缥翲螵飃飄飘魒","kōu":"剾彄抠摳眍瞘芤","qiāo":"劁墝墽嵪幧悄敲橇毃燆硗磽繑缲趬跷踍蹺郻鄡鄥鍫鍬鐰锹頝骹","tāng":"劏嘡汤湯羰耥薚蝪蹚鏜鐋铴镗鞺鼞","mó":"劘嚤嚩嚰嫫尛庅摩摹擵模橅磨糢膜蘑謨謩谟饃饝馍髍魔魹麽","zhú":"劚孎曯欘泏灟炢烛燭爥瘃窋竹竺笁笜舳茿蠋蠾躅逐钃鱁","kēng":"劥吭坑妔挳摼牼硁硜硻誙銵鍞鏗铿阬","shào":"劭卲哨娋潲睄紹綤绍袑邵","mò":"劰唜嗼圽塻墨妺嫼寞帓帞昩暯末枺歾歿殁沫湐漠瀎爅獏瘼皌眜眽眿瞐瞙砞礳秣粖絈纆耱茉莈莫蓦藦蛨蟔貃貊貘銆鏌镆陌靺驀魩默黙","kǒu":"劶口","wā":"劸嗗娲媧屲挖搲攨洼溛漥畖穵窊窪蛙鼃","kuāng":"劻匡匩哐恇框洭硄筐筺誆诓軭邼","gào":"勂吿告峼祮祰禞筶誥诰郜鋯锆","láng":"勆嫏廊斏桹榔欴狼琅瑯硠稂筤艆蓈蜋螂躴郎郒郞鋃鎯锒阆駺鿶","xūn":"勋勛勲勳嚑坃埙塤壎壦曛焄熏燻爋獯矄窨纁臐蔒薫薰蘍醺駨","měng":"勐懜懵猛獴瓾艋蜢蠓錳锰鯭","lēi":"勒","kài":"勓忾愒愾欬炌炏烗鎎","wěng":"勜塕奣嵡攚暡瞈聬蓊","qín":"勤嗪噙埁嫀庈慬懃懄捦擒斳檎溱澿珡琴琹瘽禽秦耹芩芹菦菳蚙螓蠄鈙鈫雂靲鬵鳹鵭","jiàng":"勥匞匠夅嵹弜弶彊摾櫤洚滰犟糡糨絳绛袶謽酱醤醬降","chāo":"勦弨怊抄欩焯訬超鈔钞","fān":"勫噃嬏帆幡忛憣旙旛番籓繙翻蕃藩轓颿飜鱕","juān":"勬姢娟捐涓焆瓹脧蠲裐鎸鐫镌鵑鹃","lǜ":"勴垏寽嵂律慮櫖氯滤濾爈率箻綠緑繂绿膟葎虑鑢","chè":"勶坼屮彻徹掣撤澈烢爡瞮硩聅迠頙","sháo":"勺柖玿芍苕韶","wén":"匁彣文炆玟珳瘒紋纹聞芠蚉蚊螡蟁閺閿闅闦闻阌雯馼駇魰鳼鴍鼤","cōng":"匆囪囱忩怱悤暰枞棇樅樬漗焧熜瑽璁瞛篵緫繱聡聦聪聰苁茐葱蓯蔥蟌鍯鏦騘驄骢","pēng":"匉嘭怦恲抨梈漰澎烹砰硑磞軯閛","táo":"匋咷啕桃梼檮洮淘祹綯绹萄蜪裪迯逃醄鋾錭陶鞀鞉饀駣騊鼗","běi":"北鉳","nǎo":"匘垴堖嫐恼悩惱獶獿瑙碯脑脳腦","fāng":"匚坊方枋汸淓牥芳蚄邡鈁錺钫鴋","zā":"匝咂帀拶沞紥紮臜臢迊鉔魳","zāng":"匨牂羘臧蔵賍賘贓贜赃髒","fěi":"匪奜悱斐朏棐榧篚翡胐蕜誹诽","kuì":"匮喟嘳媿嬇尯愦愧憒樻欳溃潰瞆篑簣籄聩聭聵腃蒉蕢謉鐀鑎餽饋馈","suǎn":"匴","kē":"匼嗑嵙搕柯棵榼樖牁犐珂疴瞌砢磕礚科稞窠胢苛萪薖蝌趷軻轲醘鈳钶顆颏颗髁","biǎn":"匾惼扁碥稨窆糄萹藊褊貶贬鴘","niàn":"卄唸埝姩廿念艌","sà":"卅摋櫒泧脎萨薩虄鈒钑隡颯飒馺","shēng":"升呏声斘昇曻枡栍殅泩湦焺牲狌珄生甥竔笙聲苼鉎鍟阩陞陹鵿鼪","huá":"华姡搳撶滑猾磆華蕐螖譁釪釫鋘鏵铧驊骅鷨","bēi":"卑悲揹杯桮椑盃碑藣陂鵯鹎","shuài":"卛帅帥蟀","bo":"卜萡","bǔ":"卟哺喸捕补補鵏鸔","lú":"卢嚧垆壚庐廬攎曥枦栌櫨泸瀘炉爐獹玈璷瓐盧矑籚纑罏胪臚舮舻艫芦蘆蠦轤轳鈩鑪顱颅髗魲鱸鲈鸕鸬黸","lǔ":"卤嚕塷掳擄擼樐橹櫓氌滷澛瀂硵磠艣艪蓾虏虜鏀鐪鑥镥魯鲁鹵","guà":"卦啩坬挂掛絓罣罫褂詿诖","áng":"卬岇昂昻","yìn":"印垽堷廕慭憖憗懚檼洕湚猌癊胤茚酳鮣","què":"却卻埆塙墧崅悫愨慤搉榷燩琷皵硞确碏確碻礐礭趞闋闕阕雀鵲鹊","luǎn":"卵","juǎn":"卷呟埍帣捲臇菤錈锩","tīng":"厅厛听庁廰廳桯汀烃烴町綎耓聴聼聽艼鞓","zhé":"厇哲啠喆嚞埑悊折摺晢晣歽矺砓磔籷粍虴蛰蟄袩詟謫謺讁讋谪輒輙轍辄辙銸馲鮿","yǎ":"厊哑唖啞庌痖瘂蕥雅","shè":"厍厙射弽慑慴懾摂摄摵攝欇歙涉涻渉滠灄社舎蔎蠂設设赦韘騇麝","dǐ":"厎呧坘底弤抵拞掋柢牴砥聜菧觝詆诋軧邸阺骶鯳","zhǎ":"厏拃搩眨砟苲踷鮓鮺鲊鲝","páng":"厐厖嫎庞彷徬旁舽螃逄鳑龎龐","zuī":"厜嗺朘樶纗蟕","áo":"厫嗷嗸嶅廒摮敖滶熬獒獓璈磝翱翶翺聱蔜螯謷謸遨鏖隞鰲鳌鷔鼇","róu":"厹媃揉柔渘煣瑈瓇禸粈糅腬葇蝚蹂輮鍒鞣騥鰇鶔","ěr":"厼尒尓尔栮毦洱爾珥耳薾趰迩邇铒餌饵駬","shuāng":"双孀孇欆礵艭雙霜騻驦骦鷞鸘鹴","shōu":"収收","guài":"叏夬怪恠","bá":"叐坺墢妭抜拔炦犮癹胈茇菝詙跋軷颰魃鼥","fā":"发彂沷発發醱","qǔ":"取娶竘竬蝺詓齲龋","dié":"叠喋垤堞峌嵽幉恎惵戜挕揲昳曡殜氎牃牒瓞畳疂疉疊眣碟絰绖耊耋胅臷艓苵蜨蝶褋詄諜谍趃蹀迭镻鰈鲽","ruì":"叡壡枘汭瑞睿芮蚋蜹銳鋭锐","jiào":"叫呌嘂嘦噍噭嬓峤嶠挍敎教斠滘漖潐獥珓皭窌窖藠訆譥趭較轎轿较酵醮釂","kě":"可坷岢嵑嶱敤渇渴炣","pǒ":"叵尀笸钷颇駊","liǎo":"叾憭曢爒瞭蓼鄝釕钌镽","hōng":"叿吽呍嚝揈渹灴烘焢硡薨訇谾軣輷轟轰鍧","xū":"吁嘘噓墟媭嬃幁戌揟旴晇楈欨歔湑疞盱窢縃繻胥蕦虗虚虛蝑裇訏諝譃谞鑐需須頊须顼驉鬚魆魖","máng":"吂哤娏尨庬忙恾杗杧氓汒浝牻狵痝盲硭笀芒茫蛖邙釯鋩铓駹","yāo":"吆喓夭妖幺枖楆殀祅腰葽訞邀鴁","zǐ":"吇呰啙姉姊杍梓榟橴滓矷秄秭笫籽紫耔胏虸訿釨","cùn":"吋寸籿","tǔ":"吐土圡釷钍","tūn":"吞呑啍噋旽暾朜涒焞黗","qìn":"吢吣唚抋揿搇撳沁瀙菣藽","fǒu":"否妚殕缶缹缻雬鴀","ba":"吧紦","dūn":"吨噸墩墪惇撉撴敦橔犜獤礅蜳蹲蹾驐","shǔn":"吮","wú":"吳吴吾呉唔娪无梧毋洖浯無珸璑祦禑芜茣莁蕪蜈蟱譕郚铻鯃鵐鷡鹀鼯","chǎo":"吵巐炒焣煼眧麨","nà":"吶呐妠娜捺笝納纳肭蒳衲袦豽貀軜那鈉钠靹魶","xuè":"吷坹桖瀥狘血謔谑趐","chuī":"吹炊龡","hǒu":"吼犼","méi":"呅坆堳塺娒媒嵋徾攗枚栂梅楣楳槑沒没湄湈煤猸玫珻瑂眉睂矀禖穈脄脢腜苺莓葿蘪郿酶鋂鎇镅霉鶥鹛黴","dāi":"呆呔懛獃","bei":"呗唄","guō":"呙咼啯嘓埚堝墎崞彉彍濄瘑蝈蟈郭鈛鍋锅","wen":"呚","qiāng":"呛嗆嗴嶈戕戗戧斨枪椌槍溬牄猐獇玱瑲篬羌羗羫腔蜣謒跄蹌蹡錆鎗鏘锖锵镪","shī":"呞失尸屍师師施浉湤湿溮溼濕狮獅瑡絁葹蒒蓍虱蝨褷襹詩诗邿釶鉇鉈鍦鯴鰤鲺鳲鳾鶳鸤","pěn":"呠翸","ne":"呢","ḿ":"呣","rán":"呥嘫然燃繎肰蚦蚺衻袇袡髥髯","tiè":"呫飻餮","qì":"呮咠唭噐器夡契弃忔憇憩摖暣栔棄欫气気氣汔汽泣湆湇炁甈盵矵砌碛碶磜磧磩罊芞葺蟿訖讫迄鼜","hē":"呵喝嗬抲欱蠚訶诃","náo":"呶夒峱嶩巎怓憹挠撓猱硇碙蛲蟯詉譊鐃铙","pēi":"呸怌柸肧胚衃醅","mìng":"命椧詺","pǒu":"咅哣婄犃","yāng":"咉央姎抰殃泱眏秧胦鉠雵鞅鴦鸯","zǎ":"咋","hāi":"咍嗨","dā":"咑嗒噠搭撘瘩笚耷荅褡鎝","kā":"咔咖喀擖衉","zuo":"咗","lóng":"咙嚨屸嶐巃巄昽曨朧栊槞櫳泷湰滝漋瀧爖珑瓏癃眬矓砻礱礲窿竜笼篭籠聋聾胧茏蕯蘢蠪蠬襱豅躘鏧鑨隆霳靇驡鸗龍龒龙","liě":"咧挘毟","mī":"咪眯瞇","zán":"咱","ké":"咳壳揢殼翗","huī":"咴噅噕婎媈幑徽恢拻挥揮撝晖暉楎洃瀈灰灳烣煇珲睳禈翚翬蘳虺袆褘詼诙豗輝辉隓隳鰴麾","huài":"咶坏壊壞蘾","xuǎn":"咺晅烜癣癬选選顈","āi":"哀哎唉嗳噯埃娭挨欸溾銰鎄锿","pǐn":"品榀","shěn":"哂婶嬸审宷審弞曋沈渖瀋瞫矤矧覾訠諗讅谂谉邥頣魫","hǒng":"哄嗊晎","wa":"哇瓲","hā":"哈铪","zāi":"哉栽渽溨災灾烖甾睵菑賳","diè":"哋眰","pài":"哌派渒湃蒎鎃","gén":"哏","nián":"哖年秊秥鮎鯰鲇鲶鵇黏","huā":"哗嘩埖婲椛硴糀花芲蒊蘤誮錵","xing":"哘裄","mōu":"哞","yō":"哟唷喲","lòng":"哢徿梇贚","ó":"哦","lī":"哩","gěng":"哽埂峺挭梗綆绠耿莄郠骾鯁鲠","shuō":"哾說説说","gě":"哿嗰舸","chún":"唇浱淳湻滣漘犉純纯脣莼蒓蓴醇醕錞陙鯙鶉鹑","jiá":"唊圿忦恝戛戞扴荚莢蛱蛺袷裌跲郏郟鋏铗頬頰颊餄鴶鵊","zào":"唕唣喿噪慥梍灶煰燥皁皂竃竈簉艁譟趮躁造","dí":"唙嘀嚁嫡廸敌敵梑樀涤滌狄笛篴籴糴翟苖荻蔋蔐藡覿觌豴蹢迪鏑靮頔馰髢鬄鸐","huàn":"唤喚喛奂奐宦嵈幻患愌换換擐梙槵浣涣渙漶澣烉焕煥瑍痪瘓睆肒藧豢逭鯇鯶鰀鲩","lang":"唥","fěng":"唪覂諷讽","wéi":"唯喡囗围圍圩媁峗峞嵬帏帷幃惟桅欈沩洈涠湋溈潍潙潿濰犩琟癓硙磑維维蓶覹违違鄬醀鍏闈闱霺韋韦鮠","qiàng":"唴炝熗羻","yū":"唹扜淤瘀盓穻箊紆纡虶込迂迃陓","lài":"唻櫴濑瀨瀬癞癩睐睞籁籟藾襰賚賴赉赖頼顂鵣","tuò":"唾拓柝毤毻箨籜萚蘀跅鿳鿸","nǒu":"啂","kěn":"啃垦墾恳懇肎肯肻豤錹齦龈","a":"啊","wèn":"問妏揾搵汶渂璺莬问顐","chuài":"啜嘬膪踹","fēi":"啡妃婓婔扉暃渄猆緋绯菲蜚裶霏非靟飛飝飞餥馡騑騛鲱","pí":"啤埤壀岯崥朇枇毗毘毞焷狓琵疲皮篺罴羆肶脾腗膍芘蚍蚽蚾蜱螷蠯豼貔郫阰陴魮鲏鵧鼙","shá":"啥","la":"啦鞡","pā":"啪妑皅舥葩趴","sè":"啬嗇懎擌栜歮歰洓涩渋澀澁濇濏瀒琗瑟璱瘷穑穡穯繬色譅轖銫鏼铯雭飋","niè":"啮喦嗫噛嚙囁囓圼孼孽嵲嶭巕帇惗摰敜枿槷櫱涅湼痆篞籋糱糵聂聶臬臲菍蘖蠥讘踂踗踙蹑躡錜鎳鑈鑷钀镊镍闑陧隉顳颞齧","luō":"啰囉頱","dìng":"啶定忊椗矴碇碠磸聢腚萣蝊訂订鋌錠铤锭顁飣饤","lāng":"啷","yóng":"喁揘顒颙鰫","lǎ":"喇藞","jiē":"喈喼嗟堦媘嫅接掲揭擑椄湝煯疖痎癤皆秸稭脻菨蝔街謯阶階鞂鶛","wāi":"喎歪竵","nuò":"喏愞懦懧掿搦搻榒稬穤糑糥糯諾诺蹃逽锘","ō":"喔噢","hú":"喖嘝囫壶壷壺媩弧抇搰斛楜槲湖瀫焀煳狐猢瑚瓳箶糊絗縠胡葫蔛蝴螜衚觳醐鍸隺頶餬鬍魱鰗鵠鶘鶦鹕","xǐ":"喜囍壐屣徙憘暿枲橲歖洗漇玺璽矖禧縰葈葸蓰蟢諰謑蹝躧鈢鉨鉩铣鱚","pèn":"喯","miāo":"喵","pēn":"喷噴歕","kuí":"喹夔奎巙戣揆晆暌楏楑櫆犪睽葵藈蘷虁蝰躨逵鄈鍨鍷隗頄頯馗騤骙魁","á":"嗄","xiù":"嗅岫峀溴珛琇璓秀繍繡绣螑袖褎褏銹鏥鏽锈齅","sǎng":"嗓搡磉褬鎟顙颡","chēn":"嗔抻捵琛瞋綝縝諃謓賝郴","pǎng":"嗙耪覫","lào":"嗠嫪憦橯涝澇烙耢耮躼軂酪","wēng":"嗡滃翁螉鎓鶲鹟","wà":"嗢聉腽膃袜襪韈韤","suo":"嗦","嗧":"嗧","ń":"嗯","ná":"嗱拏拿挐鎿镎","diē":"嗲爹褺跌","tōng":"嗵囲樋炵痌蓪通","zhē":"嗻嫬蜇遮","sòu":"嗽瘶","tǎn":"嗿坦忐憳憻暺毯璮菼袒襢醓鉭钽","cáo":"嘈嶆曹曺槽漕艚蓸螬褿鏪","pó":"嘙婆櫇皤蔢謈鄱","dē":"嘚","lei":"嘞","sāi":"嘥噻塞愢揌毢毸腮顋鰓鳃","cháo":"嘲巢巣晁朝樔漅潮牊窲罺謿轈鄛鼂鼌","zuǐ":"嘴噿嶊嶵璻","hēi":"嘿潶黑黒","ě":"噁枙砈頋騀鵈","chuáng":"噇幢床牀","cēng":"噌曽","dēng":"噔嬁灯燈璒登竳簦艠覴豋蹬","juē":"噘屩撅撧蹻","lū":"噜撸謢","yìng":"噟媵映暎硬膡鞕鱦","zhān":"噡嶦惉旃旜枬栴毡氈氊沾瞻粘薝蛅詀詹譫谵趈邅閚霑飦饘驙魙鱣鳣鸇鹯龪","yuě":"噦","gá":"噶尜釓錷钆","hm":"噷","dāng":"噹当澢珰璫當筜簹艡蟷裆襠鐺铛","làn":"嚂滥濫烂燗爁爛爤瓓糷鑭","hāo":"嚆茠蒿薅薧","mē":"嚒","cā":"嚓擦攃","hai":"嚡","pín":"嚬娦嫔嬪玭琕矉薲蠙貧贫頻顰频颦","rǎng":"嚷壌壤攘爙纕","tà":"嚺崉挞搨撻榻橽毾涾澾濌狧禢誻譶踏蹋躢遝遢錔闒闥闼鞜鞳鮙","chuò":"嚽娕娖婥婼惙擉歠涰磭綽繛绰腏趠輟辍辵辶酫鑡齪龊","huān":"嚾懽欢歓歡犿獾讙貛酄驩鴅鵍","cà":"囃遪","chài":"囆瘥虿蠆袃訍","sū":"囌櫯甦稣穌窣苏蘇蘓酥鯂","zen":"囎","nāng":"囔","lǎn":"囕壈嬾孄孏懒懶揽擥攬榄欖浨漤灠爦纜缆罱覧覽览醂顲","lo":"囖","nín":"囜您","nān":"囡","guó":"囯囶囻国圀國帼幗慖漍聝腘膕蔮虢馘","kùn":"困涃睏","qūn":"囷夋峮逡","rì":"囸日釰鈤馹驲","tāi":"囼孡胎","pǔ":"圃圑埔普暜朴樸檏氆浦溥烳諩譜谱蹼鐠镨","quān":"圈圏奍峑弮恮悛棬鐉駩","lüè":"圙掠擽略畧稤鋝鋢锊","huán":"圜嬛寏寰峘桓洹澴狟环環瓛糫絙綄繯缳羦荁萈萑豲貆轘郇鉮鍰鐶锾镮闤阛雈鬟鹮","luán":"圝圞奱娈孌孪孿峦巒挛攣曫栾欒滦灓灤癴癵羉脔臠虊銮鑾鵉鸞鸾龻","bǎn":"坂岅昄板版瓪粄舨蝂鈑钣闆阪魬","qǐn":"坅寑寝寢昑梫笉螼赾鋟锓","tún":"坉屯忳臀臋芚豘豚軘霕飩饨魨鲀","tān":"坍怹摊擹攤滩灘痑瘫癱舑貪贪","bà":"坝垻壩弝欛灞爸矲罢罷耙覇跁霸鮊鲅鲌","fén":"坟墳妢岎幩朌枌梤棼橨汾濆炃焚燌燓羒羵肦蒶蕡蚠蚡豮豶轒鐼隫馚馩魵黂鼖鼢","zhuì":"坠墜娷惴桘甀畷硾礈笍綴縋缀缒膇諈贅赘轛醊錣鑆餟","pō":"坡岥泊泼溌潑鉕鏺钋頗","kūn":"坤堃堒婫崐崑昆晜潉焜熴猑琨瑻菎蜫裈裩褌貇醌錕锟騉髠髡髨鯤鲲鵾鶤鹍","chí":"坻墀岻弛持歭池漦竾筂箎篪茌荎蚳謘貾赿趍踟迟遅遟遲馳驰","lā":"垃拉搚柆翋菈邋","min":"垊","cí":"垐堲嬨慈柌濨珁瓷甆磁礠祠糍茈茨薋詞词辝辞辤辭雌飺餈鴜鶿鷀鹚","duī":"垖堆塠嵟痽磓鐜鴭","chá":"垞察嵖搽查槎檫猹碴秅茬茶詧靫","shǎng":"垧扄晌賞贘赏鑜","shǒu":"垨守手艏首龵","da":"垯墶繨","háng":"垳斻杭珩笐筕絎绗航苀蚢貥迒頏颃魧","bāng":"垹帮幇幚幫捠梆浜縍邦邫鞤","běng":"埄埲琣琫繃菶鞛","fáng":"埅妨房肪防魴鰟鲂","mái":"埋薶霾","làng":"埌崀浪莨蒗閬鿾","lǔn":"埨碖稐耣","chǒng":"埫宠寵","cài":"埰棌縩菜蔡","péi":"培毰裴裵賠赔锫阫陪駍","sào":"埽氉瘙矂髞","fang":"堏","àn":"堓婩岸按晻暗案洝犴胺荌豻貋錌闇鮟黯鿷","hún":"堚忶梡浑渾琿繉轋餛馄魂鼲","ruán":"堧壖撋","gèng":"堩暅更","dǔ":"堵帾琽睹笃篤覩賭赌","hèng":"堼","chūn":"堾媋旾春暙杶椿槆橁櫄瑃箺萅蝽輴鰆鶞","huāng":"塃巟慌朚肓荒衁","léng":"塄崚棱楞碐稜薐輘","duàn":"塅断斷椴段毈煅瑖碫簖籪緞缎腶葮躖鍛锻","tǎ":"塔墖溚獭獺鰨鳎鿎","zàng":"塟奘弉脏臓臟葬銺","tián":"塡填屇恬搷沺湉璳甛甜田畋畑畠盷碵磌窴緂胋菾鈿闐阗鴫鷆鷏鿬","zhèng":"塣幀政正症証諍證证诤郑鄭鴊","wēn":"塭昷榅榲殟温溫瑥瘟蕰豱輼轀辒鎾鞰饂鰛鰮鳁","hǎi":"塰海烸胲酼醢","lǎng":"塱朖朗朤樃烺蓢誏","bèng":"塴泵甏蹦迸逬鏰镚","chén":"塵宸尘忱愖揨敐晨曟樄沉煁瘎臣茞莀莐蔯薼螴訦諶谌軙辰迧鈂陈陳霃鷐麎","ōu":"塸櫙欧歐殴毆沤漚熰瓯甌筽膒藲謳讴鏂鴎鷗鸥","shuǎng":"塽慡樉漺爽縔鏯","shú":"塾婌孰熟璹秫贖赎","lǒu":"塿嵝嶁搂摟甊篓簍","màn":"墁幔慢摱曼槾漫澷熳獌縵缦蔄蔓蘰鄤鏝镘","kàn":"墈崁看瞰矙磡衎闞","chěn":"墋夦硶碜磣贂趻踸醦鍖","qiǎng":"墏抢搶繈繦羟羥襁鏹","zēng":"増增憎橧熷璔矰磳繒缯罾譄鄫鱛","dǒng":"墥嬞懂箽董蕫諌","zūn":"墫壿尊嶟樽繜罇遵鐏鱒鳟鶎鷷","mú":"墲毪氁","dǎo":"壔导導岛島嶋嶌嶹捣搗擣槝祷禂禱蹈陦隝隯","san":"壭橵","zhuàng":"壮壯壵戇撞漴焋状狀","kǔn":"壸壼悃捆梱硱祵稇稛綑裍閫閸阃","mǎng":"壾漭硥茻莽莾蟒蠎","zhāi":"夈捚摘斋斎榸粂齋","xiòng":"夐敻焸詗诇","wài":"外夞顡","mèng":"夢夣孟梦霥","hāng":"夯","gǎo":"夰搞暠杲槀槁檺稁稾稿縞缟菒藁藳镐","tāo":"夲嫍幍弢慆掏搯槄涛滔濤瑫絛縚縧绦詜謟轁鞱韜韬飸饕","kuā":"夸姱舿誇","ēn":"奀恩煾蒽","pào":"奅泡炮疱皰砲礟礮麭","nài":"奈柰渿耏耐萘螚褦錼鼐","zòu":"奏揍楱","kāi":"奒开揩鐦锎開","bēn":"奔栟泍犇贲錛锛","tào":"套","běn":"奙本楍畚翉苯","shē":"奢檨猞畬畲賒賖赊輋","hǎ":"奤","yūn":"奫晕暈氲氳煴缊蒀蒕蝹贇赟頵馧","nǚ":"女籹釹钕","nú":"奴孥笯駑驽","dǐng":"奵嵿濎薡鐤頂顶鼎鼑","nuán":"奻","hǎo":"好郝","fàn":"奿婏嬎梵氾汎泛滼犯畈盕笵範范訉販贩軓軬飯飰饭","shuò":"妁搠朔槊欶烁爍獡矟硕碩箾蒴鎙鑠铄","wàng":"妄忘旺望朢盳迋","zhuāng":"妆妝娤庄庒桩梉樁湷粧糚荘莊装裝","mā":"妈媽嬤嬷孖","dù":"妒妬度杜殬渡秺肚芏荰螙蠧蠹鍍镀靯","miào":"妙庙庿廟玅竗","niū":"妞","tuǒ":"妥媠嫷庹彵椭楕橢鬌鰖鵎","nī":"妮","zhóu":"妯軸轴","tǒu":"妵敨紏蘣钭飳黈","ē":"妸妿娿婀屙痾","mèi":"妹媚寐抺旀昧沬煝痗眛睸祙篃蝞袂跊韎鬽魅","mín":"姄岷崏忞怋捪旻旼民珉琘琝瑉痻盿砇碈緍緡缗罠苠鈱錉鍲鴖","jiě":"姐媎檞毑解觧飷","pīn":"姘拼礗穦馪驞","héng":"姮恆恒桁横橫烆胻蘅衡鑅鴴鵆鸻","wá":"娃","ráo":"娆嬈桡橈荛蕘襓饒饶","niáng":"娘嬢孃","něi":"娞脮腇餒馁鮾鯘","ǎi":"娾昹毐濭矮蔼藹譪躷霭靄","mián":"婂媔嬵宀杣棉檰櫋眠矈矊矏綿緜绵臱芇蝒","biǎo":"婊檦表裱褾諘錶","wǒ":"婐我捰","ruí":"婑桵甤緌蕤","hūn":"婚惛昏昬棔殙涽睧睯荤葷閽阍","chōu":"婤抽搊犨犫瘳篘","nàn":"婻","miáo":"媌嫹描瞄緢苗鱙鶓鹋","ǎo":"媪媼抝拗芺袄襖镺","róng":"媶嫆嬫容峵嵘嵤嶸巆戎搈搑曧栄榕榮榵毧溶瀜烿熔爃狨瑢穁絨縙绒羢肜茙荣蓉蝾融螎蠑褣鎔镕駥髶","pán":"媻幋搫槃洀瀊爿盘盤磐磻縏蒰蟠跘蹒蹣鎜鞶","sǎo":"嫂扫掃","niǎo":"嫋嬝嬲樢茑蔦袅裊褭鳥鸟","báo":"嫑窇薄雹","piáo":"嫖瓢薸闝","xuán":"嫙悬懸旋暶檈漩玄玹琁璇璿痃蜁","mān":"嫚颟","kāng":"嫝嵻康忼慷槺漮砊穅粇糠躿鏮闶鱇","nèn":"嫩嫰恁","piè":"嫳","zhǎn":"嫸展崭嶃嶄搌斩斬榐橏琖盏盞輾醆颭飐黵","liǎn":"嬚摙敛斂琏璉羷脸臉蔹蘝蘞裣襝鄻","tiǎo":"嬥宨斢晀朓窕窱脁誂","bí":"嬶荸鼻","liǔ":"嬼柳栁桞桺橮熮珋綹绺罶羀鋶锍","zi":"子","kǒng":"孔恐","sūn":"孙孫搎槂狲猻荪蓀蕵薞飧飱","zhuǎn":"孨竱転轉转","hái":"孩还還頦骸","nāo":"孬","bò":"孹檗糪蘗譒","nái":"孻摨熋腉","zhái":"宅檡","sòng":"宋訟誦讼诵送鎹頌颂餸","ròu":"宍肉","zhūn":"宒窀肫衠諄谆迍","qún":"宭帬羣群裙裠","kuān":"宽寛寬臗鑧髋髖","xiǎo":"小晓暁曉皛皢筱筿篠謏","shǎo":"少","gǎ":"尕玍","liào":"尞尥尦廖撂料炓窷镣","kun":"尡","wāng":"尣尩尪尫汪","gà":"尬魀","tuí":"尵弚穨蘈蹪隤頹頺頽颓魋","kāo":"尻髛","niào":"尿脲","céng":"层層嶒曾竲驓","diǎo":"屌扚","zhěn":"屒弫抮昣枕畛疹眕稹紾縥缜聄萙袗裖診诊軫轸駗鬒黰","mǎn":"屘満满滿睌矕螨蟎襔鏋","lòu":"屚漏瘘瘺瘻鏤镂陋","shǔ":"属屬暏暑曙潻癙糬署薥薯藷蜀蠴襡襩鱪鱰黍鼠鼡","cén":"岑梣涔笒","gǎng":"岗崗港","gǒu":"岣枸狗玽笱耇耈耉芶苟蚼豿","tiáo":"岧岹条條樤祒笤芀萔蓚蓨蜩趒迢鋚鎥鞗髫鯈鰷鲦齠龆","lǐng":"岭嶺袊阾領领","pò":"岶敀昢洦烞珀破砶粕蒪迫酦醗釙魄","luò":"峈摞泺洛洜漯濼犖珞硦笿絡纙络荦落雒駱骆鮥鴼鵅","ěn":"峎","qiǎ":"峠跒酠鞐","bū":"峬庯晡誧逋鈽钸","chóng":"崇崈爞緟虫蝩蟲褈隀","xiáo":"崤殽洨淆筊訤誵郩","wǎi":"崴","cuó":"嵯嵳痤睉矬蒫蔖虘躦酂鹺鹾","cēn":"嵾","ru":"嶿","yǐng":"巊廮影摬梬浧潁瘿癭矨穎郢鐛頴颍颕颖","cuán":"巑櫕欑穳","qiǎo":"巧愀釥髜","gǒng":"巩廾拱拲栱汞珙輁鞏","pu":"巬巭","pà":"帊帕怕袙","tiē":"帖怗聑萜貼贴","zhǒu":"帚晭疛睭箒肘菷鯞","shuì":"帨涗涚睡祱稅税裞","chān":"幨搀攙梴裧襜覘觇辿鉆鋓","miè":"幭懱搣櫗滅灭烕篾蔑薎蠛衊覕鑖鱴鴓","guǎng":"广広廣犷獷臩","bài":"庍拜拝敗猈稗粺薭贁败韛","qǐng":"庼廎檾漀苘請謦请頃顷","kuò":"廓懖扩拡括挄擴桰濶筈萿葀蛞闊阔霩鞟鞹韕頢髺鬠","pǎi":"廹","nòng":"弄挊挵癑齈","shāo":"弰捎旓梢烧焼燒稍筲艄莦蕱蛸輎颵髾鮹","biè":"彆","tuàn":"彖湪褖","yuē":"彟彠曰曱矱箹約约","wǎng":"往徃徍惘暀枉棢瀇網网罒罔菵蛧蝄誷輞辋魍龬","cú":"徂殂","huái":"徊怀懐懷槐櫰淮瀤耲蘹褢褱踝","zhi":"徔","de":"得的脦","dé":"徳德恴悳惪棏淂鍀锝","xin":"忄","gǎi":"忋改絠","rěn":"忍栠栣棯秹稔綛荏荵躵","chàn":"忏懴懺摲硟羼韂顫颤","tè":"忑忒慝特螣蟘貣鋱铽","niǔ":"忸扭炄狃紐纽莥鈕钮靵","kuáng":"忹抂狂狅誑诳軖軠鵟","òu":"怄慪","zěn":"怎","yàng":"怏恙样様樣漾瀁羕詇","xuàn":"怰昡楥楦泫渲炫琄眩眴碹絢縼繏绚蔙衒袨讂贙鉉鏇铉镟鞙颴","mo":"怽","nǜ":"恧朒沑衂衄","hèn":"恨","xiao":"恷","tòng":"恸慟憅痛衕","huǐ":"悔檓毀毁毇燬譭","mèn":"悶懑懣暪焖燜闷","guǒ":"惈果椁槨淉猓粿綶菓蜾裹褁輠錁鐹餜馃","cǎn":"惨慘憯朁穇篸黪黲","cán":"惭慙慚残殘蚕蝅蠶蠺","rě":"惹","huàng":"愰晃曂榥滉皝皩鎤","zhěng":"愸抍拯掟撜整晸氶糽","cǎo":"愺懆艸艹草騲","sāo":"慅掻搔溞繅缫臊螦騒騷骚鰠鱢鳋","gong":"慐","còng":"憁謥","biē":"憋虌蟞鱉鳖鼈龞","shéng":"憴縄繩绳譝","mǒ":"懡抹","hui":"懳","ràng":"懹譲讓让","nǎn":"戁揇湳煵腩萳蝻赧","gàng":"戅戆槓焵焹筻鿍","zéi":"戝蠈賊贼鯽鰂鱡鲗","děng":"戥朩等","chuō":"戳踔逴","shou":"扌","cái":"才材纔裁財财","dǎ":"打","rēng":"扔","káng":"扛摃","dèn":"扥扽","mén":"扪捫玧璊菛虋鍆钔門閅门","rǎo":"扰擾隢","bān":"扳搬攽斑斒班瘢癍般螌褩辬頒颁鳻","zhǎo":"找沼爪爫瑵","bǎ":"把鈀钯靶","nè":"抐疒眲訥讷","zhuā":"抓檛簻膼髽","póu":"抔抙捊掊箁裒錇","pāo":"抛拋脬萢","lūn":"抡掄","yun":"抣繧","chāi":"拆芆釵钗","niān":"拈蔫","pāi":"拍","līn":"拎","guǎi":"拐枴柺箉","qiá":"拤","hén":"拫痕鞎","nǐn":"拰","shuān":"拴栓閂闩","zhuāi":"拽","bāi":"挀掰擘","kuà":"挎胯跨骻","ruá":"挼","tǒng":"捅桶筒統綂统","niē":"捏揑","yé":"捓揶擨爷爺耶釾鋣鎁铘","zùn":"捘銌","lāo":"捞撈粩","sǔn":"损損榫笋筍箰簨鎨隼鶽","shě":"捨舍","dáo":"捯","niǎn":"捻撚撵攆涊淰焾碾簐跈蹍蹨躎輦辇辗","ruó":"捼","zuó":"捽昨椊琢秨稓筰莋鈼","qiā":"掐葜","kòng":"控鞚","tuī":"推蓷藬","tiàn":"掭睼舚","kèn":"掯裉褃","pá":"掱杷潖爬琶筢","ming":"掵","meng":"掹","pèng":"掽椪碰踫","biān":"揙煸牑猵獱甂砭笾箯籩編编蝙边辺邉邊鍽鞭鯾鯿鳊","chuāi":"揣搋","là":"揧攋楋溂爉瓎瘌腊臈臘蜡蝋蝲蠟辢辣鑞镴鬎鯻","chòng":"揰銃铳","beng":"揼","cuō":"搓撮瑳磋蹉遳醝","qiǔ":"搝糗","èn":"摁","bìn":"摈擯殡殯膑臏髌髕髩鬂鬓鬢","shuāi":"摔衰","tàng":"摥烫燙趟","mō":"摸","piē":"撆撇暼氕瞥","hòng":"撔澋澒訌讧銾閧闀闂鬨","cāo":"撡操糙","liāo":"撩蹽","cuān":"撺攛汆蹿躥鋑鑹镩","nǎng":"擃攮曩灢","kuǎi":"擓蒯","mēng":"擝","xǐng":"擤睲醒","pān":"攀潘畨眅萠","lèi":"攂泪洡涙淚禷类累纇蘱酹銇錑頛頪類颣","huǎn":"攌緩缓","zuàn":"攥鑚","fàng":"放趽","dòu":"斗斣梪毭浢痘窦竇脰荳豆逗郖酘閗闘餖饾鬥鬦鬪鬬鬭","zǎo":"早枣栆棗澡璪繰薻藻蚤","shài":"晒曬閷","zuì":"晬最栬槜檇檌祽稡絊罪蕞辠酔酻醉鋷錊","shǎn":"晱炶煔熌睒覢閃闪陕陝鿃","zàn":"暂暫濽灒瓉瓒瓚禶襸讃讚賛贊赞蹔鄼酇錾鏨饡","nuǎn":"暖渜煖煗餪","yào":"曜熎燿獟矅穾窔筄纅耀艞药葯薬藥袎要覞詏讑鑰钥靿鷂鹞鼼","pù":"曝瀑舖舗鋪铺","zhá":"札煠牐甴箚耫蚻譗鍘铡閘闸","xiǔ":"朽滫潃糔綇","cūn":"村澊皴竴膥踆邨","miǎo":"杪淼渺眇秒篎緲缈藐邈","àng":"枊盎醠","xín":"枔襑鐔","mǒu":"某","zhè":"柘樜浙淛潪蔗蟅这這鷓鹧","gēn":"根跟","sāng":"桑桒槡","桛":"桛","po":"桲","gùn":"棍璭睔睴謴","sēn":"森椮槮襂","zōu":"棷棸箃緅菆諏诹邹郰鄒鄹陬騶驺鯫鲰黀齱齺","mēn":"椚","quan":"椦","pián":"楄楩胼腁諚谝賆跰蹁駢騈骈骿","rǒu":"楺韖","lǘ":"榈櫚氀膢藘閭闾馿驢驴鷜","chu":"榋橻","bǎng":"榜牓綁绑膀髈","nòu":"槈檽獳耨譳鎒鐞","gāo":"槔槹橰櫜滜皋皐睾篙糕羔羙膏臯韟餻高髙鷎鷱鼛","xuě":"樰膤艝轌雪鱈鳕","rùn":"橍润潤膶閏閠闰","shùn":"橓瞚瞬舜蕣順顺鬊","nuǒ":"橠","nǐng":"橣矃","ruǐ":"橤繠蕊蕋蘂蘃","jian":"橺","jiao":"櫵鵤","cáng":"欌藏鑶","guang":"欟","kuǎn":"欵款歀窽窾","chuā":"欻歘","sǐ":"死","piǎo":"殍皫瞟篻縹醥顠","chòu":"殠臭臰遚","cuàn":"殩熶爨窜竄篡簒","lu":"氇","bin":"氞","shuǐ":"水氺","shui":"氵閖","tǔn":"氽畽","pìn":"汖牝聘","tu":"汢","quǎn":"汱烇犬犭畎綣绻虇","niú":"汼牛牜","hàng":"沆","zhuǐ":"沝","sǎ":"洒潵灑訯躠靸","shuàn":"涮腨","nào":"淖臑閙闹鬧","féi":"淝肥腓蜰蟦","tuān":"湍煓猯貒","pén":"湓瓫盆葐","liū":"溜熘蹓","lùn":"溣論论","mǎ":"溤玛瑪码碼蚂螞遤鎷馬马鰢鷌","suò":"溹蜶逤","cuǐ":"漼璀皠趡","zong":"潈","yu":"澚","suǐ":"瀡膸髄髓","ling":"瀮","shuàng":"灀","pàng":"炐肨胖","bian":"炞","烪":"烪","rè":"热熱","xiǒng":"焽","wei":"煀","kuǐ":"煃跬蹞頍","liang":"煷","xióng":"熊雄","tēng":"熥膯鼟","jing":"燝","ju":"爠","piàn":"片騗騙骗魸","māng":"牤","kào":"犒銬铐靠鮳鯌鲓","má":"犘痲蔴蟆蟇麻","kǔ":"狜苦","suān":"狻痠酸","māo":"猫貓","fà":"珐琺蕟髪髮","guǎn":"琯痯筦管舘莞輨錧館馆鳤","suí":"瓍绥遀隋随隨","瓧":"瓧","wèng":"瓮甕罋蕹齆","瓰":"瓰","瓱":"瓱","瓼":"瓼","甅":"甅","zèng":"甑贈赠鋥锃","yòng":"用砽苚醟","shuǎi":"甩","béng":"甭","tuǎn":"疃","nüè":"疟瘧硸虐","biě":"瘪癟","qué":"瘸","bái":"白","qié":"癿聺","yuǎn":"盶远逺遠鋺","dǔn":"盹趸躉","tiào":"眺粜糶絩覜跳","zhe":"着著","lōu":"瞜","rún":"瞤","duǎn":"短","qing":"硘","cǎ":"礤礸","suàn":"祘笇筭算蒜","zū":"租葅蒩","chèng":"秤","zhùn":"稕訰","rong":"穃","zui":"穝","zhǎi":"窄鉙","zhuo":"窧","shāi":"筛篩簁簛酾釃","bǒ":"箥簸跛","qi":"簯緕缼","qian":"籖鎆鏲","zuǎn":"籫繤纂纉纘缵","fěn":"粉黺","yin":"粌","tai":"粏","cū":"粗觕麁麄麤","miàn":"糆面靣麪麫麵麺","fóu":"紑裦","gěi":"給给","tòu":"綉透","sha":"繌","rào":"繞绕遶","nǒng":"繷","shǎi":"繺","quē":"缺蒛阙","zhao":"罀","yang":"羪","nóu":"羺","shuǎ":"耍","lē":"肋","cào":"肏襙鄵","āng":"肮骯","néng":"能","nin":"脌","cuǒ":"脞","shuí":"脽誰谁","chuái":"膗","gěn":"艮","qiōng":"芎","rèng":"芿","qiē":"苆","xiú":"苬","nié":"苶","chǎi":"茝","rōng":"茸","you":"蒏","zí":"蓻","xu":"蓿","há":"蛤","ban":"螁","tiao":"螩","chang":"蟐","chǎ":"衩蹅鑔镲","shang":"裳","fiào":"覅","piǎn":"覑諞貵","tǎo":"討讨","éi":"誒诶","shuà":"誜","miù":"謬谬","zèn":"譖譛谮","zhán":"讝","càng":"賶","zǒu":"走赱鯐龰","pǎo":"跑","zhuǎi":"跩","cèng":"蹭","tá":"蹹","zuān":"躜鑽钻","bú":"轐醭鳪","guò":"过過","qu":"迲","zhuī":"追錐锥隹騅骓鵻","fu":"酜","niàng":"酿醸釀","ā":"錒锕阿","wu":"錻","zhang":"鏱","xian":"鑦","xiǎ":"閜","sē":"閪","tèng":"霯","ēng":"鞥","duǐ":"頧","zǎng":"駔驵","dai":"鮘","gú":"鶻","chi":"麶","nún":"黁","hōu":"齁","óu":"齵","龦":"龦","龧":"龧","龨":"龨","龩":"龩","龫":"龫","龭":"龭","龮":"龮","龯":"龯","龱":"龱","龲":"龲","龳":"龳","龴":"龴","龶":"龶","龷":"龷","龸":"龸","龹":"龹","龺":"龺","龼":"龼","龽":"龽","龾":"龾","龿":"龿","鿀":"鿀","鿁":"鿁","鿂":"鿂","鿅":"鿅","鿆":"鿆","鿈":"鿈","鿉":"鿉","鿊":"鿊","鿋":"鿋","鿐":"鿐","鿑":"鿑","鿒":"鿒","鿓":"鿓","鿖":"鿖","鿗":"鿗","鿘":"鿘","鿙":"鿙","鿚":"鿚","鿛":"鿛","鿜":"鿜","鿝":"鿝","鿞":"鿞","鿟":"鿟","鿠":"鿠","鿡":"鿡","鿢":"鿢","鿣":"鿣","鿤":"鿤","鿥":"鿥","鿦":"鿦","鿧":"鿧","鿨":"鿨","鿩":"鿩","鿪":"鿪","鿮":"鿮","鿯":"鿯","鿽":"鿽"},"w":{"便宜":"pián yí","一起":"yì qǐ","照片":"zhào piān","部分":"bù fèn","肚子":"dǔ zi","不到":"bú dào","一定":"yí dìng","漂亮":"piào liàng","很晃":"hěn huàng","覺得":"jué de","得及":"de jí","會晃":"huì huàng","首都":"shǒu dū","喝嗬":"hè hē","呵喝":"hē hè","度假":"dù jià","不是":"bú shì","划船":"huá chuán","重來":"chóng lái","來得及":"lái de jí","暈車":"yūn chē","暈船":"yūn chuán","會暈":"huì yūn","不會暈":"bú huì yūn","一個":"yí ge","一次":"yí cì","一下":"yí xià","一段":"yí duàn","一天":"yì tiān","一個半":"yí ge bàn","一票":"yí piào","大寮":"dà liáo","鹽埕埔":"yán chéng pǔ","駁二":"bó èr","礁溪":"jiāo xī","旗津":"qí jīn","七星潭":"qī xīng tán","墾丁":"kěn dīng","瑞芳":"ruì fāng","左營":"zuǒ yíng","馬公":"mǎ gōng","澎湖":"péng hú","小琉球":"xiǎo liú qiú","阿里山":"ā lǐ shān","九份":"jiǔ fèn","芋圓":"yù yuán","阿給":"ā gěi","劃位":"huà wèi","包車":"bāo chē","載你":"zài nǐ","還要":"hái yào","還沒":"hái méi","還可以":"hái kě yǐ","還是":"hái shì","還不":"hái bù","為什麼":"wèi shén me","因為":"yīn wèi","比較":"bǐ jiào","地方":"dì fāng","行李箱":"xíng lǐ xiāng","伴手禮":"bàn shǒu lǐ","樂器":"yuè qì","打工":"dǎ gōng","幾點":"jǐ diǎn","幾組":"jǐ zǔ","第幾":"dì jǐ","好行":"hǎo xíng","台華輪":"tái huá lún","彎彎的":"wān wān de","塞車":"sāi chē","轉運站":"zhuǎn yùn zhàn","說話稿":"shuō huà gǎo","稿子":"gǎo zi","要花":"yào huā","一卡通":"yì kǎ tōng","不要":"bú yào","不會":"bú huì","不用":"bú yòng","不夠":"bú gòu","不太":"bú tài","不遠":"bù yuǎn","不能":"bù néng","不一定":"bù yí dìng","目的地":"mù dì dì","的地":"de dì","重抽":"chóng chōu","一共":"yí gòng","民宿":"mín sù","上下舖":"shàng xià pù","入住":"rù zhù","退房":"tuì fáng","擔仔麵":"dàn zǎi miàn","碗粿":"wǎn guǒ","扁食":"biǎn shí","蔥油餅":"cōng yóu bǐng","肉圓":"ròu yuán","大麵羹":"dà miàn gēng","赤崁":"chì kǎn","姊妹潭":"zǐ mèi tán","奮起湖":"fèn qǐ hú","伊達邵":"yī dá shào","鯉魚潭":"lǐ yú tán","鵝鑾鼻":"é luán bí","吉貝":"jí bèi","眷村":"juàn cūn","審計":"shěn jì","便當":"biàn dāng","合菜":"hé cài","熱炒":"rè chǎo","一間":"yì jiān","一晚":"yì wǎn","一份":"yí fèn","一點":"yì diǎn","都很":"dōu hěn","祝山":"zhù shān","山豬":"shān zhū","竹筒飯":"zhú tǒng fàn","曲腰":"qū yāo","麵線":"miàn xiàn","黑糖糕":"hēi táng gāo","觀音亭":"guān yīn tíng","還剩":"hái shèng","還有":"hái yǒu","行程":"xíng chéng","旅行":"lǚ xíng","銀行":"yín háng","只有":"zhǐ yǒu","不行":"bù xíng","海龜":"hǎi guī","看夕陽":"kàn xì yáng","夕陽":"xì yáng","高美":"gāo měi","濕地":"shī dì","港隧道":"gǎng suì dào","隧道":"suì dào","空調":"kōng tiáo","冷氣":"lěng qì","舒服":"shū fú"}};
+(function(){
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+/* ---------- pinyin engine ---------- */
+const PYC={};const PYW=PYDATA?PYDATA.w:{};
+if(PYDATA){for(const k in PYDATA.c){for(const ch of PYDATA.c[k])PYC[ch]=k}}
+const CJK=/[㐀-鿿]/;
+function tokens(s){const out=[];const a=[...s];let i=0;
+  while(i<a.length){let done=false;
+    for(const L of [3,2]){const k=a.slice(i,i+L).join('');if(k.length===L&&PYW[k]){const ps=PYW[k].split(' ');for(let j=0;j<L;j++)out.push([a[i+j],ps[j]]);i+=L;done=true;break}}
+    if(done)continue;out.push([a[i],CJK.test(a[i])?PYC[a[i]]||'':null]);i++}
+  return out}
+function rubyNode(text){const f=document.createDocumentFragment();let buf='';
+  tokens(text).forEach(([ch,py])=>{if(py){if(buf){f.appendChild(document.createTextNode(buf));buf=''}
+    const r=document.createElement('ruby');r.className='p';r.appendChild(document.createTextNode(ch));const rt=document.createElement('rt');rt.textContent=py;r.appendChild(rt);f.appendChild(r)}else buf+=ch});
+  if(buf)f.appendChild(document.createTextNode(buf));return f}
+const SKIP='ruby,rt,script,style,select,option,input,textarea,.nopy,.tl-vi,.py,.timer,.lab,.tm';
+function addPy(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>(!CJK.test(n.nodeValue)||n.parentElement.closest(SKIP))?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
+  const list=[];while(w.nextNode())list.push(w.currentNode);list.forEach(n=>n.replaceWith(rubyNode(n.nodeValue)))}
+function removePy(root){root.querySelectorAll('ruby.p').forEach(r=>r.replaceWith(document.createTextNode(r.firstChild.nodeValue)));root.normalize()}
+let pyOn=true;
+function refreshPy(){const w=$('#wrap');if(pyOn)addPy(w);else removePy(w)}
+
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tl=vi=>vi?`<span class="tl-vi">${esc(vi)}</span>`:'';
+function load(k,d){try{const v=localStorage.getItem('zsTrip2_'+k);return v?JSON.parse(v):d}catch(e){return d}}
+function save(k,v){try{localStorage.setItem('zsTrip2_'+k,JSON.stringify(v))}catch(e){}}
+
+/* ---------- data ---------- */
+const MODES={
+  walk:{zh:'走路',verb:'走路',t:'đi bộ'}, bike:{zh:'YouBike',verb:'騎YouBike',t:'đạp YouBike'},
+  mrt:{zh:'捷運',verb:'坐捷運',t:'tàu điện MRT'}, hsr:{zh:'高鐵',verb:'坐高鐵',t:'tàu cao tốc'},
+  tra:{zh:'火車',verb:'坐火車',t:'tàu hỏa'}, bus:{zh:'公車',verb:'坐公車',t:'xe buýt'},
+  coach:{zh:'客運',verb:'坐客運',t:'xe khách'}, taxi:{zh:'計程車',verb:'坐計程車',t:'taxi'},
+  boat:{zh:'船',verb:'坐船',t:'thuyền / phà'}, plane:{zh:'飛機',verb:'坐飛機',t:'máy bay'}, wait:{zh:'等',verb:'等',t:'chờ'}
+};
+const T={
+ '最快':'nhanh nhất','比較快':'nhanh hơn','比較便宜':'rẻ hơn','最便宜':'rẻ nhất','比較貴':'đắt hơn','高鐵':'tàu cao tốc',
+ '自強號':'tàu nhanh Tzu-Chiang','國光客運，可能塞車':'xe khách Kuo-Kuang, có thể kẹt xe','區間車':'tàu chậm (dừng mọi ga)',
+ '區間車，刷悠遊卡/一卡通':'tàu chậm, quẹt thẻ EasyCard/iPASS','統聯客運':'xe khách Ubus','沙崙線區間車':'tàu tuyến Sa Lôn',
+ '台灣好行，山路很彎':'xe du lịch Taiwan Tourist Shuttle, đường núi rất quanh co','台灣好行，最後一段是山路':'xe du lịch, đoạn cuối là đường núi','台灣好行，山路':'xe du lịch, đường núi',
+ '自強號，走南迴線，可以看海':'tàu nhanh tuyến Nam Hồi, ngắm được biển','太魯閣號，常常買不到票':'tàu Taroko, thường hết vé',
+ '墾丁快線 9189，要先劃位':'xe Kenting Express 9189, phải đặt chỗ trước','客運 9117，停很多站':'xe khách 9117, dừng nhiều trạm',
+ '安檢、等飛機':'soi chiếu an ninh, chờ máy bay','四個人一起坐':'4 người đi chung (chia tiền)','台華輪，很晃，容易暈船；不是每天都有船':'tàu Đài Hoa: rất lắc, dễ say sóng; không phải ngày nào cũng có chuyến',
+ '比較貴，可是不一定比較快！算算看。':'Đắt hơn nhưng chưa chắc nhanh hơn! Hãy tính thử.','比較貴，也不一定比較快！':'Đắt hơn mà chưa chắc nhanh hơn!',
+ '馬公市區':'trung tâm Mã Công'
+};
+const S1=['bike','中山工商','捷運大寮站',15,10];
+const ML=['mrt','大寮站','左營站',55,50];
+const MK=['mrt','大寮站','高雄車站',35,35];
+const HSR_TP=['hsr','高鐵左營站','台北車站',105,1490];
+const TRA_TP=['tra','高雄車站','台北車站',300,994,'自強號'];
+const BUS_TP=['coach','高雄車站','台北車站',330,560,'國光客運，可能塞車'];
+const HSRTC=['hsr','高鐵左營站','高鐵台中站',50,790];
+
+const DEST=[
+{id:'taipei',n:'台北',r:'台北市',hub:'台北車站',b:'台灣的首都，有101、夜市和很多博物館。',t:'Thủ đô Đài Loan: tòa 101, chợ đêm, nhiều bảo tàng.',
+ tr:[{t:'最快',s:[S1,ML,HSR_TP],c:5,a:5},{t:'比較便宜',s:[S1,MK,TRA_TP],c:4,a:5},{t:'最便宜',s:[S1,MK,BUS_TP],c:2,a:4}],
+ ho:[{k:'青年旅館',area:'台北車站附近',near:'離台北車站走路五分鐘',room:'八人房的上下舖',p:650,bf:0,el:1,bath:0,c:2,a:4,t:'Nhà nghỉ thanh niên: giường tầng, phòng 8 người, tắm chung'},
+     {k:'平價旅館',area:'西門町',near:'離西門捷運站走路三分鐘',room:'一間四人房',p:800,bf:1,el:1,bath:1,c:3,a:4,t:'Khách sạn bình dân: 1 phòng 4 người'},
+     {k:'飯店',area:'台北車站附近',near:'離台北車站走路兩分鐘',room:'兩間雙人房',p:1500,bf:1,el:1,bath:1,c:5,a:5,t:'Khách sạn: 2 phòng đôi'}],
+ fo:[{n:'牛肉麵',pl:'永康街',m:'午晚',p:250,tg:'beef',d:'台北最有名的麵',t:'Mì bò'},
+     {n:'小籠包',pl:'信義區',m:'午晚',p:300,tg:'',d:'皮很薄，裡面有湯',t:'Bánh bao nhỏ có nước súp'},
+     {n:'滷肉飯',pl:'小吃店',m:'午晚',p:80,tg:'',d:'便宜又好吃',t:'Cơm thịt băm kho'},
+     {n:'夜市小吃',pl:'士林夜市',m:'晚',p:250,tg:'',d:'可以吃很多種小吃',t:'Đồ ăn vặt chợ đêm Sĩ Lâm'},
+     {n:'麻辣鍋',pl:'西門町',m:'晚',p:500,tg:'spicy beef',d:'很辣，很貴，可是很好吃',t:'Lẩu cay'},
+     {n:'素食自助餐',pl:'台北車站附近',m:'午晚',p:150,tg:'veg',d:'自己選菜，可以吃素',t:'Cơm chay tự chọn'},
+     {n:'豆漿、燒餅油條',pl:'早餐店',m:'早',p:80,tg:'veg',d:'台灣傳統的早餐',t:'Sữa đậu nành, bánh nướng, quẩy'}],
+ at:[{n:'台北101觀景台',o:'10:00',c:'21:00',d:90,p:600,go:['mrt',15,25],out:0,f:'',a:'看台北的夜景',t:'Đài quan sát tòa 101'},
+     {n:'故宮博物院',o:'09:00',c:'17:00',d:150,p:350,go:['bus',40,40],out:0,f:'',a:'看很老的古代文物',t:'Bảo tàng Cố Cung'},
+     {n:'中正紀念堂',o:'09:00',c:'18:00',d:60,p:0,go:['mrt',10,20],out:1,f:'',a:'看換衛兵',t:'Nhà tưởng niệm, xem đổi gác'},
+     {n:'西門町',o:'11:00',c:'22:00',d:120,p:0,go:['mrt',10,20],out:1,f:'',a:'逛街、買東西',t:'Phố mua sắm Tây Môn Đinh'},
+     {n:'淡水老街',o:'10:00',c:'21:00',d:150,p:0,go:['mrt',40,50],out:1,f:'',a:'看夕陽、散步',t:'Phố cổ Đạm Thủy, ngắm hoàng hôn'},
+     {n:'九份老街',o:'10:00',c:'20:00',d:180,p:0,go:['bus',90,100],out:1,f:'mtn hard',a:'看山、看海、喝茶',t:'Phố cổ Cửu Phần trên núi'},
+     {n:'士林夜市',o:'17:00',c:'23:59',d:120,p:0,go:['mrt',20,25],out:1,f:'',a:'逛夜市、玩遊戲',t:'Chợ đêm Sĩ Lâm'}]},
+{id:'taichung',n:'台中',r:'台中市',hub:'台中車站',b:'天氣很好，有夜市、博物館和看夕陽的地方。',t:'Thời tiết đẹp, có chợ đêm, bảo tàng và chỗ ngắm hoàng hôn.',
+ tr:[{t:'最快',s:[S1,ML,HSRTC,['tra','新烏日站','台中車站',12,15,'區間車']],c:5,a:5},{t:'比較便宜',s:[S1,MK,['tra','高雄車站','台中車站',160,615,'自強號']],c:4,a:5},{t:'最便宜',s:[S1,MK,['coach','高雄車站','台中車站',150,300,'統聯客運']],c:3,a:4}],
+ ho:[{k:'青年旅館',area:'台中車站附近',near:'離台中車站走路五分鐘',room:'六人房的上下舖',p:550,bf:0,el:1,bath:0,c:2,a:4,t:'Nhà nghỉ thanh niên: giường tầng, tắm chung'},
+     {k:'平價旅館',area:'逢甲夜市附近',near:'離逢甲夜市走路三分鐘',room:'一間四人房',p:700,bf:1,el:1,bath:1,c:3,a:4,t:'Khách sạn bình dân gần chợ đêm Phùng Giáp'},
+     {k:'飯店',area:'台中車站附近',near:'離台中車站走路三分鐘',room:'兩間雙人房',p:1300,bf:1,el:1,bath:1,c:5,a:5,t:'Khách sạn: 2 phòng đôi'}],
+ fo:[{n:'大麵羹',pl:'小吃店',m:'午',p:60,tg:'',d:'台中特別的麵',t:'Mì sệt kiểu Đài Trung'},
+     {n:'肉圓',pl:'小吃店',m:'午晚',p:60,tg:'',d:'外面Q Q的，裡面有肉',t:'Bánh thịt dẻo'},
+     {n:'夜市小吃',pl:'逢甲夜市',m:'晚',p:250,tg:'',d:'台灣最大的夜市之一',t:'Đồ ăn vặt chợ đêm Phùng Giáp'},
+     {n:'夜市牛排',pl:'逢甲夜市',m:'晚',p:220,tg:'beef',d:'便宜的牛排',t:'Bít tết chợ đêm'},
+     {n:'素食火鍋',pl:'台中車站附近',m:'午晚',p:300,tg:'veg',d:'可以吃素的火鍋',t:'Lẩu chay'},
+     {n:'蛋餅、奶茶',pl:'早餐店',m:'早',p:70,tg:'veg',d:'台灣人常吃的早餐',t:'Bánh trứng cuộn, trà sữa'}],
+ at:[{n:'宮原眼科',o:'10:00',c:'22:00',d:45,p:0,go:['walk',5,0],out:0,f:'',a:'買冰淇淋和禮物',t:'Tiệm bánh kẹo trong tòa nhà cổ'},
+     {n:'自然科學博物館',o:'09:00',c:'17:00',d:150,p:100,go:['bus',20,15],out:0,f:'',a:'看恐龍',t:'Bảo tàng Khoa học Tự nhiên'},
+     {n:'審計新村',o:'10:00',c:'20:00',d:60,p:0,go:['bus',15,15],out:1,f:'',a:'逛小店、拍照',t:'Khu nhà cũ thành cửa hàng sáng tạo'},
+     {n:'彩虹眷村',o:'08:00',c:'18:00',d:45,p:0,go:['bus',40,30],out:1,f:'',a:'在彩色的牆前面拍照',t:'Làng cầu vồng'},
+     {n:'國家歌劇院',o:'11:30',c:'21:00',d:60,p:0,go:['bus',30,30],out:0,f:'',a:'看特別的建築',t:'Nhà hát quốc gia'},
+     {n:'高美濕地',o:'09:00',c:'19:30',d:120,p:0,go:['bus',70,60],out:1,f:'',a:'看夕陽、看風車',t:'Đầm lầy Cao Mỹ, ngắm hoàng hôn'},
+     {n:'逢甲夜市',o:'17:00',c:'23:59',d:120,p:0,go:['bus',40,30],out:1,f:'',a:'逛夜市',t:'Chợ đêm Phùng Giáp'}]},
+{id:'tainan',n:'台南',r:'台南市',hub:'台南車站',b:'台灣最老的城市，有很多古蹟和小吃。',t:'Thành phố lâu đời nhất Đài Loan, nhiều di tích và món ăn vặt.',
+ tr:[{t:'最便宜',s:[S1,MK,['tra','高雄車站','台南車站',65,102,'區間車，刷悠遊卡/一卡通']],c:3,a:5},{t:'比較快',s:[S1,MK,['tra','高雄車站','台南車站',35,158,'自強號']],c:4,a:5},
+     {t:'高鐵',s:[S1,ML,['hsr','高鐵左營站','高鐵台南站',15,140],['tra','沙崙站','台南車站',25,25,'沙崙線區間車']],c:4,a:5,x:'比較貴，也不一定比較快！'}],
+ ho:[{k:'青年旅館',area:'台南車站附近',near:'離台南車站走路五分鐘',room:'六人房的上下舖',p:500,bf:0,el:1,bath:0,c:2,a:4,t:'Nhà nghỉ thanh niên: giường tầng, tắm chung'},
+     {k:'民宿',area:'神農街附近',near:'離神農街走路三分鐘',room:'一間四人房（老房子）',p:700,bf:1,el:0,bath:1,c:4,a:4,t:'Homestay nhà cổ, không có thang máy'},
+     {k:'飯店',area:'中西區',near:'離赤崁樓走路十分鐘',room:'兩間雙人房',p:1200,bf:1,el:1,bath:1,c:5,a:5,t:'Khách sạn: 2 phòng đôi'}],
+ fo:[{n:'牛肉湯',pl:'牛肉湯店',m:'早午',p:150,tg:'beef',d:'台南人早上就喝牛肉湯',t:'Canh bò tươi'},
+     {n:'擔仔麵',pl:'小吃店',m:'午晚',p:80,tg:'',d:'台南很有名的小碗麵',t:'Mì Đam Tử'},
+     {n:'碗粿',pl:'小吃店',m:'早午',p:50,tg:'',d:'用米做的，很便宜',t:'Bánh chén hấp'},
+     {n:'蝦捲',pl:'安平',m:'午晚',p:100,tg:'',d:'外面脆脆的',t:'Chả tôm cuộn'},
+     {n:'夜市小吃',pl:'花園夜市',m:'晚',p:250,tg:'',d:'只有星期四、六、日有',t:'Chợ đêm Hoa Viên (thứ 5, 7, CN)'},
+     {n:'素食餐廳',pl:'中西區',m:'午晚',p:150,tg:'veg',d:'可以吃素',t:'Nhà hàng chay'},
+     {n:'鍋燒意麵',pl:'小吃店',m:'午晚',p:80,tg:'',d:'熱熱的湯麵',t:'Mì nồi nóng'}],
+ at:[{n:'赤崁樓',o:'08:30',c:'21:30',d:45,p:70,go:['walk',15,0],out:1,f:'',a:'看古蹟',t:'Lầu Xích Khảm (di tích)'},
+     {n:'安平古堡',o:'08:30',c:'17:30',d:90,p:70,go:['bus',30,18],out:1,f:'',a:'看老城堡、走安平老街',t:'Pháo đài An Bình'},
+     {n:'神農街',o:'10:00',c:'22:00',d:60,p:0,go:['walk',15,0],out:1,f:'',a:'逛老街、拍照',t:'Phố cổ Thần Nông'},
+     {n:'奇美博物館',o:'09:30',c:'17:30',d:150,p:200,go:['tra',35,40],out:0,f:'',a:'看畫和樂器',t:'Bảo tàng Kỳ Mỹ'},
+     {n:'台灣文學館',o:'09:00',c:'18:00',d:45,p:0,go:['walk',10,0],out:0,f:'',a:'看台灣的書和故事',t:'Bảo tàng Văn học Đài Loan'},
+     {n:'四草綠色隧道',o:'09:00',c:'17:00',d:60,p:200,go:['taxi',25,100],out:1,f:'boat',a:'坐小船看紅樹林',t:'Đường hầm rừng ngập mặn (đi thuyền)'},
+     {n:'花園夜市',o:'18:00',c:'23:59',d:120,p:0,go:['bus',20,18],out:1,f:'',a:'逛夜市',t:'Chợ đêm Hoa Viên'}]},
+{id:'alishan',n:'阿里山',r:'嘉義縣',hub:'阿里山',b:'高山上的森林，可以看日出和很大的樹。山上很冷！',t:'Rừng trên núi cao, ngắm bình minh và cây cổ thụ. Trên núi rất lạnh!',
+ tr:[{t:'最快',s:[S1,ML,['hsr','高鐵左營站','高鐵嘉義站',30,410],['bus','高鐵嘉義站','阿里山',150,283,'台灣好行，山路很彎']],c:3,a:4},
+     {t:'比較便宜',s:[S1,MK,['tra','高雄車站','嘉義車站',80,290,'自強號'],['bus','嘉義車站','阿里山',150,240,'台灣好行，山路很彎']],c:3,a:4}],
+ ho:[{k:'青年旅館',area:'阿里山上',near:'在阿里山上，走路去景點',room:'六人房的上下舖',p:700,bf:0,el:0,bath:0,c:2,a:4,t:'Nhà nghỉ thanh niên trên núi, tắm chung'},
+     {k:'民宿',area:'阿里山上',near:'在阿里山上，走路去景點',room:'一間四人房',p:1000,bf:1,el:0,bath:1,c:3,a:4,t:'Homestay trên núi, 1 phòng 4 người'},
+     {k:'飯店',area:'阿里山上',near:'在森林裡面，很安靜',room:'兩間雙人房',p:2250,bf:1,el:1,bath:1,c:5,a:5,t:'Khách sạn trong rừng: 2 phòng đôi'}],
+ fo:[{n:'火雞肉飯',pl:'嘉義車站附近',m:'午',p:70,tg:'',d:'嘉義最有名的飯（上山以前吃）',t:'Cơm gà tây Gia Nghĩa'},
+     {n:'阿里山便當',pl:'山上',m:'午晚',p:120,tg:'',d:'山上最方便',t:'Cơm hộp trên núi'},
+     {n:'山產合菜',pl:'山上餐廳',m:'晚',p:350,tg:'',d:'很多人一起吃很多菜',t:'Mâm cơm đặc sản núi'},
+     {n:'烤山豬肉',pl:'山上',m:'晚',p:250,tg:'',d:'山上的特別烤肉',t:'Thịt heo rừng nướng'},
+     {n:'素食麵',pl:'山上',m:'午晚',p:120,tg:'veg',d:'可以吃素',t:'Mì chay'},
+     {n:'包子、豆漿',pl:'山上早餐店',m:'早',p:70,tg:'veg',d:'熱熱的早餐',t:'Bánh bao, sữa đậu nành'}],
+ at:[{n:'森林遊樂區入口',o:'00:00',c:'23:59',d:10,p:300,go:['walk',0,0],out:1,f:'entry',a:'買門票',t:'Vé vào khu rừng (mua 1 lần)'},
+     {n:'祝山看日出',o:'04:00',c:'07:30',d:150,p:150,go:['walk',10,0],out:1,f:'need',a:'坐小火車去看日出',t:'Đi tàu nhỏ ngắm bình minh (dậy rất sớm)'},
+     {n:'神木群步道',o:'06:00',c:'18:00',d:120,p:0,go:['walk',10,0],out:1,f:'hard need',a:'走步道、看很老的大樹',t:'Đường mòn cây cổ thụ'},
+     {n:'姊妹潭',o:'06:00',c:'18:00',d:60,p:0,go:['walk',15,0],out:1,f:'need',a:'看漂亮的湖',t:'Hồ Chị Em'},
+     {n:'森林小火車',o:'09:00',c:'16:00',d:40,p:100,go:['walk',10,0],out:1,f:'need',a:'坐森林小火車',t:'Tàu nhỏ trong rừng'},
+     {n:'遊客中心',o:'08:00',c:'17:00',d:40,p:0,go:['walk',10,0],out:0,f:'',a:'看阿里山的介紹、休息',t:'Trung tâm du khách (trong nhà)'},
+     {n:'奮起湖老街',o:'09:00',c:'18:00',d:120,p:0,go:['bus',60,80],out:1,f:'mtn',a:'吃便當、逛老街',t:'Phố cổ Phấn Khởi Hồ'}]},
+{id:'sunmoon',n:'日月潭',r:'南投縣',hub:'日月潭',b:'台灣最大的湖，可以坐船、騎腳踏車、坐纜車。',t:'Hồ lớn nhất Đài Loan: đi thuyền, đạp xe, đi cáp treo.',
+ tr:[{t:'最快',s:[S1,ML,HSRTC,['bus','高鐵台中站','日月潭',80,190,'台灣好行，最後一段是山路']],c:4,a:5},
+     {t:'比較便宜',s:[S1,MK,['tra','高雄車站','台中車站',160,615,'自強號'],['bus','台中車站','日月潭',110,200,'台灣好行，山路']],c:3,a:5}],
+ ho:[{k:'青年旅館',area:'埔里',near:'要坐公車四十分鐘才到日月潭',room:'六人房的上下舖',p:500,bf:0,el:1,bath:0,c:2,a:4,t:'Nhà nghỉ thanh niên ở Phố Lý: phải đi xe buýt 40 phút mới tới hồ'},
+     {k:'民宿',area:'伊達邵',near:'離伊達邵碼頭走路五分鐘',room:'一間四人房',p:900,bf:1,el:0,bath:1,c:4,a:4,t:'Homestay gần bến thuyền Y Đạt Thiệu'},
+     {k:'飯店',area:'日月潭湖邊',near:'在湖邊，房間可以看湖',room:'兩間雙人房',p:2500,bf:1,el:1,bath:1,c:5,a:5,t:'Khách sạn ven hồ'}],
+ fo:[{n:'總統魚',pl:'湖邊餐廳',m:'晚',p:450,tg:'',d:'日月潭最有名的魚',t:'Cá “tổng thống” đặc sản hồ'},
+     {n:'老街小吃',pl:'伊達邵老街',m:'午晚',p:200,tg:'',d:'可以吃很多種小吃',t:'Ăn vặt phố cổ Y Đạt Thiệu'},
+     {n:'原住民風味餐',pl:'伊達邵',m:'午晚',p:350,tg:'spicy',d:'有烤肉和山上的菜',t:'Cơm kiểu thổ dân (có món cay)'},
+     {n:'素食麵',pl:'水社',m:'午晚',p:120,tg:'veg',d:'可以吃素',t:'Mì chay'},
+     {n:'便當',pl:'水社',m:'午',p:120,tg:'',d:'快又方便',t:'Cơm hộp'},
+     {n:'早餐店',pl:'水社',m:'早',p:70,tg:'veg',d:'蛋餅、豆漿',t:'Quán ăn sáng'}],
+ at:[{n:'遊湖船',o:'09:00',c:'17:00',d:120,p:300,go:['walk',5,0],out:1,f:'boat',a:'坐船遊湖',t:'Đi thuyền quanh hồ'},
+     {n:'日月潭纜車',o:'10:30',c:'16:00',d:90,p:300,go:['bus',20,30],out:1,f:'',a:'坐纜車看湖',t:'Cáp treo ngắm hồ'},
+     {n:'環湖騎腳踏車',o:'08:00',c:'18:00',d:120,p:300,go:['walk',5,0],out:1,f:'hard',a:'租腳踏車在湖邊騎',t:'Thuê xe đạp chạy quanh hồ'},
+     {n:'伊達邵老街',o:'10:00',c:'21:00',d:90,p:0,go:['bus',15,30],out:1,f:'',a:'逛老街、吃小吃',t:'Phố cổ Y Đạt Thiệu'},
+     {n:'向山遊客中心',o:'09:00',c:'17:00',d:45,p:0,go:['bus',15,30],out:0,f:'',a:'看特別的建築、休息',t:'Trung tâm du khách Hướng Sơn (trong nhà)'},
+     {n:'文武廟',o:'07:00',c:'19:00',d:60,p:0,go:['bus',15,30],out:1,f:'',a:'看廟、看湖',t:'Miếu Văn Võ'},
+     {n:'九族文化村',o:'09:30',c:'17:00',d:240,p:900,go:['bus',20,30],out:1,f:'',a:'玩遊樂設施、看原住民文化',t:'Làng văn hóa 9 tộc (công viên trò chơi)'}]},
+{id:'hualien',n:'花蓮',r:'花蓮縣',hub:'花蓮車站',b:'有山有海，天空很藍。',t:'Có núi có biển, bầu trời rất xanh.',
+ tr:[{t:'比較便宜',s:[S1,MK,['tra','高雄車站','花蓮車站',300,859,'自強號，走南迴線，可以看海']],c:4,a:5},
+     {t:'比較貴',s:[S1,ML,HSR_TP,['tra','台北車站','花蓮車站',130,520,'太魯閣號，常常買不到票']],c:4,a:5,x:'比較貴，可是不一定比較快！算算看。'}],
+ ho:[{k:'青年旅館',area:'花蓮車站附近',near:'離花蓮車站走路五分鐘',room:'六人房的上下舖',p:500,bf:0,el:1,bath:0,c:2,a:4,t:'Nhà nghỉ thanh niên: giường tầng, tắm chung'},
+     {k:'民宿',area:'東大門夜市附近',near:'離東大門夜市走路五分鐘',room:'一間四人房',p:700,bf:1,el:0,bath:1,c:4,a:4,t:'Homestay gần chợ đêm Đông Đại Môn'},
+     {k:'飯店',area:'市區',near:'離花蓮車站坐車十分鐘',room:'兩間雙人房',p:1400,bf:1,el:1,bath:1,c:5,a:5,t:'Khách sạn: 2 phòng đôi'}],
+ fo:[{n:'扁食',pl:'小吃店',m:'午晚',p:70,tg:'',d:'花蓮有名的餛飩湯',t:'Canh hoành thánh'},
+     {n:'炸彈蔥油餅',pl:'小吃店',m:'午',p:50,tg:'veg',d:'很有名，常常要排隊',t:'Bánh hành chiên trứng'},
+     {n:'夜市小吃',pl:'東大門夜市',m:'晚',p:250,tg:'',d:'很大的夜市',t:'Ăn vặt chợ đêm Đông Đại Môn'},
+     {n:'原住民烤肉',pl:'東大門夜市',m:'晚',p:300,tg:'',d:'烤山豬肉、竹筒飯',t:'Thịt nướng thổ dân, cơm ống tre'},
+     {n:'牛肉麵',pl:'市區',m:'午晚',p:200,tg:'beef',d:'熱熱的牛肉麵',t:'Mì bò'},
+     {n:'素食',pl:'市區',m:'午晚',p:120,tg:'veg',d:'可以吃素',t:'Cơm chay'},
+     {n:'早餐店',pl:'市區',m:'早',p:70,tg:'veg',d:'蛋餅、豆漿',t:'Quán ăn sáng'}],
+ at:[{n:'七星潭',o:'06:00',c:'22:00',d:90,p:0,go:['bus',30,30],out:1,f:'',a:'看海、撿石頭',t:'Bãi biển Thất Tinh Đàm'},
+     {n:'鯉魚潭',o:'08:00',c:'17:00',d:120,p:200,go:['bus',40,50],out:1,f:'boat',a:'划船、散步',t:'Hồ Lý Ngư (chèo thuyền)'},
+     {n:'松園別館',o:'09:00',c:'18:00',d:60,p:60,go:['taxi',10,50],out:0,f:'',a:'看老房子和海',t:'Biệt thự Tùng Viên (trong nhà)'},
+     {n:'花蓮文創園區',o:'10:00',c:'18:00',d:60,p:0,go:['walk',10,0],out:0,f:'',a:'逛小店、看展覽',t:'Khu sáng tạo văn hóa (trong nhà)'},
+     {n:'遠雄海洋公園',o:'09:30',c:'17:00',d:300,p:890,go:['bus',40,60],out:1,f:'',a:'看海豚、玩遊樂設施',t:'Công viên biển (xem cá heo, trò chơi)'},
+     {n:'清水斷崖',o:'08:00',c:'17:00',d:60,p:0,go:['bus',60,100],out:1,f:'mtn',a:'看很高的山和藍色的海',t:'Vách đá Thanh Thủy'},
+     {n:'東大門夜市',o:'17:00',c:'23:59',d:120,p:0,go:['walk',10,0],out:1,f:'',a:'逛夜市',t:'Chợ đêm Đông Đại Môn'}]},
+{id:'kenting',n:'墾丁',r:'屏東縣',hub:'墾丁大街',b:'台灣最南邊，有沙灘、大海和夜市。',t:'Cực nam Đài Loan: bãi cát, biển và chợ đêm.',
+ tr:[{t:'最快',s:[S1,ML,['coach','高鐵左營站','墾丁大街',140,401,'墾丁快線 9189，要先劃位']],c:4,a:4},
+     {t:'比較便宜',s:[S1,MK,['coach','高雄車站','墾丁大街',180,360,'客運 9117，停很多站']],c:3,a:4}],
+ ho:[{k:'青年旅館',area:'墾丁大街',near:'就在墾丁大街上',room:'六人房的上下舖',p:600,bf:0,el:0,bath:0,c:2,a:3,t:'Nhà nghỉ thanh niên trên phố Khẩn Đinh'},
+     {k:'民宿',area:'墾丁大街附近',near:'離海灘走路五分鐘',room:'一間四人房',p:800,bf:1,el:0,bath:1,c:4,a:4,t:'Homestay gần bãi biển'},
+     {k:'度假飯店',area:'南灣',near:'在海邊，有游泳池',room:'兩間雙人房',p:2250,bf:1,el:1,bath:1,c:5,a:5,t:'Resort ven biển có hồ bơi'}],
+ fo:[{n:'海鮮熱炒',pl:'墾丁大街',m:'晚',p:400,tg:'',d:'四個人一起點很多菜',t:'Hải sản xào'},
+     {n:'夜市小吃',pl:'墾丁大街',m:'晚',p:250,tg:'',d:'晚上的大街很熱鬧',t:'Ăn vặt phố đêm Khẩn Đinh'},
+     {n:'泰式料理',pl:'墾丁大街',m:'午晚',p:300,tg:'spicy',d:'酸酸辣辣的',t:'Món Thái (chua cay)'},
+     {n:'炒飯',pl:'小吃店',m:'午',p:100,tg:'',d:'快又便宜',t:'Cơm chiên'},
+     {n:'素食',pl:'恆春',m:'午晚',p:150,tg:'veg',d:'可以吃素',t:'Cơm chay'},
+     {n:'早餐店',pl:'墾丁',m:'早',p:70,tg:'veg',d:'蛋餅、豆漿',t:'Quán ăn sáng'}],
+ at:[{n:'鵝鑾鼻燈塔',o:'08:00',c:'18:00',d:90,p:60,go:['bus',20,30],out:1,f:'',a:'看白色的燈塔和大海',t:'Hải đăng Nga Loan Tị'},
+     {n:'海洋生物博物館',o:'09:00',c:'17:30',d:180,p:450,go:['bus',40,60],out:0,f:'',a:'看魚、看企鵝',t:'Bảo tàng Sinh vật biển (trong nhà)'},
+     {n:'白沙灣',o:'06:00',c:'18:00',d:90,p:0,go:['bus',25,40],out:1,f:'',a:'玩沙、玩水',t:'Vịnh Cát Trắng'},
+     {n:'浮潛體驗',o:'08:00',c:'16:00',d:150,p:800,go:['walk',10,0],out:1,f:'',a:'看海裡的魚',t:'Lặn ống thở ngắm cá'},
+     {n:'船帆石',o:'06:00',c:'19:00',d:30,p:0,go:['bus',10,20],out:1,f:'',a:'看像船的大石頭',t:'Đá cánh buồm'},
+     {n:'墾丁大街夜市',o:'17:00',c:'23:59',d:120,p:0,go:['walk',5,0],out:1,f:'',a:'逛夜市',t:'Phố đêm Khẩn Đinh'},
+     {n:'龍磐公園',o:'18:00',c:'22:00',d:60,p:0,go:['taxi',20,100],out:1,f:'',a:'看星星',t:'Công viên Long Bàn, ngắm sao'}]},
+{id:'penghu',n:'澎湖',r:'澎湖縣',hub:'馬公市區',b:'海上的小島，海很藍，可以坐船去別的島。',t:'Quần đảo giữa biển, nước rất xanh, đi thuyền ra các đảo.',
+ tr:[{t:'最快',s:[S1,['mrt','大寮站','高雄國際機場站',40,35],['wait','高雄機場','安檢、等飛機',60,0],['plane','高雄機場','馬公機場',40,1800],['taxi','馬公機場','馬公市區',15,150,'四個人一起坐']],c:4,a:5},
+     {t:'比較便宜',s:[S1,['mrt','大寮站','鹽埕埔站',35,35],['walk','鹽埕埔站','高雄港',15,0],['boat','高雄港','馬公港',270,900,'台華輪，很晃，容易暈船；不是每天都有船'],['walk','馬公港','馬公市區',10,0]],c:2,a:4}],
+ ho:[{k:'青年旅館',area:'馬公市區',near:'離馬公老街走路五分鐘',room:'六人房的上下舖',p:600,bf:0,el:0,bath:0,c:2,a:4,t:'Nhà nghỉ thanh niên: giường tầng, tắm chung'},
+     {k:'民宿',area:'馬公老街附近',near:'離老街走路三分鐘',room:'一間四人房',p:800,bf:1,el:0,bath:1,c:4,a:4,t:'Homestay gần phố cổ'},
+     {k:'飯店',area:'馬公港邊',near:'在港口旁邊，可以看海',room:'兩間雙人房',p:1600,bf:1,el:1,bath:1,c:5,a:5,t:'Khách sạn cạnh cảng'}],
+ fo:[{n:'海鮮餐廳',pl:'馬公',m:'晚',p:500,tg:'',d:'最新鮮的海鮮',t:'Nhà hàng hải sản'},
+     {n:'小管麵線',pl:'小吃店',m:'午晚',p:100,tg:'',d:'澎湖有名的麵線',t:'Mì sợi mực ống'},
+     {n:'海鮮粥',pl:'小吃店',m:'早午',p:120,tg:'',d:'熱熱的粥',t:'Cháo hải sản'},
+     {n:'酸辣湯餃',pl:'小吃店',m:'午晚',p:100,tg:'spicy',d:'酸酸辣辣的',t:'Sủi cảo canh chua cay'},
+     {n:'素食',pl:'馬公',m:'午晚',p:150,tg:'veg',d:'可以吃素',t:'Cơm chay'},
+     {n:'早餐店',pl:'馬公',m:'早',p:70,tg:'veg',d:'蛋餅、豆漿',t:'Quán ăn sáng'}],
+ at:[{n:'跨海大橋',o:'06:00',c:'22:00',d:60,p:0,go:['taxi',50,200],out:1,f:'',a:'看海、拍照',t:'Cầu vượt biển'},
+     {n:'馬公老街',o:'09:00',c:'21:00',d:60,p:0,go:['walk',10,0],out:1,f:'',a:'逛老街、買黑糖糕',t:'Phố cổ Mã Công'},
+     {n:'澎湖水族館',o:'09:00',c:'17:00',d:120,p:200,go:['taxi',40,200],out:0,f:'',a:'看魚和海龜',t:'Thủy cung Bành Hồ (trong nhà)'},
+     {n:'吉貝島',o:'08:30',c:'16:00',d:300,p:900,go:['bus',30,40],out:1,f:'boat',a:'坐船去小島玩水',t:'Đảo Cát Bối (đi thuyền)'},
+     {n:'山水沙灘',o:'06:00',c:'19:00',d:90,p:0,go:['taxi',25,100],out:1,f:'',a:'玩沙、玩水',t:'Bãi biển Sơn Thủy'},
+     {n:'觀音亭',o:'06:00',c:'22:00',d:45,p:0,go:['walk',10,0],out:1,f:'',a:'看海、看夕陽',t:'Đình Quan Âm, ngắm hoàng hôn'}]}
+];
+const BENTO={n:'車上便當',pl:'車上',m:'午',p:100,tg:'',d:'在車上吃，不用花時間',t:'Cơm hộp ăn trên xe',road:1};
+const HOTELBF={n:'住宿的早餐',pl:'住的地方',m:'早',p:0,tg:'veg',d:'住宿有早餐，不用錢',t:'Bữa sáng của chỗ ở (miễn phí)',hb:1};
+
+const C=[
+ {id:'veg',n:'有人吃素',d:'組裡有一個人吃素，不能吃肉。',t:'Trong nhóm có người ăn chay.'},
+ {id:'nobeef',n:'有人不吃牛肉',d:'組裡有一個人不吃牛肉。',t:'Có người không ăn thịt bò.'},
+ {id:'nospicy',n:'有人不能吃辣',d:'組裡有一個人不能吃辣。',t:'Có người không ăn cay được.'},
+ {id:'money',n:'錢比較少',d:'每個人的預算少500塊。',t:'Ngân sách mỗi người giảm 500 Đài tệ.'},
+ {id:'luggage',n:'有人帶大行李箱',d:'換車越少越好，住的地方最好有電梯。',t:'Có người mang vali to: ít đổi xe, chỗ ở nên có thang máy.'},
+ {id:'rain',n:'第二天會下雨',d:'第二天最好去室內的地方。',t:'Ngày thứ hai trời mưa: nên đi chỗ trong nhà.'},
+ {id:'carsick',n:'有人會暈車',d:'山路和坐車太久都不好。',t:'Có người say xe: tránh đường núi, ngồi xe lâu.'},
+ {id:'seasick',n:'有人會暈船',d:'最好不要坐船。',t:'Có người say sóng: tốt nhất không đi thuyền.'},
+ {id:'grandma',n:'帶外婆一起去',d:'外婆70歲，要舒服、安全，不能走太多路。',t:'Đi cùng bà ngoại 70 tuổi: thoải mái, an toàn, không đi bộ nhiều.'},
+ {id:'work',n:'第一天早上要打工',d:'第一天中午12點以後才能出發。',t:'Sáng ngày 1 đi làm thêm, sau 12h trưa mới đi được.'},
+ {id:'hot',n:'有人很怕熱',d:'中午11點到3點，最好不要在外面。',t:'Có người sợ nóng: 11h–15h nên ở trong nhà.'},
+ {id:'curfew',n:'晚上10點要回住的地方',d:'第一天晚上10點以前要回到住的地方。',t:'Tối ngày 1 phải về chỗ ở trước 10 giờ.'}
+];
+const ROLES=[{k:'tr',zh:'交通',t:'Đi lại'},{k:'ho',zh:'住宿',t:'Chỗ ở'},{k:'fo',zh:'吃喝',t:'Ăn uống'},{k:'it',zh:'行程',t:'Lịch trình'}];
+const WHY_TR=[['快','比較快','nhanh hơn'],['便宜','比較便宜','rẻ hơn'],['舒服','比較舒服','thoải mái hơn'],['安全','比較安全','an toàn hơn'],['換車少','換車比較少','ít đổi xe hơn'],['風景','可以看風景','ngắm được cảnh']];
+const WHY_HO=[['便宜','比較便宜','rẻ hơn'],['近','離景點比較近','gần điểm tham quan'],['早餐','有早餐','có bữa sáng'],['舒服','比較舒服','thoải mái hơn'],['安全','比較安全','an toàn hơn'],['電梯','有電梯','có thang máy']];
+const WHY_FO=[['有名','都很有名','đều nổi tiếng'],['便宜','比較便宜','rẻ'],['好吃','聽說很好吃','nghe nói rất ngon'],['素','可以吃素','ăn chay được'],['不辣','不會辣','không cay'],['快','不用花太多時間','không tốn nhiều thời gian']];
+const MEALS=[{k:'d1l',day:1,zh:'第一天午餐',sh:'午餐',ty:'午',t:'Trưa ngày 1',w:[11*60,14*60]},{k:'d1d',day:1,zh:'第一天晚餐',sh:'晚餐',ty:'晚',t:'Tối ngày 1',w:[17*60,20*60+30]},
+             {k:'d2b',day:2,zh:'第二天早餐',sh:'早餐',ty:'早',t:'Sáng ngày 2',w:[5*60,10*60]},{k:'d2l',day:2,zh:'第二天午餐',sh:'午餐',ty:'午',t:'Trưa ngày 2',w:[11*60,14*60]}];
+
+/* ---------- state ---------- */
+let state=load('state',null);
+if(!state){state={groups:8,cur:1,budget:3000,g:{}};
+  state.g[1]={dest:'tainan',conds:['veg','rain'],names:['阿明','小玲','阿德','小芳'],
+    tr:{o:0,time:'08:00',why:['便宜'],though:'比較慢',but:'可以省很多錢'},
+    ho:{o:1,why:['近','早餐'],though:'沒有電梯',but:'房子很漂亮，老闆很熱情'},
+    fo:{d1l:6,d1d:5,d2b:'hb',d2l:1,why:['素','便宜']},
+    it:{d1:['a:0','m:d1l','ci','a:1','a:5','a:2','m:d1d'],d2:['m:d2b','co','a:4','a:3','m:d2l'],wake:'07:30',rain:'去奇美博物館和文學館'},votes:0}}
+const G=()=>{const g=state.g[state.cur]||(state.g[state.cur]={});
+  g.names=g.names||['','','',''];g.conds=g.conds||[];g.tr=g.tr||{o:0,time:'08:00',why:[],though:'',but:''};g.ho=g.ho||{o:-1,why:[],though:'',but:''};
+  g.fo=g.fo||{why:[]};g.it=g.it||{d1:[],d2:[],wake:'07:30',rain:''};return g};
+const destOf=g=>DEST.find(d=>d.id===g.dest);
+const condOf=id=>C.find(c=>c.id===id);
+const has=(g,id)=>(g.conds||[]).includes(id);
+const persist=()=>save('state',state);
+
+/* ---------- time helpers ---------- */
+const tm=s=>{const [h,m]=(s||'08:00').split(':').map(Number);return h*60+m};
+const hhmm=m=>{const d=Math.floor(m/1440);m=((m%1440)+1440)%1440;return (d?'(+1)':'')+Math.floor(m/60)+':'+String(m%60).padStart(2,'0')};
+function clock(m){m=((m%1440)+1440)%1440;const h=Math.floor(m/60),mm=m%60;
+  const pre=h<5?'凌晨':h<9?'早上':h<12?'上午':h<13?'中午':h<18?'下午':'晚上';const h12=h>12?h-12:(h===0?12:h);
+  return pre+h12+'點'+(mm?(mm===30?'半':mm+'分'):'')}
+const hm=m=>{const h=Math.floor(m/60),r=m%60;return (h?h+'小時':'')+(r?r+'分鐘':(h?'':'0分鐘'))};
+const hmVi=m=>{const h=Math.floor(m/60),r=m%60;return ((h?h+' tiếng ':'')+(r?r+' phút':'')).trim()};
+
+/* ---------- calculations ---------- */
+function trTotals(opt){let m=0,p=0;opt.s.forEach(s=>{m+=s[3];p+=s[4]});const transfers=Math.max(0,opt.s.filter(s=>s[0]!=='wait').length-1);m+=transfers*10;return {m,p,transfers}}
+function foodList(d,g){const ho=d.ho[g.ho.o];const L=d.fo.map((f,i)=>({...f,id:i}));L.push({...BENTO,id:'bento'});if(ho&&ho.bf)L.push({...HOTELBF,id:'hb'});return L}
+function foodOf(d,g,k){const v=g.fo[k];if(v===undefined||v===''||v===null)return null;const L=foodList(d,g);return L.find(f=>String(f.id)===String(v))||null}
+function itemInfo(d,g,code){
+  if(code.startsWith('a:')){const a=d.at[+code.slice(2)];return a?{kind:'a',a,label:a.n}:null}
+  if(code.startsWith('m:')){const M=MEALS.find(x=>x.k===code.slice(2));const f=foodOf(d,g,M.k);return {kind:'m',M,f,label:M.sh+(f?'：'+f.n:'（還沒選）')}}
+  if(code==='ci')return {kind:'ci',label:'去住的地方放行李'};
+  if(code==='co')return {kind:'co',label:'退房'};
+  return null}
+function calc(g){
+  const d=destOf(g);if(!d)return null;
+  const opt=d.tr[g.tr.o]||d.tr[0];const T1=trTotals(opt);
+  const dep=tm(g.tr.time);const arr=dep+T1.m;
+  const out={d,opt,T1,dep,arr,days:[[],[]],tickets:0,local:0,warn:{tr:[],ho:[],fo:[],it:[]},ret:0,home:0};
+  [['d1',arr],['d2',tm(g.it.wake||'07:30')]].forEach(([dk,start],di)=>{
+    let cur=start;
+    (g.it[dk]||[]).forEach(code=>{const I=itemInfo(d,g,code);if(!I)return;const row={code,...I,notes:[],warns:[]};
+      if(I.kind==='a'){const a=I.a;const reach=cur+a.go[1];let st=reach;const o=tm(a.o),c=tm(a.c);
+        if(reach<o){st=o;row.notes.push(['要等到'+a.o+'開門','phải chờ đến '+a.o+' mới mở cửa'])}
+        row.start=st;row.end=st+a.d;row.travel=a.go;
+        if(row.end>c+1)row.warns.push([`${a.n}${a.c}就關門了！`,`${a.n} đóng cửa lúc ${a.c}!`]);
+        out.tickets+=a.p;out.local+=a.go[2];}
+      else if(I.kind==='m'){const dur=I.M.k==='d2b'?30:60;row.start=cur+10;row.end=row.start+dur;
+        if(I.f&&I.f.road){row.start=cur;row.end=cur}
+        if(row.start<I.M.w[0]||row.start>I.M.w[1])row.warns.push([`${clock(row.start)}吃${I.M.sh}，時間不太對。`,`Ăn ${I.M.t.toLowerCase()} lúc ${hhmm(row.start)} không hợp lý.`]);
+        if(I.M.day!==di+1)row.warns.push(['這一餐放錯天了。','Bữa này đặt nhầm ngày.'])}
+      else if(I.kind==='ci'){row.start=cur+15;row.end=row.start+30;if(row.start<15*60)row.notes.push(['三點以前不能入住，可以先放行李','trước 15h chưa nhận phòng, chỉ gửi hành lý được'])}
+      else if(I.kind==='co'){row.start=cur;row.end=cur+15;if(row.start>11*60)row.warns.push(['十一點以前要退房！','Phải trả phòng trước 11h!'])}
+      cur=row.end;out.days[di].push(row)});
+    if(di===0)out.d1end=cur;else out.d2end=cur;
+  });
+  out.ret=(g.it.d2&&g.it.d2.length?out.d2end:15*60)+30;out.home=out.ret+T1.m;
+  /* costs */
+  out.cost={tr:T1.p*2,ho:(d.ho[g.ho.o]||{p:0}).p,fo:MEALS.reduce((s,M)=>{const f=foodOf(d,g,M.k);return s+(f?f.p:0)},0),it:out.tickets+out.local};
+  out.total=out.cost.tr+out.cost.ho+out.cost.fo+out.cost.it;
+  out.budget=state.budget-(has(g,'money')?500:0);
+  /* warnings: transport */
+  const W=out.warn;
+  if(has(g,'work')&&dep<12*60)W.tr.push(['第一天早上要打工，12點以後才能出發。','Sáng ngày 1 phải đi làm, sau 12h mới đi được.']);
+  if(has(g,'luggage')&&T1.transfers>=3)W.tr.push([`要換車${T1.transfers}次，帶大行李箱很累。`,`Đổi xe ${T1.transfers} lần, mang vali to rất mệt.`]);
+  if(has(g,'carsick')&&opt.s.some(s=>/山路/.test(s[5]||'')))W.tr.push(['這條路有山路，有人會暈車。','Lộ trình có đường núi, có người say xe.']);
+  if(has(g,'seasick')&&opt.s.some(s=>s[0]==='boat'))W.tr.push(['要坐很久的船，有人會暈船。','Phải đi thuyền lâu, có người say sóng.']);
+  if(has(g,'grandma')&&opt.c<3)W.tr.push(['這個方法不太舒服，外婆可以嗎？','Cách này không thoải mái, bà ngoại chịu được không?']);
+  if(out.home>22*60)W.tr.push([`第二天${clock(out.home)}才回到學校，太晚了！`,`Ngày 2 về tới trường lúc ${hhmm(out.home)}, quá muộn!`]);
+  /* hotel */
+  const ho=d.ho[g.ho.o];
+  if(!ho)W.ho.push(['還沒選住的地方。','Chưa chọn chỗ ở.']);
+  else{if(has(g,'luggage')&&!ho.el)W.ho.push(['沒有電梯，大行李箱要自己搬上樓。','Không có thang máy, phải tự khiêng vali lên lầu.']);
+    if(has(g,'grandma')&&ho.k==='青年旅館')W.ho.push(['青年旅館是上下舖，浴室也要共用，外婆會不方便。','Nhà nghỉ thanh niên là giường tầng, tắm chung, bà ngoại sẽ bất tiện.']);
+    if(/四十分鐘/.test(ho.near))W.ho.push(['住的地方離景點很遠，每天都要坐車。','Chỗ ở xa điểm tham quan, ngày nào cũng phải đi xe.'])}
+  /* food */
+  MEALS.forEach(M=>{const f=foodOf(d,g,M.k);if(!f){W.fo.push([`還沒選${M.zh}。`,`Chưa chọn bữa ${M.t.toLowerCase()}.`]);return}
+    if(has(g,'veg')&&!/veg/.test(f.tg))W.fo.push([`${f.n}有肉，吃素的人不能吃。`,`${f.n} có thịt, người ăn chay không ăn được.`]);
+    if(has(g,'nobeef')&&/beef/.test(f.tg))W.fo.push([`${f.n}有牛肉！`,`${f.n} có thịt bò!`]);
+    if(has(g,'nospicy')&&/spicy/.test(f.tg))W.fo.push([`${f.n}很辣！`,`${f.n} rất cay!`]);
+  });
+  /* itinerary */
+  const all=[...(g.it.d1||[]),...(g.it.d2||[])];
+  if(!(g.it.d1||[]).includes('ci'))W.it.push(['第一天還沒有「去住的地方放行李」。','Ngày 1 chưa có mục “về chỗ ở cất hành lý”.']);
+  if(!(g.it.d2||[]).includes('co'))W.it.push(['第二天還沒有「退房」。','Ngày 2 chưa có mục “trả phòng”.']);
+  MEALS.forEach(M=>{const f=foodOf(d,g,M.k);if(f&&!f.road&&!all.includes('m:'+M.k))W.it.push([`吃喝選了${M.zh}，可是行程裡沒有。`,`Phần ăn uống đã chọn bữa ${M.t.toLowerCase()} nhưng lịch trình chưa xếp.`])});
+  out.days.forEach((rows,di)=>rows.forEach(r=>{r.warns.forEach(w=>W.it.push([`第${di+1}天：`+w[0],`Ngày ${di+1}: `+w[1]]));
+    if(r.kind==='a'){const a=r.a;
+      if(di===1&&has(g,'rain')&&a.out)W.it.push([`第二天下雨，${a.n}在外面。`,`Ngày 2 mưa, ${a.n} ở ngoài trời.`]);
+      if(has(g,'hot')&&a.out&&r.start<15*60&&r.end>11*60)W.it.push([`${a.n}在外面，中午很熱。`,`${a.n} ở ngoài trời, buổi trưa rất nóng.`]);
+      if(has(g,'carsick')&&/mtn/.test(a.f))W.it.push([`去${a.n}要走山路。`,`Đi ${a.n} phải qua đường núi.`]);
+      if(has(g,'seasick')&&/boat/.test(a.f))W.it.push([`${a.n}要坐船。`,`${a.n} phải đi thuyền.`]);
+      if(has(g,'grandma')&&/hard/.test(a.f))W.it.push([`${a.n}要走很多路，外婆會很累。`,`${a.n} phải đi bộ nhiều, bà ngoại sẽ mệt.`]);}}));
+  if(out.days[0].length&&out.d1end>(has(g,'curfew')?22*60-15:23*60))W.it.push([`第一天${clock(out.d1end)}才結束，太晚了！`,`Ngày 1 kết thúc lúc ${hhmm(out.d1end)}, quá muộn!`]);
+  if(d.at.some(a=>/need/.test(a.f))){const needs=all.some(c=>c.startsWith('a:')&&/need/.test(d.at[+c.slice(2)].f));const ent=all.some(c=>c.startsWith('a:')&&/entry/.test(d.at[+c.slice(2)].f));
+    if(needs&&!ent)W.it.push(['要先去「森林遊樂區入口」買門票。','Phải mua vé vào khu rừng trước.'])}
+  out.over=out.total>out.budget;
+  return out}
+
+/* ---------- shared UI ---------- */
+function warnHTML(list,okMsg){if(!list.length)return okMsg?`<div class="okbox">${okMsg[0]}${tl(okMsg[1])}</div>`:'';
+  return `<div class="warnbox"><b>想一想：</b>${tl('Cần xem lại:')}${list.map(w=>`<div style="margin-top:6px">${esc(w[0])}${tl(w[1])}</div>`).join('')}</div>`}
+function meterHTML(R){const B=Math.max(R.budget,R.total)||1;const segs=[['tr','交通'],['ho','住宿'],['fo','吃喝'],['it','門票和當地交通']];
+  return `<div class="budget"><div class="row" style="justify-content:space-between;gap:6px"><span class="btotal ${R.over?'over':''}">一個人 NT$${R.total.toLocaleString()} / 預算 NT$${R.budget.toLocaleString()}</span><span class="small">${R.over?'超過'+(R.total-R.budget)+'塊！'+tl('Vượt '+(R.total-R.budget)+' Đài tệ!'):'還剩'+(R.budget-R.total)+'塊'+tl('Còn dư '+(R.budget-R.total)+' Đài tệ')}</span></div>
+  <div class="meter ${R.over?'over':''}" role="img" aria-label="budget">${segs.map(([k])=>`<span style="width:${R.cost[k]/B*100}%;background:var(--c-${k})"></span>`).join('')}</div>
+  <div class="mleg">${segs.map(([k,zh])=>`<span><i style="background:var(--c-${k})"></i>${zh} ${R.cost[k]}</span>`).join('')}</div></div>`}
+function renderGbar(){const g=G();const d=destOf(g);const R=d?calc(g):null;
+  const html=d?`<div><div class="region">${esc(d.r)} · 第${state.cur}組</div><div class="gname">${esc(d.n)}</div></div>
+   <div>${g.conds.map(id=>{const c=condOf(id);return `<span class="cchip">${esc(c.n)}${tl(c.t)}</span>`}).join('')}</div>${meterHTML(R)}`
+   :`<div>第${state.cur}組還沒抽地點。先到「① 抽籤」。${tl('Nhóm này chưa bốc địa điểm. Vào tab ① trước.')}</div>`;
+  $$('[data-gbar]').forEach(el=>el.innerHTML=html);
+  $$('[data-who]').forEach(el=>{const i=+el.dataset.who;el.textContent=g.names[i]?'· '+g.names[i]:''});
+  return R}
+const dots=n=>'●'.repeat(n)+'○'.repeat(5-n);
+function lineHTML(opt){let h='<ol class="line">';
+  opt.s.forEach((s,i)=>{const mc='var(--m-'+s[0]+')';const M=MODES[s[0]];
+    h+=`<li style="--mc:${mc}"><span class="dot"></span><div><div class="stop">${esc(s[1])}${tl(T[s[1]])}</div><div class="leg"><span class="chip" style="--mc:${mc}">${M.zh}</span><span class="tli">${tl(M.t)}</span><span class="mono">${s[3]}分</span><span class="mono">${s[4]?'約 NT$'+s[4]:'免費'}</span>${s[5]?`<span class="legnote">${esc(s[5])}${tl(T[s[5]])}</span>`:''}</div></div></li>`;
+    if(i===opt.s.length-1)h+=`<li style="--mc:${mc}"><span class="dot" style="background:var(--mc)"></span><div class="stop">${esc(s[2])}${tl(T[s[2]])}</div></li>`});
+  return h+'</ol>'}
+function checksHTML(list,sel,name){return list.map(w=>`<label><input type="checkbox" name="${name}" value="${w[0]}" ${sel.includes(w[0])?'checked':''}>${w[1]}${tl(w[2])}</label>`).join('')}
+const pick=(list,keys)=>keys.map(k=>list.find(w=>w[0]===k)).filter(Boolean);
+const nm=(g,i)=>g.names[i]||'下一位同學';
+
+/* ---------- tabs ---------- */
+const panels=['draw','tr','ho','fo','it','sum','slides','present','board','vocab'];
+let curTab='draw';
+function show(t){curTab=t;panels.forEach(p=>{$('#p-'+p).hidden=p!==t});
+  $$('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));save('tab',t);render()}
+$$('#tabs button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.t)));
+function render(){renderGbar();({draw:renderDraw,tr:renderTr,ho:renderHo,fo:renderFo,it:renderIt,sum:renderSum,slides:renderSlides,present:renderStage,board:renderBoard,vocab:()=>{}})[curTab]();refreshPy()}
+function grpOptions(){const s=$('#grpSel');s.innerHTML='';for(let i=1;i<=state.groups;i++){const o=document.createElement('option');o.value=i;o.textContent='第'+i+'組';s.appendChild(o)}s.value=state.cur}
+$('#grpSel').onchange=e=>{state.cur=+e.target.value;persist();spk=0;render()};
+
+/* ---------- draw ---------- */
+function renderDraw(){const g=G();const d=destOf(g);
+  $('#grpCount').value=state.groups;$('#budgetIn').value=state.budget;
+  $('#tkDestBig').textContent=d?d.n:'？';$('#tkDestSub').innerHTML=d?esc(d.r+' · '+d.b)+tl(d.t):'按「抽地點」'+tl('Bấm “抽地點” để bốc địa điểm');
+  $('#tkCondBig').textContent=g.conds.length?g.conds.map(id=>condOf(id).n).join('、'):'？';
+  $('#tkCondSub').innerHTML=g.conds.length?g.conds.map(id=>{const c=condOf(id);return esc(c.d)+tl(c.t)}).join(''):'按「抽兩個條件」'+tl('Bấm để bốc 2 điều kiện cho cả nhóm');
+  const used=Object.entries(state.g).filter(([k,x])=>+k<=state.groups&&x.dest).map(([,x])=>x.dest);
+  const left=DEST.filter(x=>!used.includes(x.id)).length;$('#drawLeft').innerHTML='還有 '+left+' 個地方沒被抽到'+tl('Còn '+left+' địa điểm chưa ai bốc');
+  $('#namesBox').innerHTML=ROLES.map((r,i)=>`<div class="field"><label for="nm${i}">${['②','③','④','⑤'][i]} ${r.zh}${tl(r.t)}</label><input type="text" id="nm${i}" value="${esc(g.names[i])}" placeholder="名字 tên"></div>`).join('');
+  ROLES.forEach((r,i)=>$('#nm'+i).addEventListener('input',e=>{G().names[i]=e.target.value;persist()}));
+  const tb=$('#drawTable tbody');tb.innerHTML='';
+  for(let i=1;i<=state.groups;i++){const x=state.g[i]||{};const dd=DEST.find(z=>z.id===x.dest);const tr=document.createElement('tr');if(i===state.cur)tr.className='cur';
+    tr.innerHTML=`<td class="mono">${i}</td><td>${dd?esc(dd.n):'—'}</td><td>${(x.conds||[]).map(id=>esc(condOf(id).n)).join('、')||'—'}</td><td>${(x.names||[]).filter(Boolean).map(esc).join('、')||'—'}</td>`;tb.appendChild(tr)}}
+function spin(el,list,cb){el.classList.add('spin');const big=el.querySelector('.big');let n=0;const total=matchMedia('(prefers-reduced-motion: reduce)').matches?1:16;
+  const iv=setInterval(()=>{big.textContent=list[Math.floor(Math.random()*list.length)];if(++n>=total){clearInterval(iv);el.classList.remove('spin');cb()}},70)}
+$('#btnDrawDest').onclick=()=>{const used=Object.entries(state.g).filter(([k,x])=>+k!==state.cur&&+k<=state.groups&&x.dest).map(([,x])=>x.dest);
+  let pool=DEST.filter(x=>!used.includes(x.id));if(!pool.length)pool=DEST;const p=pool[Math.floor(Math.random()*pool.length)];
+  spin($('#tkDest'),DEST.map(x=>x.n),()=>{const g=G();g.dest=p.id;g.tr={o:0,time:'08:00',why:[],though:'',but:''};g.ho={o:-1,why:[],though:'',but:''};g.fo={why:[]};g.it={d1:[],d2:[],wake:'07:30',rain:''};persist();render()})};
+$('#btnDrawCond').onclick=()=>{const a=[...C].sort(()=>Math.random()-.5).slice(0,2).map(c=>c.id);
+  spin($('#tkCond'),C.map(x=>x.n),()=>{G().conds=a;persist();render()})};
+$('#grpCount').onchange=e=>{state.groups=Math.max(2,Math.min(8,+e.target.value||8));if(state.cur>state.groups)state.cur=1;persist();grpOptions();render()};
+$('#budgetIn').onchange=e=>{state.budget=Math.max(500,+e.target.value||3000);persist();render()};
+let armed=false;$('#btnResetDraw').onclick=()=>{if(!armed){armed=true;$('#resetMsg').innerHTML='再按一次會清除所有組的資料。'+tl('Bấm lần nữa để xóa dữ liệu của tất cả các nhóm.');refreshPy();setTimeout(()=>{armed=false;$('#resetMsg').innerHTML=''},5000);return}
+  armed=false;state.g={};state.cur=1;persist();grpOptions();$('#resetMsg').innerHTML='已清除。'+tl('Đã xóa.');render()};
+
+/* ---------- transport ---------- */
+function needDest(el){el.innerHTML=`<div class="box">先到「① 抽籤」抽地點。${tl('Hãy bốc địa điểm ở tab ① trước.')}</div>`}
+function renderTr(){const g=G();const d=destOf(g);if(!d){needDest($('#trOpts'));$('#scTr').innerHTML='';return}
+  $('#trOpts').innerHTML=d.tr.map((o,i)=>{const t=trTotals(o);return `<div class="opt clickable ${i==g.tr.o?'pick':''}" data-i="${i}"><div class="opt-title"><h3><input type="radio" name="tro" ${i==g.tr.o?'checked':''} aria-label="方法${'ABC'[i]}"> 方法 ${'ABC'[i]}${tl('Cách '+'ABC'[i])}</h3><span class="tag">${esc(o.t)}${tl(T[o.t])}</span></div>${lineHTML(o)}
+    <div class="totals"><span>單程 <b>${hm(t.m)}</b></span><span>來回 <b>約 NT$${(t.p*2).toLocaleString()}</b></span></div><div class="small">含換車、等車 ${t.transfers} 次 × 10 分${tl('Một chiều '+hmVi(t.m)+' · khứ hồi '+t.p*2+' Đài tệ')}</div>
+    <div class="rate"><span>舒服 <span class="dots">${dots(o.c)}</span></span><span>安全 <span class="dots">${dots(o.a)}</span></span></div>${o.x?`<div class="note">${esc(o.x)}${tl(T[o.x])}</div>`:''}</div>`}).join('');
+  $$('#trOpts .opt').forEach(el=>el.onclick=()=>{G().tr.o=+el.dataset.i;persist();render()});
+  $('#trTime').value=g.tr.time;$('#trWhy').innerHTML=checksHTML(WHY_TR,g.tr.why,'trw');$('#trThough').value=g.tr.though;$('#trBut').value=g.tr.but;
+  $$('#trWhy input').forEach(i=>i.onchange=()=>{G().tr.why=$$('#trWhy input:checked').map(x=>x.value);persist();scriptsOnly()});
+  const R=calc(g);$('[data-warn="tr"]').innerHTML=warnHTML(R.warn.tr,['交通沒有問題！','Phần đi lại ổn!']);$('#scTr').innerHTML=scriptTr(g,R)}
+$('#trTime').addEventListener('change',e=>{G().tr.time=e.target.value||'08:00';persist();render()});
+$('#trThough').addEventListener('input',e=>{G().tr.though=e.target.value.trim();persist();scriptsOnly()});
+$('#trBut').addEventListener('input',e=>{G().tr.but=e.target.value.trim();persist();scriptsOnly()});
+function scriptsOnly(){const g=G();const R=calc(g);if(!R)return;const m={tr:['#scTr',scriptTr],ho:['#scHo',scriptHo],fo:['#scFo',scriptFo],it:['#scIt',scriptIt]}[curTab];if(m){$(m[0]).innerHTML=m[1](g,R)}renderGbar();refreshPy()}
+const mk=s=>`<mark>${esc(s)}</mark>`;
+const blank=s=>s?mk(s):'<mark>＿＿＿</mark>';
+function routeHTML(opt){const steps=opt.s.filter(s=>s[0]!=='wait');const conn=i=>i===0?'首先':(i===steps.length-1?'最後':'然後');
+  let h=steps.map((s,i)=>{const M=MODES[s[0]];const v=s[0]==='walk'?`從${mk(s[1])}走路到${mk(s[2])}`:`從${mk(s[1])}${M.verb}到${mk(s[2])}`;return `<p>${steps.length>1?conn(i)+'，':''}我們${v}，要${mk(s[3]+'分鐘')}${s[4]?'，'+mk(s[4]+'塊'):''}。</p>`}).join('');
+  const w=opt.s.find(s=>s[0]==='wait');if(w)h+=`<p>在機場還要等${mk(w[3]+'分鐘')}。</p>`;return h}
+function scriptTr(g,R){const d=R.d;const why=pick(WHY_TR,g.tr.why).map(w=>w[1]).join('，也');
+  const modes=[...new Set(R.opt.s.filter(s=>!['wait','walk'].includes(s[0])).map(s=>MODES[s[0]].zh))].join('、');
+  return `<p>大家好！我們是第${state.cur}組。我們要去${mk(d.n)}玩兩天一夜。我們的條件是：${g.conds.map(id=>mk(condOf(id).n)).join('、')||'＿＿'}。</p>
+  <p>我是${blank(g.names[0])}，我負責交通。</p>
+  <p>第一天，我們${mk(clock(R.dep))}從中山工商出發。</p>${routeHTML(R.opt)}
+  <p>我們大概${mk(clock(R.arr))}到${mk(d.hub)}。</p>
+  <p>第二天，我們${mk(clock(R.ret))}從${esc(d.hub)}出發回學校，大概${mk(clock(R.home))}到。</p>
+  <p>來回一個人要${mk(R.cost.tr.toLocaleString()+'塊')}。</p>
+  <p>我們選${esc(modes)}，因為這個方法${why?mk(why):blank('')}。</p>
+  <p>雖然${blank(g.tr.though)}，但是${blank(g.tr.but)}。</p>
+  <p>到了以後，我們要住哪裡呢？請${mk(nm(g,1))}告訴大家。</p>`}
+
+/* ---------- hotel ---------- */
+function renderHo(){const g=G();const d=destOf(g);if(!d){needDest($('#hoOpts'));$('#scHo').innerHTML='';return}
+  $('#hoOpts').innerHTML=d.ho.map((h,i)=>`<div class="opt clickable ${i==g.ho.o?'pick':''}" data-i="${i}"><div class="opt-title"><h3><input type="radio" name="hoo" ${i==g.ho.o?'checked':''} aria-label="${esc(h.k)}"> ${esc(h.k)}</h3><span class="tag">NT$${h.p}${tl('/người/đêm')}</span></div>
+    ${tl(h.t)}<dl class="kv"><dt>在哪裡</dt><dd>${esc(h.area)}・${esc(h.near)}</dd><dt>房間</dt><dd>${esc(h.room)}</dd><dt>早餐</dt><dd>${h.bf?'有':'沒有'}</dd><dt>電梯</dt><dd>${h.el?'有':'沒有'}</dd><dt>浴室</dt><dd>${h.bath?'在房間裡':'大家共用'}</dd></dl>
+    <div class="small">入住 15:00 · 退房 11:00</div><div class="rate"><span>舒服 <span class="dots">${dots(h.c)}</span></span><span>安全 <span class="dots">${dots(h.a)}</span></span></div></div>`).join('');
+  $$('#hoOpts .opt').forEach(el=>el.onclick=()=>{const g=G();g.ho.o=+el.dataset.i;if(g.fo.d2b==='hb'&&!destOf(g).ho[g.ho.o].bf)g.fo.d2b='';persist();render()});
+  $('#hoWhy').innerHTML=checksHTML(WHY_HO,g.ho.why,'how');$('#hoThough').value=g.ho.though;$('#hoBut').value=g.ho.but;
+  $$('#hoWhy input').forEach(i=>i.onchange=()=>{G().ho.why=$$('#hoWhy input:checked').map(x=>x.value);persist();scriptsOnly()});
+  const R=calc(g);$('[data-warn="ho"]').innerHTML=warnHTML(R.warn.ho,['住宿沒有問題！','Phần chỗ ở ổn!']);$('#scHo').innerHTML=scriptHo(g,R)}
+$('#hoThough').addEventListener('input',e=>{G().ho.though=e.target.value.trim();persist();scriptsOnly()});
+$('#hoBut').addEventListener('input',e=>{G().ho.but=e.target.value.trim();persist();scriptsOnly()});
+function scriptHo(g,R){const h=R.d.ho[g.ho.o];if(!h)return '<p>（先選一個住的地方）</p>';const why=pick(WHY_HO,g.ho.why).map(w=>w[1]).join('，也');
+  return `<p>我是${blank(g.names[1])}，我負責住宿。</p>
+  <p>我們住在${mk(h.area)}的${mk(h.k)}。這家${mk(h.near)}。</p>
+  <p>我們四個人住${mk(h.room)}，一個晚上一個人${mk(h.p+'塊')}。</p>
+  <p>這家${h.bf?'有早餐':'沒有早餐'}，${h.el?'有電梯':'沒有電梯'}，浴室${h.bath?'在房間裡':'要大家一起用'}。</p>
+  <p>下午三點可以入住，第二天早上十一點以前要退房。</p>
+  <p>我們選這家，因為${why?mk(why):blank('')}。</p>
+  <p>雖然${blank(g.ho.though)}，但是${blank(g.ho.but)}。</p>
+  <p>放好行李，肚子餓了！請${mk(nm(g,2))}說說我們吃什麼。</p>`}
+
+/* ---------- food ---------- */
+const tagBadges=f=>(/veg/.test(f.tg)?'<span class="badge in">可以吃素</span>':'')+(/beef/.test(f.tg)?'<span class="badge f">牛肉</span>':'')+(/spicy/.test(f.tg)?'<span class="badge f">辣</span>':'');
+function renderFo(){const g=G();const d=destOf(g);if(!d){needDest($('#foList'));$('#foMeals').innerHTML='';$('#scFo').innerHTML='';return}
+  const L=foodList(d,g);
+  $('#foList').innerHTML=L.map(f=>`<div class="food"><div class="fn">${esc(f.n)}</div>${tl(f.t)}<div class="small">${esc(f.pl)} · ${[...f.m].map(x=>x+'餐').join('／')}</div><div>${esc(f.d)}</div><div class="mono">約 NT$${f.p}</div><div>${tagBadges(f)}</div></div>`).join('');
+  $('#foMeals').innerHTML=MEALS.map(M=>{const opts=L.filter(f=>f.m.includes(M.ty)&&(f.id!=='bento'||M.k==='d1l'));
+    return `<div class="field"><label for="fm_${M.k}">${M.zh}${tl(M.t)}</label><select id="fm_${M.k}"><option value="">—— 選一個 ——</option>${opts.map(f=>`<option value="${f.id}" ${String(g.fo[M.k])===String(f.id)?'selected':''}>${esc(f.n)}（NT$${f.p}）</option>`).join('')}</select></div>`}).join('');
+  MEALS.forEach(M=>$('#fm_'+M.k).onchange=e=>{G().fo[M.k]=e.target.value;persist();render()});
+  $('#foWhy').innerHTML=checksHTML(WHY_FO,g.fo.why||[],'fow');
+  $$('#foWhy input').forEach(i=>i.onchange=()=>{G().fo.why=$$('#foWhy input:checked').map(x=>x.value);persist();scriptsOnly()});
+  const R=calc(g);$('[data-warn="fo"]').innerHTML=warnHTML(R.warn.fo,['吃的沒有問題！','Phần ăn uống ổn!']);$('#scFo').innerHTML=scriptFo(g,R)}
+function scriptFo(g,R){const d=R.d;const why=pick(WHY_FO,g.fo.why||[]).map(w=>w[1]).join('，也');
+  const lines=MEALS.map(M=>{const f=foodOf(d,g,M.k);if(!f)return `<p>${M.zh}，我們吃<mark>＿＿＿</mark>。</p>`;
+    if(f.hb)return `<p>${M.zh}，我們吃住的地方的早餐，不用錢。</p>`;
+    if(f.road)return `<p>${M.zh}，我們在車上吃便當，一個人${mk(f.p+'塊')}。</p>`;
+    let s=`<p>${M.zh}，我們在${mk(f.pl)}吃${mk(f.n)}，一個人大概${mk(f.p+'塊')}。`;
+    return s+'</p>'}).join('');
+  const cond=has(g,'veg')&&!R.warn.fo.length?'<p>因為有人吃素，所以我們選了可以吃素的東西。</p>':has(g,'nospicy')&&!R.warn.fo.length?'<p>因為有人不能吃辣，所以我們選了不辣的東西。</p>':'';
+  return `<p>我是${blank(g.names[2])}，我負責吃喝。</p>${lines}
+  <p>吃的部分，一個人一共${mk(R.cost.fo+'塊')}。</p>${cond}
+  <p>我們選這些，因為${why?mk(why):blank('')}。</p>
+  <p>吃飽了，我們去哪裡玩呢？請${mk(nm(g,3))}介紹我們的行程。</p>`}
+
+/* ---------- itinerary ---------- */
+function slotColor(r){return r.kind==='a'?'var(--c-it)':r.kind==='m'?'var(--c-fo)':'var(--c-ho)'}
+function dayHTML(R,di,editable){const g=G();const key='d'+(di+1);const rows=R.days[di];const list=g.it[key]||[];
+  let h=`<h3>${['第一天','第二天'][di]}${tl('Ngày '+(di+1))}</h3>`;
+  if(di===0)h+=`<div class="fixed">${hhmm(R.arr)} 到${esc(R.d.hub)}</div>`;
+  else h+=editable?`<div class="row"><label for="wake">起床</label><input type="time" id="wake" value="${g.it.wake||'07:30'}"></div>`:`<div class="fixed">${hhmm(tm(g.it.wake))} 起床</div>`;
+  h+=rows.map((r,i)=>{const extra=r.kind==='a'?`<div class="sm">${MODES[r.a.go[0]].zh} ${r.a.go[1]}分 · 門票 ${r.a.p?'NT$'+r.a.p:'免費'}</div>`:'';
+    return `<div class="slot" style="--sc:${slotColor(r)}"><div class="tm">${hhmm(r.start)}–${hhmm(r.end)}</div><div><div class="lb">${esc(r.label)}</div>${extra}${r.notes.map(n=>`<div class="sm">${esc(n[0])}${tl(n[1])}</div>`).join('')}${r.warns.map(w=>`<div class="w">${esc(w[0])}${tl(w[1])}</div>`).join('')}</div>
+    ${editable?`<div class="ctl"><button class="mini" data-mv="${key}:${i}:-1" ${i===0?'disabled':''} aria-label="上移">↑</button><button class="mini" data-mv="${key}:${i}:1" ${i===list.length-1?'disabled':''} aria-label="下移">↓</button><button class="mini" data-rm="${key}:${i}" aria-label="刪除">✕</button></div>`:'<span></span>'}</div>`}).join('');
+  if(di===1)h+=`<div class="fixed">${hhmm(R.ret)} 坐車回高雄 → ${hhmm(R.home)} 到學校</div>`;
+  if(editable){const adds=[];MEALS.filter(M=>M.day===di+1&&!list.includes('m:'+M.k)).forEach(M=>adds.push([`m:${M.k}`,'+ '+M.sh]));
+    if(di===0&&!list.includes('ci'))adds.push(['ci','+ 放行李']);if(di===1&&!list.includes('co'))adds.push(['co','+ 退房']);
+    h+=`<div class="adds">${adds.map(a=>`<button class="mini add" data-add="${key}:${a[0]}">${a[1]}</button>`).join('')}</div>`}
+  return h}
+function renderIt(){const g=G();const d=destOf(g);if(!d){needDest($('#itCards'));$('#day1').innerHTML=$('#day2').innerHTML='';$('#scIt').innerHTML='';return}
+  const used=[...g.it.d1,...g.it.d2];
+  $('#itCards').innerHTML=d.at.map((a,i)=>{const u=used.includes('a:'+i);return `<div class="opt ${u?'pick':''}"><div class="opt-title"><h3>${esc(a.n)}</h3><span class="tag">${a.p?'NT$'+a.p:'免費'}</span></div>${tl(a.t)}
+    <div class="small">${a.o}–${a.c} · 玩${hm(a.d)} · ${MODES[a.go[0]].zh}${a.go[1]}分${a.go[2]?' NT$'+a.go[2]:''}</div><div>${esc(a.a)}</div>
+    <div><span class="badge ${a.out?'outd':'in'}">${a.out?'戶外':'室內'}</span>${/mtn/.test(a.f)?'<span class="badge f">山路</span>':''}${/boat/.test(a.f)?'<span class="badge f">坐船</span>':''}${/hard/.test(a.f)?'<span class="badge f">要走很多路</span>':''}</div>
+    <div class="adds">${u?`<span class="small">已經放進行程了</span>`:`<button class="mini add" data-add="d1:a:${i}">+ 第一天</button><button class="mini add" data-add="d2:a:${i}">+ 第二天</button>`}</div></div>`}).join('');
+  const R=calc(g);$('#day1').innerHTML=dayHTML(R,0,true);$('#day2').innerHTML=dayHTML(R,1,true);
+  $('#wake').onchange=e=>{G().it.wake=e.target.value||'07:30';persist();render()};
+  $$('#p-it [data-add]').forEach(b=>b.onclick=()=>{const [k,...rest]=b.dataset.add.split(':');G().it[k].push(rest.join(':'));persist();render()});
+  $$('#p-it [data-rm]').forEach(b=>b.onclick=()=>{const [k,i]=b.dataset.rm.split(':');G().it[k].splice(+i,1);persist();render()});
+  $$('#p-it [data-mv]').forEach(b=>b.onclick=()=>{const [k,i,dlt]=b.dataset.mv.split(':');const L=G().it[k];const a=+i,z=a+ +dlt;[L[a],L[z]]=[L[z],L[a]];persist();render()});
+  $('#itRain').value=g.it.rain||'';
+  $('[data-warn="it"]').innerHTML=warnHTML(R.warn.it,['行程沒有問題！','Lịch trình ổn!']);$('#scIt').innerHTML=scriptIt(g,R)}
+$('#itRain').addEventListener('input',e=>{G().it.rain=e.target.value.trim();persist();scriptsOnly()});
+function dayScript(rows){return rows.map((r,i)=>{const first=i===0,last=i===rows.length-1&&i>0;
+  const pre=first?`${mk(clock(r.start))}，我們先`:`${last?'最後':(i%2?'然後':'接著')}，${mk(clock(r.start))}`;
+  const we=first?'':'我們';
+  if(r.kind==='a')return `${pre}${we}去${mk(r.a.n)}${esc(r.a.a)}${r.a.d>15?'，大概'+(r.a.out?'玩':'待')+mk(hm(r.a.d)):''}。`;
+  if(r.kind==='m')return `${pre}${we}吃${esc(r.M.sh)}${r.f?'（'+esc(r.f.n)+'）':''}。`;
+  if(r.kind==='ci')return `${pre}${we}去住的地方放行李。`;
+  if(r.kind==='co')return `${pre}${we}退房。`;return ''}).join('')}
+function scriptIt(g,R){const d=R.d;
+  return `<p>我是${blank(g.names[3])}，我負責行程。</p>
+  <p>第一天，我們${mk(clock(R.arr))}到${esc(d.n)}。${dayScript(R.days[0])||'<mark>＿＿＿</mark>'}</p>
+  <p>第二天，我們${mk(clock(tm(g.it.wake)))}起床。${dayScript(R.days[1])||'<mark>＿＿＿</mark>'}${mk(clock(R.ret))}我們坐車回高雄。</p>
+  <p>門票和當地的交通，一個人一共${mk(R.cost.it+'塊')}。</p>
+  ${g.it.rain?`<p>如果下雨，我們就${mk(g.it.rain.replace(/^我們就|^就/,''))}。</p>`:''}
+  <p>這就是我們的兩天一夜計畫！全部一個人${mk(R.total.toLocaleString()+'塊')}，${R.over?'超過了我們的預算，所以…（說說你們怎麼辦）':'沒有超過我們的預算'+R.budget+'塊'}。謝謝大家！</p>`}
+
+/* ---------- summary ---------- */
+const PHR=[['你的太貴了，可以換便宜一點的嗎？','Phần của bạn đắt quá, đổi cái rẻ hơn được không?'],['我們的錢不夠了，怎麼辦？','Mình không đủ tiền rồi, làm sao đây?'],['我覺得＿＿比較好，因為＿＿。','Mình thấy ___ tốt hơn, vì ___.'],['如果我們坐＿＿，就可以省＿＿塊。','Nếu đi ___ thì tiết kiệm được ___ Đài tệ.'],['那個地方幾點開門？幾點關門？','Chỗ đó mấy giờ mở cửa, mấy giờ đóng cửa?'],['好，那我們就這樣決定吧！','Được, vậy mình quyết định vậy nhé!']];
+function renderSum(){const g=G();const d=destOf(g);if(!d){needDest($('#sumWarn'));$('#sumTable').innerHTML='';$('#sumDays').innerHTML='';return}
+  const R=calc(g);const ho=d.ho[g.ho.o];
+  const rows=[['交通（來回）',R.opt.t+'・'+[...new Set(R.opt.s.filter(s=>!['wait','walk'].includes(s[0])).map(s=>MODES[s[0]].zh))].join('、'),R.cost.tr,'tr'],
+    ['住宿（一晚）',ho?ho.k+'・'+ho.area:'（還沒選）',R.cost.ho,'ho'],
+    ['吃喝（四餐）',MEALS.map(M=>{const f=foodOf(d,g,M.k);return f?f.n:'？'}).join('、'),R.cost.fo,'fo'],
+    ['門票和當地交通',[...g.it.d1,...g.it.d2].filter(c=>c.startsWith('a:')).length+' 個景點',R.cost.it,'it']];
+  $('#sumTable').innerHTML=`<thead><tr><th>項目</th><th>內容</th><th style="text-align:right">NT$</th></tr></thead><tbody>${rows.map(r=>`<tr><td><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c-${r[3]});margin-right:6px"></i>${r[0]}</td><td>${esc(r[1])}</td><td class="num">${r[2].toLocaleString()}</td></tr>`).join('')}
+   <tr><td><b>一共</b></td><td></td><td class="num"><b class="${R.over?'btotal over':''}">${R.total.toLocaleString()}</b></td></tr><tr><td>預算</td><td>${has(g,'money')?'（錢比較少：少500）':''}</td><td class="num">${R.budget.toLocaleString()}</td></tr></tbody>`;
+  const all=[];ROLES.forEach((r,i)=>R.warn[r.k].forEach(w=>all.push([`【${r.zh}・${g.names[i]||''}】`+w[0],`[${r.t}] `+w[1]])));
+  if(R.over)all.unshift([`一個人${R.total}塊，超過預算${R.total-R.budget}塊！大家一起想想哪裡可以省錢。`,`Mỗi người ${R.total} Đài tệ, vượt ngân sách ${R.total-R.budget}. Cả nhóm bàn xem tiết kiệm ở đâu.`]);
+  $('#sumWarn').innerHTML=warnHTML(all,['全部沒有問題，可以準備上台了！','Mọi thứ ổn, chuẩn bị lên trình bày thôi!']);
+  $('#sumDays').innerHTML=`<div class="day">${dayHTML(R,0,false)}</div><div class="day">${dayHTML(R,1,false)}</div>`;
+  $('#phr').innerHTML=PHR.map(p=>`<div>${p[0]}${tl(p[1])}</div>`).join('');
+  $('#beforeInfo').innerHTML=g.before?`已記錄：一個人NT$${g.before.total}，問題${g.before.problems}個`+tl('Đã lưu: '+g.before.total+' Đài tệ/người, '+g.before.problems+' vấn đề'):'';$('#changesIn').value=g.changes||''}
+
+/* ---------- present ---------- */
+let spk=0,tLeft=120,tIv=null;
+function renderStage(){const g=G();const d=destOf(g);if(!d){needDest($('#stage'));$('#speakers').innerHTML='';return}const R=calc(g);
+  $('#speakers').innerHTML=ROLES.map((r,i)=>`<button data-s="${i}" aria-pressed="${i===spk}">${i+1}. ${r.zh}${g.names[i]?'・'+esc(g.names[i]):''}</button>`).join('');
+  $$('#speakers button').forEach(b=>b.onclick=()=>{spk=+b.dataset.s;resetT();render()});
+  const sc=[scriptTr,scriptHo,scriptFo,scriptIt][spk](g,R);
+  const side=spk===0?lineHTML(R.opt):spk===3?`<div class="days" style="grid-template-columns:1fr"><div class="day">${dayHTML(R,0,false)}</div><div class="day">${dayHTML(R,1,false)}</div></div>`:spk===1&&d.ho[g.ho.o]?`<div class="opt"><h3>${esc(d.ho[g.ho.o].k)}</h3><div>${esc(d.ho[g.ho.o].area)}</div><div class="mono">NT$${d.ho[g.ho.o].p}</div></div>`:spk===2?`<div class="fgrid">${MEALS.map(M=>{const f=foodOf(d,g,M.k);return `<div class="food"><div class="small">${M.zh}</div><div class="fn">${f?esc(f.n):'？'}</div></div>`}).join('')}</div>`:'';
+  $('#stage').innerHTML=`<div class="plan-grid"><div>${side}</div><div class="script" id="stageScript" ${$('#hideScript').checked?'hidden':''}>${sc}</div></div>`}
+function drawT(){const m=Math.floor(tLeft/60),s=tLeft%60;$('#timer').textContent=m+':'+String(s).padStart(2,'0');$('#timer').classList.toggle('low',tLeft<=20)}
+function resetT(){clearInterval(tIv);tIv=null;tLeft=120;drawT();$('#tStart').textContent='開始'}
+$('#tStart').onclick=()=>{if(tIv){clearInterval(tIv);tIv=null;$('#tStart').textContent='繼續';refreshPy();return}
+  $('#tStart').textContent='暫停';refreshPy();tIv=setInterval(()=>{if(tLeft>0){tLeft--;drawT()}else{clearInterval(tIv);tIv=null}},1000)};
+$('#tNext').onclick=()=>{spk=(spk+1)%4;resetT();render()};
+$('#hideScript').onchange=()=>{const s=$('#stageScript');if(s)s.hidden=$('#hideScript').checked};
+
+/* ---------- board ---------- */
+function renderBoard(){const tb=$('#boardTable tbody');tb.innerHTML='';let n=0;
+  for(let i=1;i<=state.groups;i++){const g=state.g[i];if(!g||!g.dest)continue;n++;
+    const R=calc(Object.assign({names:['','','',''],conds:[],tr:{o:0,time:'08:00',why:[]},ho:{o:-1,why:[]},fo:{why:[]},it:{d1:[],d2:[],wake:'07:30'}},g));
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="mono">${i}</td><td>${esc(R.d.n)}</td><td>${(g.conds||[]).map(id=>esc(condOf(id).n)).join('、')}</td><td class="mono ${R.over?'btotal over':''}">NT$${R.total.toLocaleString()}</td><td class="mono">NT$${R.budget.toLocaleString()}</td>
+    <td class="row" style="gap:6px"><button class="btn ghost" data-v="${i}" data-d="-1" aria-label="減一票">−</button><span class="mono" style="min-width:2ch;text-align:center">${g.votes||0}</span><button class="btn ghost" data-v="${i}" data-d="1" aria-label="加一票">＋</button></td>`;tb.appendChild(tr)}
+  if(!n)tb.innerHTML=`<tr><td colspan="6">還沒有組抽籤。${tl('Chưa có nhóm nào bốc thăm.')}</td></tr>`;
+  $$('#boardTable [data-v]').forEach(b=>b.onclick=()=>{const g=state.g[b.dataset.v];g.votes=Math.max(0,(g.votes||0)+ +b.dataset.d);persist();render()});
+  let best=null;for(let i=1;i<=state.groups;i++){const g=state.g[i];if(g&&g.votes&&(!best||g.votes>best.v))best={i,v:g.votes}}
+  $('#boardSum').innerHTML=best?`最想參加：第${best.i}組（${best.v}票）${tl('Chuyến đi được chọn nhiều nhất: nhóm '+best.i)}`:''}
+
+/* ---------- vocab ---------- */
+const VOC=[['住宿',[['住宿','zhù sù','chỗ ở'],['青年旅館','qīng nián lǚ guǎn','nhà nghỉ thanh niên'],['民宿','mín sù','homestay'],['飯店','fàn diàn','khách sạn'],['雙人房／四人房','shuāng rén fáng / sì rén fáng','phòng đôi / phòng 4 người'],['上下舖','shàng xià pù','giường tầng'],['入住／退房','rù zhù / tuì fáng','nhận phòng / trả phòng'],['電梯','diàn tī','thang máy'],['共用浴室','gòng yòng yù shì','phòng tắm chung'],['一個晚上','yí ge wǎn shàng','một đêm']]],
+ ['吃喝',[['早餐／午餐／晚餐','zǎo cān / wǔ cān / wǎn cān','bữa sáng / trưa / tối'],['夜市','yè shì','chợ đêm'],['小吃','xiǎo chī','món ăn vặt'],['便當','biàn dāng','cơm hộp'],['有名','yǒu míng','nổi tiếng'],['吃素','chī sù','ăn chay'],['辣','là','cay'],['牛肉','niú ròu','thịt bò'],['一份','yí fèn','một phần']]],
+ ['行程',[['行程','xíng chéng','lịch trình'],['景點','jǐng diǎn','điểm tham quan'],['門票','mén piào','vé vào cửa'],['開門／關門','kāi mén / guān mén','mở cửa / đóng cửa'],['參觀','cān guān','tham quan'],['逛街','guàng jiē','dạo phố'],['拍照','pāi zhào','chụp ảnh'],['室內／戶外','shì nèi / hù wài','trong nhà / ngoài trời'],['下雨','xià yǔ','trời mưa']]],
+ ['錢',[['預算','yù suàn','ngân sách'],['超過','chāo guò','vượt quá'],['一共','yí gòng','tổng cộng'],['一個人','yí ge rén','mỗi người'],['省錢','shěng qián','tiết kiệm tiền'],['來回','lái huí','khứ hồi'],['大概','dà gài','khoảng']]]];
+const GR=[['先……然後……最後……','我們先去赤崁樓，然後吃午餐，最後去神農街。','Trước… sau đó… cuối cùng…'],['離……很近／很遠','民宿離神農街很近，走路只要三分鐘。','Cách… rất gần / rất xa'],['一個人＋多少錢','一個晚上一個人七百塊。','Mỗi người bao nhiêu tiền'],['幾點到幾點','我們十點到十二點在博物館。','Từ mấy giờ đến mấy giờ'],['A 比 B ＋ adj.','民宿比飯店便宜，可是沒有電梯。','A … hơn B'],['雖然……但是……','雖然青年旅館比較便宜，但是要跟別人一起住。','Tuy… nhưng…'],['因為……所以……','因為有人吃素，所以我們選素食餐廳。','Vì… nên…'],['如果……就……','如果下雨，我們就去博物館。','Nếu… thì…']];
+$('#vocabOut').innerHTML=VOC.map(([h,l])=>`<h2>${h}</h2><div class="vgrid">${l.map(v=>`<div class="v"><div class="zh nopy">${v[0]}</div><div class="py">${v[1]}</div>${tl(v[2])}</div>`).join('')}</div>`).join('')+
+ `<h2>句型</h2><div class="gram">${GR.map(g=>`<div class="g"><div class="pat">${g[0]}</div>${tl(g[2])}<div class="ex">${g[1]}</div></div>`).join('')}</div>`;
+
+
+/* ---------- slides (Canva helper) ---------- */
+const CARDS=[['cover','封面','Bìa','全組'],['tr','交通','Đi lại',0],['ho','住宿','Chỗ ở',1],['fo','吃喝','Ăn uống',2],['it1','第一天行程','Lịch trình ngày 1',3],['it2','第二天行程','Lịch trình ngày 2',3],['budget','預算','Ngân sách','全組'],['ba','我們怎麼合作','Nhóm làm việc thế nào','全組'],['end','謝謝・問題','Cảm ơn · Hỏi đáp','全組']];
+const ADD={cover:['大家的合照','ảnh chụp chung cả nhóm'],tr:['車站或火車的照片','ảnh nhà ga / tàu xe'],ho:['房間的照片','ảnh phòng nghỉ'],fo:['四道菜的照片','ảnh 4 món ăn'],it1:['景點照片或15秒影片','ảnh điểm tham quan hoặc video ≤15 giây'],it2:['景點照片或15秒影片','ảnh điểm tham quan hoặc video ≤15 giây'],budget:['（不用加）','(không cần thêm)'],ba:['大家討論的照片','ảnh cả nhóm đang thảo luận'],end:['（不用加）','(không cần thêm)']};
+const RULES=[['每張投影片只放關鍵字，不要把說話稿貼上去。','Mỗi slide chỉ để từ khóa, không dán nguyên bài nói lên.'],['影片最多15秒。','Video tối đa 15 giây.'],['照片用自己拍的或Canva裡的；網路上的照片要寫出處。','Dùng ảnh tự chụp hoặc ảnh trong Canva; ảnh trên mạng phải ghi nguồn.'],['誰負責那個部分，就做那幾張投影片。','Ai phụ trách phần nào thì làm slide phần đó.'],['上台的時候，看同學說話，不要看螢幕念。','Khi trình bày, nhìn các bạn mà nói, đừng quay lên màn hình đọc.']];
+function renderSlides(){const g=G();
+  $('#slideTable').innerHTML=`<thead><tr><th>#</th><th>投影片</th><th>誰做</th><th>截圖</th><th>自己加</th></tr></thead><tbody>${CARDS.map((c,i)=>`<tr><td class="mono">${i+1}</td><td>${c[1]}${tl(c[2])}</td><td>${c[3]==='全組'?'全組'+tl('cả nhóm'):esc(g.names[c[3]]||ROLES[c[3]].zh)}</td><td>${c[0]==='end'?'—':`<button class="mini add" data-shot="${c[0]}">截圖</button>`}</td><td>${ADD[c[0]][0]}${tl(ADD[c[0]][1])}</td></tr>`).join('')}</tbody>`;
+  $$('[data-shot]').forEach(b=>b.onclick=()=>openShot(b.dataset.shot));
+  $('#slideRules').innerHTML=RULES.map(r=>`<li>${r[0]}${tl(r[1])}</li>`).join('')}
+const SHOTS=CARDS.filter(c=>c[0]!=='end');
+let shotK='cover';
+function openShot(k){shotK=k;$('#shot').hidden=false;document.body.style.overflow='hidden';drawShot()}
+function closeShot(){$('#shot').hidden=true;document.body.style.overflow=''}
+$('#shotSel').innerHTML=SHOTS.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join('');
+$('#shotSel').onchange=e=>{shotK=e.target.value;drawShot()};
+$('#shotPrev').onclick=()=>{const i=SHOTS.findIndex(c=>c[0]===shotK);shotK=SHOTS[(i+SHOTS.length-1)%SHOTS.length][0];drawShot()};
+$('#shotNext').onclick=()=>{const i=SHOTS.findIndex(c=>c[0]===shotK);shotK=SHOTS[(i+1)%SHOTS.length][0];drawShot()};
+$('#shotClose').onclick=closeShot;
+document.addEventListener('keydown',e=>{if($('#shot').hidden)return;if(e.key==='Escape')closeShot();if(e.key==='ArrowRight')$('#shotNext').click();if(e.key==='ArrowLeft')$('#shotPrev').click()});
+function problems(R){return ROLES.reduce((n,r)=>n+R.warn[r.k].length,0)+(R.over?1:0)}
+function drawShot(){const g=G();const d=destOf(g);$('#shotSel').value=shotK;const card=CARDS.find(c=>c[0]===shotK);
+  if(!d){$('#slide').innerHTML='<div class="s-body">先抽地點。</div>';refreshPy();return}
+  const R=calc(g);const head=`<div class="s-head"><span class="s-title">${card[1]}</span><span class="s-meta">第${state.cur}組 · ${esc(d.n)} · 兩天一夜</span></div>`;
+  const ph=t=>`<div class="s-ph">${t}<br>（在Canva放照片）</div>`;
+  let body='';
+  if(shotK==='cover'){body=`<div class="s-cols"><div style="display:grid;gap:1.2cqw;align-content:start"><div class="s-big">${esc(d.n)}</div><div>${esc(d.b)}</div><div>${g.conds.map(id=>`<span class="cchip" style="font-size:1.8cqw">${esc(condOf(id).n)}</span>`).join('')}</div></div>
+    <div class="s-card">${ROLES.map((r,i)=>`<div class="s-row" style="--sc:var(--c-${r.k})"><span class="l">${r.zh}</span><span class="s-num" style="font-size:2.2cqw">${esc(g.names[i]||'＿＿')}</span></div>`).join('')}</div></div>`}
+  else if(shotK==='tr'){const t=R.T1;body=`<div class="s-cols"><div class="s-card" style="overflow:hidden">${lineHTML(R.opt)}</div><div style="display:grid;gap:1.2cqw;align-content:start">
+    <div class="s-card">去程 <span class="s-num">${hhmm(R.dep)} → ${hhmm(R.arr)}</span></div><div class="s-card">回程 <span class="s-num">${hhmm(R.ret)} → ${hhmm(R.home)}</span></div>
+    <div class="s-card">單程 <span class="s-num">${hm(t.m)}</span></div><div class="s-card">來回一個人 <span class="s-num">NT$${R.cost.tr}</span></div></div></div>`}
+  else if(shotK==='ho'){const h=d.ho[g.ho.o];body=h?`<div class="s-cols"><div style="display:grid;gap:1.2cqw;align-content:start"><div class="s-big">${esc(h.k)}</div><div>${esc(h.area)}・${esc(h.near)}</div>
+    <div class="s-card">${esc(h.room)}</div><div class="s-card">一晚一個人 <span class="s-num">NT$${h.p}</span></div></div>
+    <div class="s-card" style="display:grid;gap:.8cqw;align-content:start"><div>早餐：${h.bf?'有':'沒有'}</div><div>電梯：${h.el?'有':'沒有'}</div><div>浴室：${h.bath?'在房間裡':'大家共用'}</div><div>入住 15:00 · 退房 11:00</div><div>舒服 <span class="dots">${dots(h.c)}</span></div></div></div>`:'<div>還沒選住的地方。</div>'}
+  else if(shotK==='fo'){body=`<div class="s-meals">${MEALS.map(M=>{const f=foodOf(d,g,M.k);return `<div class="s-card"><div class="small" style="font-size:1.5cqw">${M.zh}</div><div style="font-family:var(--f-display);font-size:2.6cqw">${f?esc(f.n):'？'}</div><div style="font-size:1.6cqw">${f?esc(f.pl):''}</div><div class="s-num" style="font-size:2cqw">${f?'NT$'+f.p:''}</div></div>`}).join('')}</div>
+    <div class="s-card">吃的部分一個人一共 <span class="s-num">NT$${R.cost.fo}</span></div>`}
+  else if(shotK==='it1'||shotK==='it2'){const di=shotK==='it1'?0:1;const rows=R.days[di];
+    const first=di===0?`<div class="s-row" style="--sc:var(--c-tr)"><span class="t">${hhmm(R.arr)}</span><span class="l">到${esc(d.hub)}</span></div>`:`<div class="s-row"><span class="t">${hhmm(tm(g.it.wake))}</span><span class="l">起床</span></div>`;
+    const last=di===1?`<div class="s-row" style="--sc:var(--c-tr)"><span class="t">${hhmm(R.ret)}</span><span class="l">坐車回高雄</span></div>`:'';
+    body=`<div style="${rows.length>5?'columns:2;column-gap:2.5cqw':''}">${first}${rows.map(r=>`<div class="s-row" style="--sc:${slotColor(r)}"><span class="t">${hhmm(r.start)}–${hhmm(r.end)}</span><span class="l">${esc(r.label)}</span></div>`).join('')}${last}</div>`}
+  else if(shotK==='budget'){body=`${meterHTML(R)}<div class="s-card"><table style="font-size:2cqw">${[['交通（來回）','tr'],['住宿（一晚）','ho'],['吃喝（四餐）','fo'],['門票和當地交通','it']].map(([zh,k])=>`<tr><td><i style="display:inline-block;width:1.4cqw;height:1.4cqw;border-radius:.3cqw;background:var(--c-${k});margin-right:.8cqw"></i>${zh}</td><td class="mono" style="text-align:right">NT$${R.cost[k]}</td></tr>`).join('')}<tr><td><b>一共</b></td><td class="mono" style="text-align:right"><b>NT$${R.total}</b></td></tr><tr><td>預算</td><td class="mono" style="text-align:right">NT$${R.budget}</td></tr></table></div>`}
+  else if(shotK==='ba'){const b=g.before;const nowP=problems(R);
+    body=b?`<div class="s-ba"><div class="s-card"><div style="font-family:var(--f-display);font-size:3cqw">討論前</div><div>一個人 <span class="s-num">NT$${b.total}</span></div><div>問題 <span class="s-num">${b.problems}</span> 個</div></div><div class="arrow">→</div>
+      <div class="s-card"><div style="font-family:var(--f-display);font-size:3cqw">討論後</div><div>一個人 <span class="s-num">NT$${R.total}</span></div><div>問題 <span class="s-num">${nowP}</span> 個</div></div></div>
+      <div class="s-card">我們改了什麼：${g.changes?esc(g.changes):'＿＿＿＿'}</div>`:`<div class="s-card">還沒有「記錄討論前」。先到「⑥ 總整理」按「記錄討論前」。</div>`}
+  $('#slide').innerHTML=head+`<div class="s-body">${body}</div>`;refreshPy()}
+$('#btnBefore').onclick=()=>{const g=G();const R=calc(g);if(!R)return;g.before={total:R.total,problems:problems(R)};persist();render()};
+$('#changesIn').addEventListener('input',e=>{G().changes=e.target.value.trim();persist()});
+
+/* ---------- init ---------- */
+$$('[data-tl]').forEach(el=>el.insertAdjacentHTML('beforeend',tl(el.dataset.tl)));
+function setSeg(seg,v){seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v))}
+$('#segPy').onclick=e=>{const b=e.target.closest('button');if(!b)return;pyOn=b.dataset.v==='on';setSeg($('#segPy'),b.dataset.v);$('#wrap').classList.toggle('pyon',pyOn);save('py',pyOn);refreshPy()};
+$('#segLang').onclick=e=>{const b=e.target.closest('button');if(!b)return;$('#wrap').dataset.lang=b.dataset.v;setSeg($('#segLang'),b.dataset.v);save('lang',b.dataset.v)};
+pyOn=load('py',true);setSeg($('#segPy'),pyOn?'on':'off');$('#wrap').classList.toggle('pyon',pyOn);
+const lg=load('lang','vi');$('#wrap').dataset.lang=lg;setSeg($('#segLang'),lg);
+grpOptions();const t0=load('tab','draw');show(panels.includes(t0)?t0:'draw');
+})();
+</script>
+
+</body>
+</html>
